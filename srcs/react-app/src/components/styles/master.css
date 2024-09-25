@@ -172,14 +172,12 @@ thead{
     background-color: white;
 	border-radius: 8px;
 	width: 85vh;
-    height: 35vh;
-	
   }
 
   .popup-position h2 {
-    padding-left: 20px; 
-    padding-top: 20px;
-
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
   }
   
 
@@ -202,6 +200,7 @@ thead{
 	cursor: pointer;
     font-weight: 600;
     margin-right: 30px;
+    margin-bottom: 20px;
   }
 
   .save-popup {
@@ -213,72 +212,43 @@ thead{
 	cursor: pointer;
   }
 
+  label {
+    font-size: 20px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    border-radius: 1px;
+    
+  }
+
   input {
-    width: 200px; 
     padding: 8px; 
     border: 1px solid #1111117a; 
     border-radius: 4px; 
     font-size: 20px;
-  }
-
-  input,select {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #777777; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  label {
-    font-size: 20px;
-    justify-content: flex-start;
-    
   }
  
   .popup-inner > table{
     justify-content: flex-start;
   }
  
-  .checkbox-group {
-    display: flex;
-    margin-left: -60px;
-    padding: 5px;
-    
-    
-  }
-  /* ระยะห่างระหว่าง checkbox กับ label */
-  .checkbox-column {
-    margin-left: -95px;
-    flex-direction: column;
-  }
-  
-  .checkbox-column label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-    margin-left:10px ;
-  }
-  /* ระยะห่างระหว่าง checkbox กับข้อความ */
-  .checkbox-group input[type="checkbox"] {
-    margin-right: -80px;
-    width: 20vh;
-  }
-
-  .input-container label {
-    margin-right: 10px; /* เพิ่มระยะห่างระหว่าง label กับกล่อง input */
-  }
-  
-  .input-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* จัดให้อยู่ชิดซ้าย */
-    margin-bottom: 10px; /* เพิ่มระยะห่างด้านล่าง */
-    margin-left: 220px;
-  }
-
   input[type="checkbox"] {
     transform: scale(1.5); 
   }
+
+  .co-1{
+    margin-left: 20px;
+  }
+
+  .co-2{
+    display: block;
+    text-align: left;
+  }
+
+  .co-3{
+    display: block;
+    text-align: left;
+  }
+
 
   
  

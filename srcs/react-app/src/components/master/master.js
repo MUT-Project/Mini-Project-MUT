@@ -176,7 +176,28 @@ function Master() {
     <div className="popup-position">
       <h2>Position</h2>
       <form>
-        <table>
+        
+        <div>
+            <label>ชื่อตำแหน่ง</label>
+            <input type="text" placeholder=" " />
+        </div>
+        <div class="row">
+            <div class="col co-1">
+                <label>สิทธิ์การเข้าใช้งาน</label>
+            </div>
+            <div class="col co-2">
+                <label><input type="checkbox" name="" value="4" /> การจอง</label> <br/>
+                <label><input type="checkbox" name="" value="5" /> จัดการ</label> <br/>
+                <label><input type="checkbox" name="" value="6" /> ข้อมูลพื้นฐาน</label>                 
+            </div>
+            <div class="col co-3">
+                <label><input type="checkbox" name="" value="4" /> ตรวจสอบประวัติ</label> <br/>
+                <label><input type="checkbox" name="" value="5" /> รายงาน</label> <br/>
+                <label><input type="checkbox" name="" value="6" /> อนุมัติห้อง</label>
+            </div>
+        </div>
+
+        {/* <table>
           <tr>
             <td>
             <div className="input-container">
@@ -193,7 +214,8 @@ function Master() {
                 <div className="checkbox-column">
                   <label><input type="checkbox" name="" value="1" /> การจอง</label>
                   <label><input type="checkbox" name="" value="2" /> จัดการ</label>
-                  <label><input type="checkbox" name="" value="3" /> ข้อมูลพื้นฐาน</label>
+                  <input type="checkbox" name="" value="3" /><label> ข้อมูลพื้นฐาน</label>
+                  
                 </div>
                 <div className="checkbox-column">
                   <label><input type="checkbox" name="" value="4" /> ตรวจสอบประวัติ</label>
@@ -204,7 +226,7 @@ function Master() {
               </div>
             </td>
           </tr>
-        </table>
+        </table> */}
       </form>
       <div className="buttons">
         <button onClick={Add_Close} className="close-popup">Close</button>
