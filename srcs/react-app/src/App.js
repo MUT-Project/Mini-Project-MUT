@@ -1,6 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/navbar/navbar';
+import Navbar from './components/navbar/navbar'
+
+import Master from './components/master/master';
 
 function App() {
 	return (
@@ -20,6 +22,10 @@ function App() {
 				</a>
 			</header> */}
 			<Navbar />
+			<Master />
+			
+			
+			
 		</div>
 	);
 }
