@@ -2,7 +2,7 @@
 import './App.css';
 import Navbar from './components/navbar/navbar'
 
-import Master from './components/master/master';
+import Booking from './components/booking/booking';
 
 function App() {
 	return (
@@ -22,7 +22,8 @@ function App() {
 				</a>
 			</header> */}
 			<Navbar />
-			<Master />
+			<Booking />
+			
 			
 			
 			
