@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom'
-import '../styles/styles.css';
+import './navbar.css';
 import { FaSignOutAlt, FaBell, FaUserCircle } from 'react-icons/fa';
 import logo from '../../assets/MUT_LOGO_crop.png';
 
