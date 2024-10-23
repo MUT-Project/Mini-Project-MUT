@@ -1,8 +1,9 @@
 // import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar/navbar'
+import Verify from './components/verify/verify';
+import
 
-import Master from './components/master/master';
 
 function App() {
 	return (
@@ -22,7 +23,7 @@ function App() {
 				</a>
 			</header> */}
 			<Navbar />
-			<Master />
+			<Verify />
 			
 			
 			

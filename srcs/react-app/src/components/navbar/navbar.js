@@ -12,7 +12,7 @@ function Navbar() {
 				</a>
 
 				<ul className="navbar-links">
-					{['Reserve', 'History', 'Management', 'Master', 'Report'].map(item => (
+					{['Reserve', 'History', 'Management', 'Master', 'Report', 'Verify'].map(item => (
 						<li key={item}><a href={`#${item.toLowerCase()}`}>{item}</a></li>
 					))}
 				</ul>

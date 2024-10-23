@@ -192,41 +192,10 @@ function Master() {
             </div>
             <div class="col co-3">
                 <label><input type="checkbox" name="" value="4" /> ตรวจสอบประวัติ</label> <br/>
-                <label><input type="checkbox" name="" value="5" /> รายงาน</label> <br/>
+                <label><input type="checkbox" name="" value="5" /> รายงาน</label>
                 <label><input type="checkbox" name="" value="6" /> อนุมัติห้อง</label>
             </div>
         </div>
-
-        {/* <table>
-          <tr>
-            <td>
-            <div className="input-container">
-              <label>ชื่อตำแหน่ง</label>
-              <input type="text" placeholder=" " />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            <div className="input-container">
-              <div className="checkbox-group">
-              <label>สิทธิ์การเข้าใช้งาน</label>
-                <div className="checkbox-column">
-                  <label><input type="checkbox" name="" value="1" /> การจอง</label>
-                  <label><input type="checkbox" name="" value="2" /> จัดการ</label>
-                  <input type="checkbox" name="" value="3" /><label> ข้อมูลพื้นฐาน</label>
-                  
-                </div>
-                <div className="checkbox-column">
-                  <label><input type="checkbox" name="" value="4" /> ตรวจสอบประวัติ</label>
-                  <label><input type="checkbox" name="" value="5" /> รายงาน</label>
-                  <label><input type="checkbox" name="" value="6" /> อนุมัติห้อง</label>
-                </div>
-              </div>
-              </div>
-            </td>
-          </tr>
-        </table> */}
       </form>
       <div className="buttons">
         <button onClick={Add_Close} className="close-popup">Close</button>

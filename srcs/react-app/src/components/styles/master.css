@@ -160,6 +160,7 @@ thead{
 	width: 70vh;
     height: 25vh;
 	text-align: center;
+  
   }
 
 .popup-inner h2 {
@@ -200,7 +201,6 @@ thead{
 	cursor: pointer;
     font-weight: 600;
     margin-right: 30px;
-    margin-bottom: 20px;
   }
 
   .save-popup {
@@ -215,28 +215,21 @@ thead{
   label {
     font-size: 20px;
     justify-content: flex-start;
-    margin-bottom: 10px;
-    border-radius: 1px;
     
-  }
-
-  input {
-    padding: 8px; 
-    border: 1px solid #1111117a; 
-    border-radius: 4px; 
-    font-size: 20px;
   }
  
   .popup-inner > table{
     justify-content: flex-start;
   }
  
+
   input[type="checkbox"] {
     transform: scale(1.5); 
   }
 
   .co-1{
-    margin-left: 20px;
+    display: block;
+    text-align: left;
   }
 
   .co-2{
