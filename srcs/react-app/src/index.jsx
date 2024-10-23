@@ -8,13 +8,16 @@ import Home from './components/homepage/homepage';
 import User from './components/management/user';
 import History from './components/history/history';
 import Room from './components/management/room';
-import Master from './components/master/master';
 import Report from './components/report/report';
 import Reserve from './components/reserve/reserve';
 import Verify from './components/Verify/verify';
 import Login from './components/login/login';
 import Notifications from './components/notifications/notifications';
 import Profile from './components/profile/profile';
+import Building from './components/master/building';
+import Department from './components/master/department';
+import Position from './components/master/position';
+import Status from './components/master/status';
 
 const router = createBrowserRouter([
   {
@@ -34,8 +37,20 @@ const router = createBrowserRouter([
       element: <History />
   },
   {
-      path: "/master",
-      element: <Master />
+      path: "/building",
+      element: <Building />
+  },
+  {
+    path: "/department",
+    element: <Department />
+  },
+  {
+    path: "/position",
+    element: <Position />
+  },
+  {
+      path: "/status",
+      element: <Status />
   },
   {
       path: "/reserve",
