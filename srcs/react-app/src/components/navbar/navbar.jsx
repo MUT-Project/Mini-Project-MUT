@@ -22,7 +22,15 @@ function Navbar() {
 								<li><Link to="/room">Room</Link></li>
 							</ul>
 						</li>
-						<li><Link to="/master">Master</Link></li>
+						<li className="dropdown">
+							<a href="#master">Master</a>
+							<ul className="dropdown-menu">
+								<li><Link to="/department">Department</Link></li>
+								<li><Link to="/position">Position</Link></li>
+								<li><Link to="/building">Building</Link></li>
+								<li><Link to="/status">Status</Link></li>
+							</ul>
+						</li>
 						<li><Link to="/report">Report</Link></li>
 						<li><Link to="/verify">Verify</Link></li>
 					</ul>

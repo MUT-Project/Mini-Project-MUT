@@ -1,15 +1,15 @@
 import React from "react";
 import Nav from '../navbar/navbar'
 
-function Master() {
+function Position() {
 	return (
 		<>
 			<Nav />
 			<div>
-				<h1>Master</h1>
+				<h1>Position</h1>
 			</div>
 		</>
 	);
 }
 
-export default Master;
+export default Position;
