@@ -150,7 +150,6 @@ thead{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    position: flex;
 	z-index: 1000; /* ให้อยู่เหนือ element อื่นๆ */
   }
   
@@ -173,9 +172,7 @@ thead{
     color: #ffffff;
     margin-top: 0%; 
     height: 50px;
-    text-align:left
-   
-    
+    text-align:left 
   }
   .close-popup {
 	margin-top:3%;
@@ -226,3 +223,6 @@ thead{
   .popup-inner > table{
     justify-content: flex-start;
   }
+.confirm{
+	background-color: #fff;
+}
