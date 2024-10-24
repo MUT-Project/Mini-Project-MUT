@@ -1,0 +1,128 @@
+body {
+    
+}
+
+.bglogin{
+    background-color: rgb(155, 155, 155);
+    background-image: url('../../assets/BG01.png');
+    display: flex;
+    background-size:cover;
+}
+
+/* @media (max-width: 650px) {
+    .bglogin {
+         background-image: url('');
+        background-color: rgb(155, 155, 155);
+        background-size:cover;
+        display: flex; 
+    }
+} */
+
+.container {
+    /* background-image: url('../../assets/BG01.png'); 
+    background-size: cover;  
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    margin-bottom: 25%;
+    height: 100%;
+}
+
+
+.logofull-img{
+    max-width: 45%;
+    height: 45%;
+}
+
+.box {
+    margin-left: 5%;
+    width: 30%;
+    height: auto;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.welcome{
+    font-size: 40px;
+    width: auto;
+    height: 50%;
+    color: #27374D;
+    margin-top: 5%;
+}
+
+.text_info{
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+    margin-top: 2%;
+    margin-bottom: 0.2%;
+    font-size: 20px;
+    color: #27374D;
+    width: auto;
+    height: 50%;
+}
+
+.text_info > h1{
+    display: flex;
+    align-items: center;
+    margin-left: 1%;
+    margin-top: 1%;
+    margin-bottom: 0.2%;
+    font-size: 20px;
+    color: #ff3a3a;
+    width: auto;
+    height: 50%;
+}
+
+.info{
+    font-size: 25px;
+    width: 80%;
+    height: auto; 
+    border: 0.5px solid black;
+    border-radius: 8px;
+}
+
+.forgot{
+    font-size: 15px;
+    color: #D08C51;
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+    width: auto;
+    height: 30px;
+    border: none;
+    background-color: white;
+}
+
+.register{
+    font-size: 25px;
+    color: #ffffff;
+    padding: 2% 5% 2% 5%;
+    margin: 5% 2% 5% 2%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #27374D;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+}
+
+.sign-in{
+    font-size: 25px;
+    color: #ffffff;
+    padding: 2% 5% 2% 5%;
+    margin: 5% 2% 5% 2%;
+    background-color: #27374D;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+    
+}

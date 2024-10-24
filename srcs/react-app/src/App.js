@@ -1,8 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/navbar/navbar'
+import Navbar from './components/navbar/navbar';
 
-import Master from './components/master/master';
+import Login from './components/login/login';
 
 function App() {
 	return (
@@ -22,7 +22,7 @@ function App() {
 				</a>
 			</header> */}
 			<Navbar />
-			<Master />
+			<Login />
 			
 			
 			
