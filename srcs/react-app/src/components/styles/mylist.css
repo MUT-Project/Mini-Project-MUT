@@ -1,0 +1,23 @@
+body{
+
+}
+
+.container-mylist {
+    background-color: rgb(126, 126, 126);
+    width: auto;
+    height: auto;
+}
+
+.bgmylist{
+    background-color: rgb(126, 126, 126);
+    background-image: url('../../assets/headmut.png');
+    display: flex;
+    background-size: cover;
+    width: auto;
+    height: 12vh;
+}
+
+.head-mylist{
+    width: auto;
+    height: 20%;
+}

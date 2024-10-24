@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/navbar/navbar';
 
 import Login from './components/login/login';
+import Mylist from './components/booking/mylist';
 
 function App() {
 	return (
