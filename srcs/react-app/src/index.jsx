@@ -19,6 +19,7 @@ import Department from './components/master/department';
 import Position from './components/master/position';
 import Status from './components/master/status';
 import Booking from './components/reserve/booking';
+import Mylists from './components/reserve/mylists';
 
 const router = createBrowserRouter([
 	{
@@ -85,7 +86,11 @@ const router = createBrowserRouter([
 		path: "/booking",
 	element: <Booking />
 	}
-
+	,
+	{
+		path: "/mylists",
+	element: <Mylists />
+	}
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./booking.css";
+import "./reserve.css";
 import Nav from '../navbar/navbar';
 
 import meet1 from '../../assets/meet1.jpg';
@@ -18,14 +18,10 @@ function Reserve() {
 		image: meet1,
 	});
 
-	const handleRoomClick = (room) => {
-		console.log("Room selected:", room);
-	};
-
 	return (
 		<>
 			<Nav />
-			<div className="bg">
+			<div className="bg1">
 				<div className="container">
 					{/*Search and Filter Section*/}
 					<div className="filter-section">

@@ -4,6 +4,12 @@
 	padding: 20px;
 }
 
+.bg3 {
+	background-position: top;
+	background-size: cover;
+	height: 145px;
+}
+
 .header {
 	display: flex;
 	justify-content: space-between;

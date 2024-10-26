@@ -63,68 +63,26 @@ const RoomBooking = () => {
 	return (
 		<>
 			<Nav />
-			<div className="booking-container">
-				{/* Header */}
-				<header className="header">
-					<h1>My Lists</h1>
-					<button className="my-lists-btn">
-						<span>My lists</span>
-						<Bookmark size={16} />
-					</button>
-				</header>
+			<div className="bg3">
+				<div className="booking-container">
+					{/* Header */}
+					<header className="header">
+						<h1>My Lists</h1>
+						<button className="my-lists-btn">
+							<span>My lists</span>
+							<Bookmark size={16} />
+						</button>
+					</header>
 
-				{/* Back button */}
-				<div className="back-button">
-					<ChevronLeft size={20} />
-					<span>Back</span>
-				</div>
+					{/* Back button */}
+					<div className="back-button">
+						<ChevronLeft size={20} />
+						<span>Back</span>
+					</div>
 
-				{/* Select All checkbox */}
-				<div className="select-all">
-					<label>
-						<input
-							type="checkbox"
-							checked={selectAll}
-							onChange={handleSelectAll}
-						/>
-						<span>Select All</span>
-					</label>
-				</div>
-
-				{/* Booking list */}
-				<div className="booking-list">
-					{bookings.map(booking => (
-						<div key={booking.id} className="booking-item">
-							<input
-								type="checkbox"
-								checked={selectedItems.includes(booking.id)}
-								onChange={() => handleSelectItem(booking.id)}
-								className="item-checkbox"
-							/>
-							<img src={booking.image} alt="Room" className="room-image" />
-							<div className="booking-details">
-								<h3>{booking.building}</h3>
-								<p>Open: {booking.openDays}</p>
-								<p>Room Capacity: {booking.capacity}</p>
-								<p>Class: {booking.class}</p>
-							</div>
-							<div className="booking-time">
-								<p><strong>Time:</strong> {booking.time}</p>
-								<p><strong>Date:</strong> {booking.date}</p>
-								<p><strong>Booking Detail:</strong> {booking.bookingDetail}</p>
-								<p><strong>Book Term:</strong> {booking.bookTerm}</p>
-							</div>
-							<button className="bookmark-btn">
-								<Bookmark size={20} />
-							</button>
-						</div>
-					))}
-				</div>
-
-				{/* Footer */}
-				<div className="footer">
-					<div class="left-buttons">
-						<label className="select-all-footer">
+					{/* Select All checkbox */}
+					<div className="select-all">
+						<label>
 							<input
 								type="checkbox"
 								checked={selectAll}
@@ -132,9 +90,53 @@ const RoomBooking = () => {
 							/>
 							<span>Select All</span>
 						</label>
-						<button className="remove-btn">Remove</button>
 					</div>
-					<button className="book-now-btn">Book Now</button>
+
+					{/* Booking list */}
+					<div className="booking-list">
+						{bookings.map(booking => (
+							<div key={booking.id} className="booking-item">
+								<input
+									type="checkbox"
+									checked={selectedItems.includes(booking.id)}
+									onChange={() => handleSelectItem(booking.id)}
+									className="item-checkbox"
+								/>
+								<img src={booking.image} alt="Room" className="room-image" />
+								<div className="booking-details">
+									<h3>{booking.building}</h3>
+									<p>Open: {booking.openDays}</p>
+									<p>Room Capacity: {booking.capacity}</p>
+									<p>Class: {booking.class}</p>
+								</div>
+								<div className="booking-time">
+									<p><strong>Time:</strong> {booking.time}</p>
+									<p><strong>Date:</strong> {booking.date}</p>
+									<p><strong>Booking Detail:</strong> {booking.bookingDetail}</p>
+									<p><strong>Book Term:</strong> {booking.bookTerm}</p>
+								</div>
+								<button className="bookmark-btn">
+									<Bookmark size={20} />
+								</button>
+							</div>
+						))}
+					</div>
+
+					{/* Footer */}
+					<div className="footer">
+						<div class="left-buttons">
+							<label className="select-all-footer">
+								<input
+									type="checkbox"
+									checked={selectAll}
+									onChange={handleSelectAll}
+								/>
+								<span>Select All</span>
+							</label>
+							<button className="remove-btn">Remove</button>
+						</div>
+						<button className="book-now-btn">Book Now</button>
+					</div>
 				</div>
 			</div>
 		</>
