@@ -1,7 +1,7 @@
 .meeting-room {
 	max-width: 1400px;
 	margin: 0 auto;
-	padding: 1rem;
+	padding: 20px;
 }
 
 .bg2 {
@@ -13,11 +13,12 @@
 
 /* Header Styles */
 .header {
-	color: #ffffff;
-	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 20px;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
 }
 
 .header__back-button {
@@ -57,15 +58,15 @@
 	}
 
 	.content__left {
-		width: 40%;
+		width: 34%;
 	}
 
 	.content__Mid {
-		width: 30%;
+		width: 33%;
 	}
 
 	.content__right {
-		width: 30%;
+		width: 33%;
 	}
 }
 

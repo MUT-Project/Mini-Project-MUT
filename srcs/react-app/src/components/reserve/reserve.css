@@ -17,7 +17,7 @@
 .filter-section {
 	display: flex;
 	flex-direction: column;
-	background: rgba(37, 37, 37, 0.4);
+	background: rgba(1, 1, 1, 0.4);
 	padding: 1.5rem;
 	border-radius: 1px;
 	margin-bottom: 2rem;

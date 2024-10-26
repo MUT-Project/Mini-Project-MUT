@@ -26,9 +26,9 @@ function Reserve() {
 					{/*Search and Filter Section*/}
 					<div className="filter-section">
 						<div className="button-wrapper">
-							<button className="lists-button">
+							<button className="my-lists-btn">
 								<span>My lists</span>
-								<Bookmark className="bookmark-icon" />
+								<Bookmark size={16} />
 							</button>
 						</div>
 

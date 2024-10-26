@@ -75,7 +75,7 @@ const RoomBooking = () => {
 					</header>
 
 					{/* Back button */}
-					<div className="back-button">
+					<div className="back-button" role="button" onClick={() => window.location.href = "/reserve"}>
 						<ChevronLeft size={20} />
 						<span>Back</span>
 					</div>

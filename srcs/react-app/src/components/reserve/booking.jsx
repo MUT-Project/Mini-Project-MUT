@@ -1,6 +1,6 @@
 import Nav from '../navbar/navbar';
 import "./booking.css";
-import meet1 from '../../assets/meet2.png';
+import meet1 from '../../assets/meet1.jpg';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Bookmark, CheckCircle } from 'lucide-react';
 
@@ -149,21 +149,27 @@ function Booking() {
 			<div className='bg2'>
 				<div className="meeting-room">
 					<header className="header">
-						<h1>Room information by query</h1>
+						<h1>My Lists</h1>
 						<button className="my-lists-btn">
 							<span>My lists</span>
 							<Bookmark size={16} />
 						</button>
 					</header>
 
+					{/* Back button */}
+					<div className="back-button" role="button" onClick={() => window.location.href = "/reserve"}>
+						<ChevronLeft size={20} />
+						<span>Back</span>
+					</div>
+
 					<main className="content">
 						<div className="content__left">
-						<div className="room-image">
-							<img
-								src={meet1}
-								alt="Meeting Room"
-							/>
-						</div>
+							<div className="room-image">
+								{/*<img
+									src={meet1}
+									alt="Meeting Room"
+								/>*/}
+							</div>
 						</div>
 
 						<div className="content__Mid">
@@ -268,7 +274,7 @@ function Booking() {
 								<button
 									className="booking__button booking__button--primary"
 									onClick={() => window.location.href = "/mylists"}
-									disabled={!startTime || !endTime}
+								//disabled={!startTime || !endTime}
 								>
 									Book now
 								</button>
