@@ -1,12 +1,17 @@
 /* body {
     
-} */
+}  */
 
 .bglogin{
     background-color: rgb(155, 155, 155);
     background-image: url('../../assets/BGmut.png');
     display: flex;
     background-size:cover;
+    height: 100vh;
+    width: auto;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
 }
 
 /* @media (max-width: 650px) {
@@ -30,15 +35,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
-    margin-bottom: 25%;
     height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 
 .logofull-img{
-    max-width: 45%;
-    height: 45%;
+    max-width: auto;
+    height: 30%;
 }
 
 .box-login {
@@ -52,7 +58,7 @@
 }
 
 .welcome-login{
-    font-size: 40px;
+    font-size: 50px;
     width: auto;
     height: 50%;
     color: #27374D;
@@ -84,7 +90,7 @@
 }
 
 .info-login{
-    font-size: 25px;
+    font-size: 30px;
     width: 80%;
     height: auto; 
     border: 0.5px solid black;
