@@ -54,6 +54,14 @@
     justify-content: flex-end;
   }
   
+  .btn-reject{
+    padding: 6px 16px;
+    border: 1px solid;
+    border-radius: 4px;
+    color: #475569;
+    background-color: #f1f5f9;
+    transition: all 0.2s;
+  }
   .btn-cancel {
     padding: 6px 16px;
     border: 1px solid #121d2b;
@@ -61,6 +69,7 @@
     color: #475569;
     background-color: white;
     transition: all 0.2s;
+    margin-right: 5px;
   }
   
   .btn-cancel:hover {
@@ -137,9 +146,13 @@
   }
   
   .close-popup {
-    background-color: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    padding: 6px 16px;
+    border: 1px solid #121d2b;
+    border-radius: 4px;
     color: #475569;
+    background-color: white;
+    transition: all 0.2s;
+    margin-right: 5px;
   }
   
   .save-popup {
