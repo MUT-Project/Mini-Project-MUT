@@ -1,10 +1,17 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import './navbar.css';
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import { FaSignOutAlt, FaBell, FaUserCircle } from 'react-icons/fa';
+import './navbar.css';
 import logo from '../../assets/MUT_LOGO_crop.png';
+import NotificationsPopup from '../notifications/notifications';
 
 function Navbar() {
+	const [showNotifications, setShowNotifications] = useState(false);
+
+	const toggleNotifications = () => {
+		setShowNotifications(!showNotifications);
+	};
+
 	return (
 		<>
 			<nav className="navbar">
@@ -37,10 +44,11 @@ function Navbar() {
 				</div>
 				<div className="navbar-icons">
 					<Link to="/login" className="navbar-icon"><FaSignOutAlt /></Link>
-					<Link to="/notifications" className="navbar-icon"><FaBell /></Link>
+					<div onClick={toggleNotifications} className="navbar-icon"><FaBell /></div>
 					<Link to="/profile" className="navbar-icon"><FaUserCircle /></Link>
 				</div>
 			</nav>
+			{showNotifications && <NotificationsPopup />}
 		</>
 	);
 }

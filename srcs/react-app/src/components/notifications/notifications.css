@@ -1,0 +1,93 @@
+.notifications-popup {
+	position: absolute;
+	top: 60px;
+	right: 20px;
+	width: 400px;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	z-index: 100;
+}
+
+.notifications-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.notifications-header h3 {
+	margin: 0;
+	font-size: 18px;
+}
+
+.clear-icon {
+	cursor: pointer;
+	font-size: 16px;
+	color: #999;
+}
+
+.clear-icon:hover {
+	color: #333;
+}
+
+.notifications-popup ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.notification-item {
+	display: flex;
+	align-items: start;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.notification-item:last-child {
+	border-bottom: none;
+}
+
+.notification-icon {
+	margin-right: 10px;
+	font-size: 24px;
+}
+
+.icon.success {
+	color: green;
+}
+
+.icon.error {
+	color: red;
+}
+
+.icon.warning {
+	color: orange;
+}
+
+.notification-content {
+	flex: 1;
+}
+
+.notification-message {
+	font-weight: bold;
+	margin: 0;
+}
+
+.notification-detail {
+	color: #555;
+	margin: 4px 0 2px;
+}
+
+.notification-time {
+	color: #999;
+	font-size: 12px;
+}
+
+.no-notifications {
+	text-align: center;
+	color: #777;
+	font-size: 14px;
+	padding: 10px 0;
+}
