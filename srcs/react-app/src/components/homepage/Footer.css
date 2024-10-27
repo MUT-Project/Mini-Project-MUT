@@ -3,6 +3,7 @@
 	padding: 20px 0;
 	width: 100%;
 	border-top: 1px solid #ddd;
+	overflow: hidden;
 }
 
 .footer-content {
@@ -12,6 +13,8 @@
 	color: #333;
 	font-size: 14px;
 	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .contact-section {
@@ -51,6 +54,7 @@
 	display: flex;
 	gap: 50px;
 	margin: 0;
+	margin-right: 40px;
 }
 
 .link-group {

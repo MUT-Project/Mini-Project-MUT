@@ -33,7 +33,9 @@ body {
 }
 
 .room-info h3 {
+	margin-top: -10px;
 	/* margin-bottom: 5px; */
+	/* margin: -5; */
 	font-size: 18px;
 }
 .room-info p {
