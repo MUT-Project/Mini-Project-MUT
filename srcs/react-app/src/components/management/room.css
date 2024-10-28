@@ -100,7 +100,7 @@
     color:  #24344c;
 }
 
-table {
+.table {
     width: 100%; 
     border-collapse: collapse; 
     border: none;
@@ -110,14 +110,6 @@ table {
     margin: 1rem 5rem;
     justify-content: space-between;
     align-items: center;
-}
-
-
-td{  
-	background-color: #546b83;
-    color: #fff;  
-    height: 50px;
-    font-size: 20px;
 }
 
 .popup {
@@ -147,13 +139,6 @@ td{
 
   }
 
-  h2{
-    background-color: #27374D;
-    color: #ffffff;
-    margin-top: 0%; 
-    height: 50px;
-    text-align:left 
-  }
   .close-popup {
 	margin-top:3%;
 	background-color: rgb(240, 225, 225);
@@ -174,32 +159,7 @@ td{
 	border-radius: 5px;
 	cursor: pointer;
   }
-
-  input {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #1111117a; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  input,select {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #777777; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  td {
-    padding: 15px; /* ระยะห่างภายในเซลล์ */
-  }
   
-  label {
-    margin-bottom: 10px; 
-    font-size: 20px;
-  }
-
   .popup-inner > table{
     justify-content: flex-start;
   }

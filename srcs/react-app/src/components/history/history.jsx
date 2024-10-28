@@ -12,28 +12,47 @@ function History() {
     "เวลา",
     "สถานะ",
   ];
-  const [Underlined, setUnderlined] = useState(null);
+
+  const [Underlined, setUnderlined] = useState(1);
+  const [state, setstate] = useState(1);
   const Filter_Click = (id) => {
     setUnderlined(id);
+    setstate(id);
   };
+  const setText = (value) => {
+    switch (value) {
+      case 1:
+        return "อนุมัติการจอง";
+      case 2:
+        return "รอการอนุมัติ";
+      case 3:
+        return "สำเร็จแล้ว";
+      case 4:
+        return "ยกเลิกการจอง";
+      case 5:
+        return "ไม่อนุมัติ";
+      case 6:
+        return "เลยกำหนดการ";
+    }
+  };
+
   const setColor = (value) => {
     switch (value) {
       case 1:
-        return "green";
+        return "#15432C";
       case 2:
-        return "orange";
+        return "#D08C51";
       case 3:
-        return "#FF0302";
-      case 4:
         return "#3B9367";
+      case 4:
+        return "#FF0302";
       case 5:
-        return "blue";
+        return "orange";
       case 6:
-        return "purple";
-      default:
         return "#633B48";
     }
   };
+
   return (
     <>
       <Nav />
@@ -108,38 +127,45 @@ function History() {
         </div>
 
         <div className="table-zone">
-          <table>
+          <table className="table">
             <thead>
               <tr>
                 {/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
                 {columns.map((column, index) => (
                   <th key={index}>{column}</th>
                 ))}
+                <th></th>
               </tr>
             </thead>
 
-            <th>
-              <p>hello</p>
-            </th>
-			<th>
-              <p>hello</p>
-            </th>
-			<th>
-              <p>hello</p>
-            </th>
-			<th>
-              <p>hello</p>
-            </th>
-			<th>
-              <p>hello</p>
-            </th>
-			<th>
-              <p>hello</p>
-            </th>
-
-            <th style={{ color: setColor(Underlined) }}>
-              <p>hello</p>
-            </th>
+              <th>
+                <p>1</p>
+              </th>
+              <th>
+                <p>1004</p>
+              </th>
+              <th>
+                <p>ห้องประชุมชั้น 5</p>
+              </th>
+              <th>
+                <p>ซ้อมมวย</p>
+              </th>
+              <th>
+                <p>12 พ.ย. 2567</p>
+              </th>
+              <th>
+                <p>14:30 - 19:30</p>
+              </th>
+              <th style={{ color: setColor(Underlined) }}>
+				
+                {setText(Underlined)}
+              </th>
+              {state === 1 && (
+                <th>
+                  <button>QR Code</button>
+                  <button>Cancel</button>
+                </th>
+              )}
           </table>
         </div>
       </div>

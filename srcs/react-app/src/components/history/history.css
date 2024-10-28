@@ -28,6 +28,7 @@ table {
     margin: 1rem 5rem;
     justify-content: space-between;
     align-items: center;
+	font-size: 20px;
 }
 
 
@@ -73,27 +74,24 @@ table {
     height: 50px;
     text-align:left 
   }
-  .close-popup {
-	margin-top:3%;
-	background-color: rgb(240, 225, 225);
-	color: #27374D;
-	padding: 10px 20px;
-	border-radius: 5px;
-    border-width: 1px;
-	cursor: pointer;
-    font-weight: 600;
-    margin-right: 30px;
-  }
-
-  .save-popup {
-	background-color: #27374D;
-	color: white;
+  button{
+	border-radius: 4px; 
+	background-color: #526D82;
 	border: none;
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
+	color: white;
+	margin-right: 10px;
+	width: 100px;
+	height : 40px;
   }
 
+  button:hover{
+	background-color: #A0C5E2;
+    color:  #050f1d;
+  }
+
+th {
+	border-bottom: 1px solid #777777;
+  }
   input {
     width: 200px; 
     padding: 8px; 
