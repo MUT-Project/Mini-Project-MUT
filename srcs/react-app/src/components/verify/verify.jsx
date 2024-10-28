@@ -1,15 +1,15 @@
 import React from "react";
 import Nav from '../navbar/navbar'
 
-function Building() {
+function Verify() {
 	return (
 		<>
 			<Nav />
 			<div>
-				<h1>Building</h1>
+				<h1>Verify</h1>
 			</div>
 		</>
 	);
 }
 
-export default Building;
+export default Verify;
