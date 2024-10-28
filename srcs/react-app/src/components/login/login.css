@@ -1,0 +1,91 @@
+.bglogin {
+	background-color: rgb(155, 155, 155);
+	background-image: url('../../assets/BGmut.png');
+	display: flex;
+	background-size: cover;
+	height: 100vh;
+	width: 100vw;
+	background-position: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.container-login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+.logofull-img {
+	max-width: 50%;
+	height: auto;
+}
+
+.box-login {
+	width: 400px;
+	background-color: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	padding: 2rem;
+	text-align: center;
+}
+
+.welcome-login {
+	font-size: 28px;
+	color: #27374D;
+	margin-bottom: 20px;
+}
+
+.text_info-login {
+	display: block;
+	margin-top: 1rem;
+	margin-bottom: 5px;
+	font-size: 16px;
+	color: #27374D;
+	text-align: left;
+}
+
+.info-login {
+	font-size: 18px;
+	width: 90%;
+	padding: 10px;
+	border: 1px solid #D0D0D0;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	transition: border-color 0.3s;
+}
+
+.info-login:focus {
+	outline: none;
+	border-color: #D08C51;
+}
+
+.forgot-login {
+	font-size: 14px;
+	color: #D08C51;
+	/* margin-top: 1rem; */
+	margin-right: 60%;
+	border: none;
+	background: none;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.signin-login {
+	font-size: 18px;
+	color: #ffffff;
+	padding: 10px;
+	margin-top: 1rem;
+	background-color: #27374D;
+	border: none;
+	border-radius: 8px;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.signin-login:hover {
+	background-color: #D08C51;
+}
