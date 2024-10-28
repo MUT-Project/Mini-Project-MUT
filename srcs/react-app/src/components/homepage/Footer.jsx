@@ -5,12 +5,12 @@ import { FaFacebook, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
 	return (
-		<footer className="footer-container">
-			<div className="footer-content">
+		<footer className="ft_footer-container">
+			<div className="ft_footer-content">
 
-				<div className="contact-section">
-					<img src={logoImage} alt="MUT Logo" className="mut-logo" />
-					<div className="social-links">
+				<div className="ft_contact-section">
+					<img src={logoImage} alt="MUT Logo" className="ft_mut-logo" />
+					<div className="ft_social-links">
 						<a href="#">
 							<FaFacebook /> 029883650-66 ต่อ 1105 - 1107
 						</a>
@@ -22,8 +22,8 @@ const Footer = () => {
 					</div>
 				</div>
 
-				<div className="link-sections">
-					<div className="link-group">
+				<div className="ft_link-sections">
+					<div className="ft_link-group">
 						<h4>เกี่ยวกับมหาวิทยาลัย</h4>
 						<ul>
 							<li><a href="#">เกี่ยวกับมหานคร</a></li>
@@ -32,7 +32,7 @@ const Footer = () => {
 							<li><a href="#">Cookie Policy</a></li>
 						</ul>
 					</div>
-					<div className="link-group">
+					<div className="ft_link-group">
 						<h4>ข้อมูลติดต่อ</h4>
 						<ul>
 							<li><a href="#">บุคลากร</a></li>
@@ -42,7 +42,7 @@ const Footer = () => {
 							<li><a href="#">แผนที่ภายในมหาวิทยาลัย</a></li>
 						</ul>
 					</div>
-					<div className="link-group">
+					<div className="ft_link-group">
 						<h4>เกี่ยวกับนักศึกษา</h4>
 						<ul>
 							<li><a href="#">ปฏิทินการศึกษา</a></li>
@@ -55,7 +55,7 @@ const Footer = () => {
 				</div>
 
 			</div>
-			<div className="footer-bottom">
+			<div className="ft_footer-bottom">
 				<p>Copyright© Mahanakorn University of Technology 2022. All rights reserved.</p>
 			</div>
 		</footer>

@@ -7,21 +7,21 @@ const initialNotifications = [
 		id: 1,
 		message: "Your reservation has been accepted",
 		detail: "D502 ready to go in 30 minutes",
-		icon: <FaCheckCircle className="icon success" />,
+		icon: <FaCheckCircle className="noti_icon success" />,
 		time: "a few seconds ago"
 	},
 	{
 		id: 2,
 		message: "Your reservation has been rejected",
 		detail: "CC222 has been rejected by DQ Staff",
-		icon: <FaTimesCircle className="icon error" />,
+		icon: <FaTimesCircle className="noti_icon error" />,
 		time: "10 minutes ago"
 	},
 	{
 		id: 3,
 		message: "Your account has been suspended",
 		detail: "We've informed you. Please contact us",
-		icon: <FaExclamationCircle className="icon warning" />,
+		icon: <FaExclamationCircle className="noti_icon warning" />,
 		time: "a few seconds ago"
 	},
 ];
@@ -34,25 +34,25 @@ function NotificationsPopup() {
 	};
 
 	return (
-		<div className="notifications-popup">
-			<div className="notifications-header">
+		<div className="noti_notifications-popup">
+			<div className="noti_notifications-header">
 				<h3>NOTIFICATIONS ({notifications.length})</h3>
-				<FaTrashAlt className="clear-icon" onClick={clearNotifications} title="Clear all notifications" />
+				<FaTrashAlt className="noti_clear-icon" onClick={clearNotifications} title="Clear all notifications" />
 			</div>
 			<ul>
 				{notifications.length > 0 ? (
 					notifications.map((notification) => (
-						<li key={notification.id} className="notification-item">
-							<div className="notification-icon">{notification.icon}</div>
-							<div className="notification-content">
-								<p className="notification-message">{notification.message}</p>
-								<p className="notification-detail">{notification.detail}</p>
-								<span className="notification-time">{notification.time}</span>
+						<li key={notification.id} className="noti_notification-item">
+							<div className="noti_notification-icon">{notification.icon}</div>
+							<div className="noti_notification-content">
+								<p className="noti_notification-message">{notification.message}</p>
+								<p className="noti_notification-detail">{notification.detail}</p>
+								<span className="noti_notification-time">{notification.time}</span>
 							</div>
 						</li>
 					))
 				) : (
-					<p className="no-notifications">No notifications</p>
+					<p className="noti_no-notifications">No notifications</p>
 				)}
 			</ul>
 		</div>

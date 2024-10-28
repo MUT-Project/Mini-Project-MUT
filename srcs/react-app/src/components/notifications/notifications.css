@@ -1,4 +1,4 @@
-.notifications-popup {
+.noti_notifications-popup {
 	position: absolute;
 	top: 60px;
 	right: 20px;
@@ -11,81 +11,81 @@
 	z-index: 100;
 }
 
-.notifications-header {
+.noti_notifications-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.notifications-header h3 {
+.noti_notifications-header h3 {
 	margin: 0;
 	font-size: 18px;
 }
 
-.clear-icon {
+.noti_clear-icon {
 	cursor: pointer;
 	font-size: 16px;
 	color: #999;
 }
 
-.clear-icon:hover {
+.noti_clear-icon:hover {
 	color: #333;
 }
 
-.notifications-popup ul {
+.noti_notifications-popup ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
 }
 
-.notification-item {
+.noti_notification-item {
 	display: flex;
 	align-items: start;
 	padding: 10px;
 	border-bottom: 1px solid #eee;
 }
 
-.notification-item:last-child {
+.noti_notification-item:last-child {
 	border-bottom: none;
 }
 
-.notification-icon {
+.noti_notification-icon {
 	margin-right: 10px;
 	font-size: 24px;
 }
 
-.icon.success {
+.noti_icon.success {
 	color: green;
 }
 
-.icon.error {
+.noti_icon.error {
 	color: red;
 }
 
-.icon.warning {
+.noti_icon.warning {
 	color: orange;
 }
 
-.notification-content {
+.noti_notification-content {
 	flex: 1;
 }
 
-.notification-message {
+.noti_notification-message {
 	font-weight: bold;
 	margin: 0;
 }
 
-.notification-detail {
+.noti_notification-detail {
 	color: #555;
 	margin: 4px 0 2px;
 }
 
-.notification-time {
+.noti_notification-time {
 	color: #999;
 	font-size: 12px;
 }
 
-.no-notifications {
+.noti_no-notifications {
 	text-align: center;
 	color: #777;
 	font-size: 14px;
