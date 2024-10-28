@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import Nav from "../navbar/navbar";
 import "./report.css";
 import { User, ClockArrowUp, ClockArrowDown } from "lucide-react";
-import { createRoot } from "react-dom/client";
 import { AgCharts } from "ag-charts-react";
-import "./index.jsx";
 
 function Report() {
   const Report = {
@@ -17,12 +15,22 @@ function Report() {
   const Open = Report.Open;
   const Close = Report.Close;
 
-  const Chart = {
+  const Chart1 = {
     MII: 7,
     ELEC: 4,
     MECH: 10,
 	BU: 20,
 	VET: 0,
+  };
+
+  const MII = Chart1.MII;
+  const ELEC = Chart1.ELEC;
+  const MECH = Chart1.MECH;
+  const BU = Chart1.BU;
+  const VET = Chart1.VET;
+
+
+  const Chart2 = {
 	Monday: 4,
 	Tuesday: 7,
 	Wednesday: 15,
@@ -30,21 +38,40 @@ function Report() {
 	Friday: 0,
 	Saturday: 14,
 	Sunday: 10,
+  }
 
-  };
+  const Monday = Chart2.Monday;
+  const Tuesday = Chart2.Tuesday;
+  const Wednesday = Chart2.Wednesday;
+  const Thrusday = Chart2.Thrusday;
+  const Friday = Chart2.Friday;
+  const Saturday = Chart2.Saturday;
+  const Sunday = Chart2.Sunday;
 
-  const MII = Chart.MII;
-  const ELEC = Chart.ELEC;
-  const MECH = Chart.MECH;
-  const BU = Chart.BU;
-  const VET = Chart.VET;
-  const Monday = Chart.Monday;
-  const Tuesday = Chart.Tuesday;
-  const Wednesday = Chart.Wednesday;
-  const Thrusday = Chart.Thrusday;
-  const Friday = Chart.Friday;
-  const Saturday = Chart.Saturday;
-  const Sunday = Chart.Sunday;
+  const Chart3 = {
+	MIIusing: 10,
+	MIIcancel: 5,
+	ELEusing: 15,
+	ELECcancel: 5,
+	MECHusing: 20,
+	MECHcancel: 5,
+	BUusing: 25,
+	BUcancel: 5,
+	VETusing: 30,
+	VETcancel: 5,
+  }
+
+  const MIIusing = Chart3.MIIusing;
+  const MIIcancel = Chart3.MIIcancel;
+  const ELEusing = Chart3.ELEusing;
+  const ELEcancel = Chart3.ELEcancel;
+  const MECHusing = Chart3.MECHusing;
+  const MECHcancel = Chart3.MECHcancel;
+  const BUusing = Chart3.BUusing;
+  const BUcancel = Chart3.BUcancel;
+  const VETusing = Chart3.VETusing;
+  const VETcancel = Chart3.VETcancel;
+
 
   const ChartExample1 = (e) => {
     const [options1, setOptions1] = useState({
@@ -86,15 +113,28 @@ function Report() {
     const [options3, setOptions3] = useState({
       // Data: Data to be displayed in the chart
       data: [
-        { month: "Jan", avgTemp: 2.3, iceCreamSales: 2 , iceCreamSales1: 1},
-        { month: "Mar", avgTemp: 6.3, iceCreamSales: 50 },
-        { month: "May", avgTemp: 16.2, iceCreamSales: 150 },
-        { month: "Jul", avgTemp: 22.8, iceCreamSales: 100 },
-        { month: "Sep", avgTemp: 14.5, iceCreamSales: 200 },
-        { month: "Nov", avgTemp: 8.9, iceCreamSales: 150 },
+        { year: "MII", avgTemp: 2.3, Using: MIIusing , Cancel: MIIcancel},
+		{ year: "ELEC", avgTemp: 2.3, Using: ELEusing , Cancel: ELEcancel},
+		{ year: "MECH", avgTemp: 2.3, Using: MECHusing , Cancel: MECHcancel},
+		{ year: "BU", avgTemp: 2.3, Using: BUusing , Cancel: BUcancel},
+		{ year: "VET", avgTemp: 2.3, Using: VETusing , Cancel: VETcancel}
       ],
       // Series: Defines which chart type and data to use
-      series: [{ type: "bar", xKey: "month", yKey: "iceCreamSales"}],
+      series: [
+		{
+			type: 'bar', // use 'bar' series
+			xKey: 'year',
+			yKey: 'Using',
+			
+			// ...other series options
+		},
+		{
+			type: 'bar', // use 'line' series
+			xKey: 'year',
+			yKey: 'Cancel',
+			// ...other series options
+		},
+	],
     });
 
     return <AgCharts options={options3} />;
@@ -150,6 +190,23 @@ function Report() {
             <b> Graph Report </b>
           </div>
           <div className="b2-report">
+			<div className="b2_head"></div>
+			<div className="b2_top">
+				<select className="b2_top_select">
+					<option value="" disabled selected>DAY</option>
+					<option value="" className="b2_top_select_option">DD</option>
+				</select>
+				<select className="b2_top_select">
+					<option value="" disabled selected>MONTH</option>
+					<option value="" className="b2_top_select_option">MM</option>
+				</select>
+				<select className="b2_top_select">
+					<option value="" disabled selected>YEAR</option>
+					<option value="" className="b2_top_select_option">YYYY</option>
+				</select>
+				<button className="b2_top_button">Confirm</button>
+			</div>
+			<div className="b2_bottom">
             <div className="b2_leftandRight">
               <div className="b2_text">
                 <p>Total amount of account that had locked in July 2024</p>
@@ -174,6 +231,7 @@ function Report() {
 			  	<ChartExample3 />
               </div>
             </div>
+			</div>
           </div>
         </div>
       </div>
