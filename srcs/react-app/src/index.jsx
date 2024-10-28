@@ -10,7 +10,7 @@ import History from './components/history/history';
 import Room from './components/management/room';
 import Report from './components/report/report';
 import Reserve from './components/reserve/reserve';
-import Verify from './components/Verify/verify';
+import Verify from './components/verify/verify';
 import Login from './components/login/login';
 import Notifications from './components/notifications/notifications';
 import Profile from './components/profile/profile';

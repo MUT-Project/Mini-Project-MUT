@@ -1,15 +1,13 @@
 import React from "react";
-import Nav from '../navbar/navbar'
+import Nav from "../navbar/navbar";
 
-function Verify() {
+function verify() {
 	return (
-		<>
+		<div>
 			<Nav />
-			<div>
-				<h1>Verify</h1>
-			</div>
-		</>
+			<h2> Verify </h2>
+		</div>
 	);
 }
 
-export default Verify;
+export default verify;
