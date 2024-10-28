@@ -121,5 +121,4 @@ function Building() {
   );
 }
 
-
 export default Building;
