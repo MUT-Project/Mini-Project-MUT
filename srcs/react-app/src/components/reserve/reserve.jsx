@@ -54,20 +54,21 @@ function Reserve() {
 							<select className="filter-select">
 								<option value="" disabled selected hidden>Time Slot</option>
 							</select>
-							<input type="text" className="filter-select" list="capacityList"></input>
-							<datalist id="capacityList">
-								<option value="1"></option>
-								<option value="2"></option>
-								<option value="2"></option>
-								<option value="3"></option>
-								<option value="4"></option>
-								<option value="5"></option>
-								<option value="6"></option>
-								<option value="7"></option>
-								<option value="8"> </option>
-								<option value="9"></option>
-								<option value="10"></option>
-							</datalist>
+							
+							<select className="filter-select">
+								<option value="" disabled selected hidden>Capacity</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9 </option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+							</select>
 							<select className="filter-select">
 								<option value="" disabled selected hidden>Class</option>
 								<option value={"Normal"}>Normal</option>
