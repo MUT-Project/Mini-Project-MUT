@@ -1,6 +1,6 @@
 //necessary import
-import React, { useState, useEffect } from 'react';
 import Nav from '../navbar/navbar';
+import React, { useState, useEffect } from 'react';
 
 //assets things
 import "./booking.css";
@@ -171,25 +171,25 @@ function Booking() {
 	return (
 		<>
 			<Nav />
-			<div className='bg2'>
-				<div className="meeting-room">
-					<header className="header">
+			<div className='bg2-boo'>
+				<div className="meeting-room-boo">
+					<header className="header-boo">
 						<h1>Room information by Query</h1>
-						<button className="my-lists-btn" onClick={() => window.location.href="/mylists"}>
+						<button className="mylists-btn-boo" onClick={() => window.location.href = "/mylists"}>
 							<span>My lists</span>
 							<Bookmark size={25} />
 						</button>
 					</header>
 
 					{/* Back button */}
-					<div className="back-button" role="button" onClick={() => window.location.href = "/reserve"}>
+					<div className="back-button-boo" role="button" onClick={() => window.location.href = "/reserve"}>
 						<ChevronLeft size={20} />
 						<span>Back</span>
 					</div>
 
-					<main className="content">
-						<div className="content__left">
-							<div className="room-image">
+					<main className="content-boo">
+						<div className="content__left-boo">
+							<div className="room-image-boo">
 								<img
 									src={meet1}
 									alt="Meeting Room"
@@ -197,24 +197,24 @@ function Booking() {
 							</div>
 						</div>
 
-						<div className="content__Mid">
-							<div className="room-info">
-								<h2 className="room-info__title">Room Information</h2>
-								<div className="room-info__details">
-									<h3 className="room-info__building">Building K K102</h3>
-									<p className="room-info__text">Open: Monday - Friday</p>
-									<p className="room-info__text">Open time: 09:00 - 18:00</p>
-									<p className="room-info__text">Room Capacity: 7 - 8 People</p>
-									<p className="room-info__text">Class: Normal</p>
+						<div className="content__mid-boo">
+							<div className="room-info-boo">
+								<h2 className="room-info__title-boo">Room Information</h2>
+								<div className="room-info__details-boo">
+									<h3 className="room-info__building-boo">Building K K102</h3>
+									<p className="room-info__text-boo">Open: Monday - Friday</p>
+									<p className="room-info__text-boo">Open time: 09:00 - 18:00</p>
+									<p className="room-info__text-boo">Room Capacity: 7 - 8 People</p>
+									<p className="room-info__text-boo">Class: Normal</p>
 								</div>
-								<div className="booking">
+								<div className="booking-boo">
 									<textarea
-										className="booking__textarea"
+										className="booking__textarea-boo"
 										placeholder="Booking Detail"
 										rows={4}
 									/>
-									<div className="booking__verify">
-										<span className="booking__term">Booking Term :</span>
+									<div className="booking__verify-boo">
+										<span className="booking__term-boo">Booking Term :</span>
 										<CheckCircle size={20} />
 										<span>Auto verify after booking</span>
 									</div>
@@ -222,12 +222,12 @@ function Booking() {
 							</div>
 						</div>
 
-						<div className="content__right">
-							<div className="time-selector">
-								<div className="time-selector__group">
-									<label className="time-selector__label">Start time</label>
+						<div className="content__right-boo">
+							<div className="time-selector-boo">
+								<div className="time-selector__group-boo">
+									<label className="time-selector__label-boo">Start time</label>
 									<select
-										className="time-selector__select"
+										className="time-selector__select-boo"
 										value={startTime}
 										onChange={handleStartTimeChange}
 									>
@@ -243,10 +243,10 @@ function Booking() {
 										))}
 									</select>
 								</div>
-								<div className="time-selector__group">
-									<label className="time-selector__label">End time</label>
+								<div className="time-selector__group-boo">
+									<label className="time-selector__label-boo">End time</label>
 									<select
-										className="time-selector__select"
+										className="time-selector__select-boo"
 										value={endTime}
 										onChange={(e) => setEndTime(e.target.value)}
 										disabled={!startTime}
@@ -292,12 +292,12 @@ function Booking() {
 								</div>
 							</div>
 
-							<div className="booking__buttons">
-								<button className="booking__button_1" onClick={handleClick}>
+							<div className="booking__buttons-boo">
+								<button className="add__button-boo" onClick={handleClick}>
 									Add to lists
 								</button>
 								<button
-									className="booking__button booking__button--primary"
+									className="booking__button--primary-boo"
 									onClick={() => window.location.href = "/mylists"}
 								//disabled={!startTime || !endTime}
 								>
