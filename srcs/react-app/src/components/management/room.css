@@ -100,7 +100,7 @@
     color:  #24344c;
 }
 
-.table {
+.table_data {
     width: 100%; 
     border-collapse: collapse; 
     border: none;
@@ -110,6 +110,13 @@
     margin: 1rem 5rem;
     justify-content: space-between;
     align-items: center;
+}
+
+.table_header{  
+	background-color: #546b83;
+    color: #fff;  
+    height: 50px;
+    font-size: 20px;
 }
 
 .popup {

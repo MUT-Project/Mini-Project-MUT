@@ -1,3 +1,27 @@
+.selection-zone {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 60px;                      
+    margin-left: 20px;
+    height: 5rem;
+}
+
+.selection-zone > p {
+    cursor: pointer; 
+    font-size: 20px;
+    padding-right: 5rem;
+    font-weight: bold;
+}
+
+.user{
+    text-decoration: underline; 
+}
+
+.selection-zone > p:hover {
+    color:  #949ca4;
+}
+
 .event-zone {
     display: flex;
     margin: 1rem 5rem;
@@ -6,9 +30,6 @@
     /*border: 1px solid red;*/
 }
 
-.header{
-	height: 30px;
-}
 .event-zone  > button{
     height: 50px;
     width: 150px;
@@ -112,14 +133,13 @@
     align-items: center;
 }
 
-
 .table_header{  
 	background-color: #546b83;
     color: #fff;  
     height: 50px;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
-
 .popup {
 	position: fixed;
 	top: 0;
@@ -130,29 +150,42 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+    position: flex;
 	z-index: 1000; /* ให้อยู่เหนือ element อื่นๆ */
   }
   
   .popup-inner {
 	background-color: white;
 	border-radius: 8px;
-	width: 100vh;
-    height: 45vh;
+	width: 70vh;
+    height: 25vh;
 	text-align: center;
+  
   }
 
-  .popup-inner h2 {
+.popup-inner h2 {
     padding-left: 20px; 
     padding-top: 20px;
 
   }
 
-  .popup_title{
+  .popup-position{
+    background-color: white;
+	border-radius: 8px;
+	width: 85vh;
+  }
+
+  .popup-position h2 {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .popup_title  {
     background-color: #27374D;
     color: #ffffff;
     margin-top: 0%; 
     height: 50px;
-    text-align:left 
+    text-align:left  
   }
   .close-popup {
 	margin-top:3%;
@@ -175,23 +208,11 @@
 	cursor: pointer;
   }
 
-  .popup_input_and_select {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #777777; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  .popup_item {
-    padding: 15px; /* ระยะห่างภายในเซลล์ */
-  }
-  
   .popup_label {
-    margin-bottom: 10px; 
     font-size: 20px;
+    justify-content: flex-start;  
   }
-
+ 
   .popup-inner > table{
     justify-content: flex-start;
   }

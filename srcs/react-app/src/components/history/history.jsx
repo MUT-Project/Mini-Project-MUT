@@ -127,8 +127,8 @@ function History() {
         </div>
 
         <div className="table-zone">
-          <table className="table">
-            <thead>
+          <table className="table_data">
+            <thead className="table_header">
               <tr>
                 {/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
                 {columns.map((column, index) => (
@@ -138,34 +138,33 @@ function History() {
               </tr>
             </thead>
 
-              <th>
-                <p>1</p>
+            <th className="table_record">
+              <p>1</p>
+            </th>
+            <th className="table_record">
+              <p>1004</p>
+            </th>
+            <th className="table_record">
+              <p>ห้องประชุมชั้น 5</p>
+            </th>
+            <th className="table_record">
+              <p>ซ้อมมวย</p>
+            </th>
+            <th className="table_record">
+              <p>12 พ.ย. 2567</p>
+            </th>
+            <th className="table_record">
+              <p>14:30 - 19:30</p>
+            </th>
+            <th className="table_record" style={{ color: setColor(Underlined) }}>
+              {setText(Underlined)}
+            </th>
+            {state === 1 && (
+              <th className="table_record">
+                <button className="table_button">QR Code</button>
+                <button className="table_button">Cancel</button>
               </th>
-              <th>
-                <p>1004</p>
-              </th>
-              <th>
-                <p>ห้องประชุมชั้น 5</p>
-              </th>
-              <th>
-                <p>ซ้อมมวย</p>
-              </th>
-              <th>
-                <p>12 พ.ย. 2567</p>
-              </th>
-              <th>
-                <p>14:30 - 19:30</p>
-              </th>
-              <th style={{ color: setColor(Underlined) }}>
-				
-                {setText(Underlined)}
-              </th>
-              {state === 1 && (
-                <th>
-                  <button>QR Code</button>
-                  <button>Cancel</button>
-                </th>
-              )}
+            )}
           </table>
         </div>
       </div>

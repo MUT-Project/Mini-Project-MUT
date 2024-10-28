@@ -59,8 +59,8 @@ function Room() {
         </div>
 
         <div className="table-zone">
-          <table>
-            <thead>
+          <table className="table_data">
+            <thead className="table_header">
               <tr>
                 {/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
                 {columns.map((column, index) => (
@@ -141,81 +141,6 @@ function Room() {
             </div>
           </div>
         )}
-        {/* {Add_Index === 2 && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Room</h2>
-              <form>
-                <table>
-                  <tr>
-                    <td>
-                      <label> ชื่อห้อง </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                    <td>
-                      <label>ระดับห้อง </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">Normal</option>
-                        <option value="option2">VIP</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>ตึก </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">MII</option>
-                        <option value="option2">MIIX</option>
-                        <option value="option3">D</option>
-                        <option value="option3">F</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label>ชั้น </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">1</option>
-                        <option value="option2">2</option>
-                        <option value="option3">3</option>
-                        <option value="option1">4</option>
-                        <option value="option2">5</option>
-                        <option value="option3">6</option>
-                        <option value="option2">7</option>
-                        <option value="option3">8</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>ความจุ </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">10-15</option>
-                        <option value="option2">20-30</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label>สถานะห้อง </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">เปิดให้ใช้งาน</option>
-                        <option value="option2">ปิดปรับปรุง</option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
-            </div>
-          </div>
-        )} */}
       </div>
     </>
   );

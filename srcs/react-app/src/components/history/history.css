@@ -18,7 +18,7 @@
     font-weight: bold;
 }
 
-table {
+.table_data {
     width: 100%; 
     border-collapse: collapse; 
     border: none;
@@ -31,14 +31,12 @@ table {
 	font-size: 20px;
 }
 
-
-/* td{  
+.table_header{  
 	background-color: #546b83;
     color: #fff;  
     height: 50px;
     font-size: 20px;
-	padding: 15px;
-} */
+}
 
 .popup {
 	position: fixed;
@@ -67,14 +65,7 @@ table {
 
   }
 
-  h2{
-    background-color: #27374D;
-    color: #ffffff;
-    margin-top: 0%; 
-    height: 50px;
-    text-align:left 
-  }
-  button{
+  .table_button{
 	border-radius: 4px; 
 	background-color: #526D82;
 	border: none;
@@ -84,35 +75,11 @@ table {
 	height : 40px;
   }
 
-  button:hover{
+  .table_button:hover{
 	background-color: #A0C5E2;
     color:  #050f1d;
   }
 
-th {
+.table_record {
 	border-bottom: 1px solid #777777;
-  }
-  input {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #1111117a; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  input,select {
-    width: 200px; 
-    padding: 8px; 
-    border: 1px solid #777777; 
-    border-radius: 4px; 
-    font-size: 20px;
-  }
-
-  label {
-    margin-bottom: 10px; 
-    font-size: 20px;
-  }
-
-  .popup-inner > table{
-    justify-content: flex-start;
-  }
+}

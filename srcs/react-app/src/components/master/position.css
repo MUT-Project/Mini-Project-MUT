@@ -121,7 +121,7 @@
     color:  #24344c;
 }
 
-table {
+.table_data {
     width: 100%; 
     border-collapse: collapse; 
     border: none;
@@ -133,7 +133,7 @@ table {
     align-items: center;
 }
 
-thead{  
+.table_header{  
 	background-color: #546b83;
     color: #fff;  
     height: 50px;
@@ -182,7 +182,7 @@ thead{
   }
   
 
-  h2{
+.popup_title{
     background-color: #27374D;
     color: #ffffff;
     margin-top: 0%; 
@@ -212,7 +212,7 @@ thead{
 	cursor: pointer;
   }
 
-  label {
+  .popup_label {
     font-size: 20px;
     justify-content: flex-start;
     
@@ -221,27 +221,5 @@ thead{
   .popup-inner > table{
     justify-content: flex-start;
   }
- 
 
-  input[type="checkbox"] {
-    transform: scale(1.5); 
-  }
-
-  .co-1{
-    display: block;
-    text-align: left;
-  }
-
-  .co-2{
-    display: block;
-    text-align: left;
-  }
-
-  .co-3{
-    display: block;
-    text-align: left;
-  }
-
-
-  
  
