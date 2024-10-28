@@ -1,115 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
+import Nav from "../navbar/navbar";
 import "./room.css";
 import add from "../../assets/Adds.png";
 import deletes from "../../assets/Delete.png";
 import edits from "../../assets/Edits.png";
 import search from "../../assets/Search.png";
-import Swal from "sweetalert2";
 
 function Room() {
-  const [page_id, setPageId] = useState(0);
-  const [Is_underlinedId, setUnderlinedId] = useState(null);
-  const [columns, setColumns] = useState([]); // เก็บข้อมูลคอลัมน์ใน <thead>
-  const [Add_Index, setAdd] = useState(0);
-  const Add_Open = () => {
-    if (parseInt(page_id) === 1) setAdd(1);
-    else if (parseInt(page_id) === 2) setAdd(2);
+  const columns = [
+    "รหัสผู้ใช้",
+    "ชื่อผู้ใช้",
+    "นามสกุล",
+    "แผนก",
+    "ตำแหน่ง",
+    "สถานะ",
+    "คะแนนผู้ใช้",
+  ];
+  const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
+  const openPopup = () => {
+    setPopup(true);
   };
-  const Add_Save = () => {
-    setAdd(0);
-  };
-  const Add_Close = () => {
-    setAdd(0);
-  };
-  const Page_Click = (id) => {
-    setUnderlinedId(id); // ตั้งค่า id ของ <p> ที่ถูกคลิก
-    setPageId(id);
-    if (id === 1) {
-      // เพิ่ม <th> Columns เมื่อคลิก User
-      const newColumns = [
-        "รหัสผู้ใช้",
-        "ชื่อผู้ใช้",
-        "นามสกุล",
-        "แผนก",
-        "ตำแหน่ง",
-        "สถานะ",
-        "คะแนนผู้ใช้",
-      ];
-      setColumns(newColumns);
-    } else {
-      // เพิ่ม <th> Columns เมื่อคลิก Room
-      const newColumns = [
-        "รหัสห้อง",
-        "ชื่อห้อง",
-        "รหัสตึก",
-        "ชั้น",
-        "ระดับห้อง",
-        "สถานะ",
-        "ความจุ",
-      ];
-      setColumns(newColumns);
-    }
-  };
-  // เรียกใช้ Func Page_Click(1) ครั้งแรกเมื่อหน้าเว็บโหลด
-  useEffect(() => {
-    Page_Click(1); // เรียกฟังก์ชันเมื่อโหลดครั้งแรก
-  }, []); // [] หมายถึงเรียกใช้เมื่อคอมโพเนนต์ถูก mount ครั้งแรก
-
-  const choice = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-	  customClass: {
-		title: 'confirm',
-	  }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-		  customClass: {
-			title: 'confirm',
-		  }
-        });
-      }
-    });
+  const closePopup = () => {
+    setPopup(false);
   };
 
   return (
     <>
-      <div className="container">
-        <div className="selection-zone">
-          <p
-            className="user"
-            onClick={() => Page_Click(1)}
-            style={{
-              textDecoration: Is_underlinedId === 1 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            User
-          </p>
-
-          <p
-            className="room"
-            onClick={() => Page_Click(2)}
-            style={{
-              textDecoration: Is_underlinedId === 2 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            Room
-          </p>
-        </div>
-
+      <Nav />
+      <div className="all_componant">
+        <div className="header"></div>
         <div className="event-zone">
-          <button type="submit" onClick={() => Add_Open()}>
+          <button type="submit" onClick={() => openPopup()}>
             <img src={add} alt="add" className="add-data" />
             Add
           </button>
@@ -119,7 +40,7 @@ function Room() {
             Edits
           </button>
 
-          <button type="submit" onClick={choice}>
+          <button type="submit">
             <img src={deletes} alt="delete" className="delete-data" />
             Delete
           </button>
@@ -150,80 +71,77 @@ function Room() {
           </table>
         </div>
 
-        {Add_Index === 1 && (
+        {Popup && (
           <div className="popup">
             <div className="popup-inner">
-              <h2>User</h2>
+              <h2>User Form</h2>
               <form>
                 <table>
-                  <tr>
-                    <td>
-                      <label>ชื่อ </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                    <td>
-                      <label>นามสกุล </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>username </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                    <td>
-                      <label>Password </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>แผนก </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">MII</option>
-                        <option value="option2">VET</option>
-                        <option value="option3">BU</option>
-                        <option value="option3">ELEC</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label>ตำแหน่ง </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">หัวหน้าห้องประชุม</option>
-                        <option value="option2">พนักงานทั่วไป</option>
-                        <option value="option3">แม่บ้าน</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label>สถานะผู้ใช้ </label>
-                      <select>
-                        <option value=""> </option>
-                        <option value="option1">ทำงานอยู่</option>
-                        <option value="option2">ลาออก</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label>Email </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <label>ชื่อ </label>
+                        <input type="text" placeholder=" " />
+                      </td>
+                      <td>
+                        <label>นามสกุล </label>
+                        <input type="text" placeholder=" " />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>username </label>
+                        <input type="text" placeholder=" " />
+                      </td>
+                      <td>
+                        <label>Password </label>
+                        <input type="password" placeholder=" " />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>แผนก </label>
+                        <select>
+                          <option value=""> </option>
+                          <option value="option1">MII</option>
+                          <option value="option2">VET</option>
+                          <option value="option3">BU</option>
+                          <option value="option4">ELEC</option>
+                        </select>
+                      </td>
+                      <td>
+                        <label>ตำแหน่ง </label>
+                        <select>
+                          <option value=""> </option>
+                          <option value="option1">หัวหน้าห้องประชุม</option>
+                          <option value="option2">พนักงานทั่วไป</option>
+                          <option value="option3">แม่บ้าน</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>สถานะผู้ใช้ </label>
+                        <select>
+                          <option value=""> </option>
+                          <option value="option1">ทำงานอยู่</option>
+                          <option value="option2">ลาออก</option>
+                        </select>
+                      </td>
+                      <td>
+                        <label>Email </label>
+                        <input type="email" placeholder=" " />
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
+              <button className="close-popup" onClick = {() => closePopup()}>Close</button>
+			  <button className="save-popup">Save</button>
             </div>
           </div>
         )}
-
-        {Add_Index === 2 && (
+        {/* {Add_Index === 2 && (
           <div className="popup">
             <div className="popup-inner">
               <h2>Room</h2>
@@ -297,7 +215,7 @@ function Room() {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
