@@ -209,7 +209,7 @@ function Report() {
 			<div className="b2_bottom">
             <div className="b2_leftandRight">
               <div className="b2_text">
-                <p>Total amount of account that had locked in July 2024</p>
+                <p className="b2_text_info">Total amount of account that had locked in July 2024</p>
               </div>
               <div className="b2_chart">
 			  	<ChartExample1 />
@@ -217,7 +217,7 @@ function Report() {
             </div>
             <div className="b2_mid">
 			<div className="b2_text">
-                <p>Total number of using room for each day of  MII207 in July 2024</p>
+                <p className="b2_text_info">Total number of using room for each day of  MII207 in July 2024</p>
               </div>
               <div className="b2_chart">
 			  	<ChartExample2 />
@@ -225,7 +225,7 @@ function Report() {
             </div>
             <div className="b2_leftandRight">
 			<div className="b2_text">
-                <p>Total number of using room compare to canceling room of MII207 in July 2024</p>
+                <p className="b2_text_info">Total number of using room compare to canceling room of MII207 in July 2024</p>
               </div>
               <div className="b2_chart">
 			  	<ChartExample3 />

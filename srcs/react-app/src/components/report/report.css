@@ -173,6 +173,7 @@
             border-radius: 15px;
     
         }
+        
     
         .b2_mid{
             background-color: #27374D;
@@ -191,14 +192,18 @@
 
 .b2_text{
     width: 90%;
-    height: auto;
+    height: 20%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    
     margin-left: 5%;
     margin-right: 5%;
     font-size: 15px;
     color: white;
+
+    .b2_text_info{
+        margin: 5% 0% 0% 0%;
+    }
 }
 
 .b2_chart{
