@@ -17,9 +17,6 @@ function Login() {
 				window.location.href = "/";
 			}
 		}
-		if (buttonName === "forgot") {
-			alert("I forgot my password");
-		}
 	};
 
 	return (
@@ -45,9 +42,9 @@ function Login() {
 							className="info-login"
 							placeholder="Enter your password"
 						/>
-						<button className="forgot-login" type="button" name="forgot" onClick={handleSubmit}>
+						<a className="forgot-login" onClick={() => alert("I forgot my password")}>
 							I forgot my password
-						</button>
+						</a>
 						<button className="signin-login" type="submit" name="signin">
 							Sign In
 						</button>

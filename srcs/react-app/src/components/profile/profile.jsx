@@ -3,79 +3,52 @@ import Nav from "../navbar/navbar";
 import "./profile.css";
 
 function Profile() {
-  // useEffect(() => {
+	const Profile = {
+		Fname: "Chayut",
+		Lname: "Jiambanjong",
+		department: "MII",
+		point: 0,
+		position: "MII",
+		status: "Working",
+	};
 
-  // 	document.body.style.backgroundColor = 'rgb(155, 155, 155)'; // เปลี่ยนสี background
+	const { Fname, Lname, department, point, position, status } = Profile;
 
-  // 	return () => {
-  // 	  document.body.style.backgroundColor = ''; // รีเซ็ตสีเมื่อออกจากหน้านี้
-  // 	};
-  //   }, []);
-
-  const Profile = {
-    Fname: "Chayut",
-    Lname: "Jiambanjong",
-    department: "MII",
-    point : 0,
-    position : "MII",
-    status : "Working"
-  };
-  
-  const Fname = Profile.Fname;
-  const Lname = Profile.Lname;
-  const department = Profile.department;
-  const point = Profile.point;
-  const position = Profile.position;
-  const status = Profile.status;
-
-  return (
-    <>
-      <Nav />
-      <body>
-        <div className="bgprofile">
-          <div className="container-profile">
-            <div className="top_text-profile">
-              <b>Profile Infomation</b>
-            </div>
-            <div className="head-profile">
-              <div className="head_img-profile"></div>
-              <p className="head_name-profile">{Fname}</p>
-            </div>
-            <div className="body-profile">
-              <div className="body_left-profile">
-                <div className="body_name-profile">
-                  <p>FristName :</p>
-                  <p className="body_name_input-profile">{Fname}</p>
-                </div>
-                <div className="body_name-profile">
-                  <p>Department :</p>
-                  <p className="body_name_input-profile">{department}</p>
-                </div>
-                <div className="body_name-profile">
-                  <p>Position :</p>
-                  <p className="body_name_input-profile">{position}</p>
-                </div>
-              </div>
-              <div className="body_right-profile">
-                <div className="body_name-profile">
-                  <p>LastName :</p>
-                  <p className="body_name_input-profile">{Lname}</p>
-                </div>
-                <div className="body_name-profile">
-                  <p>Point :</p>
-                  <p className="body_name_input-profile">{point}</p>
-                </div>
-                <div className="body_name-profile">
-                  <p>Status :</p>
-                  <p className="body_name_input-profile">{status}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </body>
-    </>
-  );
+	return (
+		<>
+			<Nav />
+			<div className="bgprofile">
+				<div className="container-profile">
+					<div className="top_text-profile">
+						<b>Profile Information</b>
+					</div>
+					<div className="head-profile">
+						<div className="head_img-profile"></div>
+						<p className="head_name-profile">{Fname} {Lname}</p>
+					</div>
+					<div className="body-profile">
+						<div className="body_left-profile">
+							<ProfileInfo label="First Name" value={Fname} />
+							<ProfileInfo label="Department" value={department} />
+							<ProfileInfo label="Position" value={position} />
+						</div>
+						<div className="body_right-profile">
+							<ProfileInfo label="Last Name" value={Lname} />
+							<ProfileInfo label="Point" value={point} />
+							<ProfileInfo label="Status" value={status} />
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
+
+const ProfileInfo = ({ label, value }) => (
+	<div className="body_name-profile">
+		<p>{label} :</p>
+		<p className="body_name_input-profile">{value}</p>
+	</div>
+);
 
 export default Profile;

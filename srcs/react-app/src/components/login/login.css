@@ -53,7 +53,7 @@
 	padding: 10px;
 	border: 1px solid #D0D0D0;
 	border-radius: 8px;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 	transition: border-color 0.3s;
 }
 
@@ -63,14 +63,13 @@
 }
 
 .forgot-login {
+	display: block;
 	font-size: 14px;
 	color: #D08C51;
 	/* margin-top: 1rem; */
 	margin-right: 60%;
-	border: none;
-	background: none;
-	cursor: pointer;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .signin-login {
@@ -88,9 +87,4 @@
 
 .signin-login:hover {
 	background-color: #D08C51;
-}
-
-a:-webkit-any-link {
-	color: #ffffff;
-	text-decoration: none;
 }
