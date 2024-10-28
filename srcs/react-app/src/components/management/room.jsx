@@ -1,3 +1,4 @@
+
 import React, { useState} from "react";
 import Nav from "../navbar/navbar";
 import "./room.css";
@@ -5,16 +6,17 @@ import add from "../../assets/Adds.png";
 import deletes from "../../assets/Delete.png";
 import edits from "../../assets/Edits.png";
 import search from "../../assets/Search.png";
+import Swal from 'sweetalert2'
 
 function Room() {
   const columns = [
-    "รหัสผู้ใช้",
-    "ชื่อผู้ใช้",
-    "นามสกุล",
-    "แผนก",
-    "ตำแหน่ง",
+    "รหัสห้อง",
+    "ชื่อห้อง",
+    "รหัสตึก",
+    "ชั้น",
+    "ระดับห้อง",
     "สถานะ",
-    "คะแนนผู้ใช้",
+    "ความจุ",
   ];
   const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
   const openPopup = () => {
@@ -24,6 +26,37 @@ function Room() {
     setPopup(false);
   };
 
+  const Delete = () => {
+	Swal.fire({
+		title: "ยืนยันการลบข้อมูล",
+		text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: "ยืนยัน",
+		cancelButtonText: "ยกเลิก",
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33"
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกลบแล้ว",
+			icon: "success"
+		  });
+		}
+	  });
+	}
+	const submitPopup = () => {
+		setPopup(false);
+		Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกเพิ่มแล้ว",
+			icon: "success",
+			confirmButtonText: "ยืนยัน",
+			confirmButtonColor: "#3085d6",
+		  })
+	  };
+	
   return (
     <>
       <Nav />
@@ -40,7 +73,7 @@ function Room() {
             Edits
           </button>
 
-          <button type="submit">
+          <button type="submit" onClick={() => Delete()}>
             <img src={deletes} alt="delete" className="delete-data" />
             Delete
           </button>
@@ -59,8 +92,8 @@ function Room() {
         </div>
 
         <div className="table-zone">
-          <table>
-            <thead>
+          <table className="table_data">
+            <thead className="table_header">
               <tr>
                 {/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
                 {columns.map((column, index) => (
@@ -74,87 +107,17 @@ function Room() {
         {Popup && (
           <div className="popup">
             <div className="popup-inner">
-              <h2>User Form</h2>
-              <form>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <label>ชื่อ </label>
-                        <input type="text" placeholder=" " />
-                      </td>
-                      <td>
-                        <label>นามสกุล </label>
-                        <input type="text" placeholder=" " />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>username </label>
-                        <input type="text" placeholder=" " />
-                      </td>
-                      <td>
-                        <label>Password </label>
-                        <input type="password" placeholder=" " />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>แผนก </label>
-                        <select>
-                          <option value=""> </option>
-                          <option value="option1">MII</option>
-                          <option value="option2">VET</option>
-                          <option value="option3">BU</option>
-                          <option value="option4">ELEC</option>
-                        </select>
-                      </td>
-                      <td>
-                        <label>ตำแหน่ง </label>
-                        <select>
-                          <option value=""> </option>
-                          <option value="option1">หัวหน้าห้องประชุม</option>
-                          <option value="option2">พนักงานทั่วไป</option>
-                          <option value="option3">แม่บ้าน</option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>สถานะผู้ใช้ </label>
-                        <select>
-                          <option value=""> </option>
-                          <option value="option1">ทำงานอยู่</option>
-                          <option value="option2">ลาออก</option>
-                        </select>
-                      </td>
-                      <td>
-                        <label>Email </label>
-                        <input type="email" placeholder=" " />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
-              <button className="close-popup" onClick = {() => closePopup()}>Close</button>
-			  <button className="save-popup">Save</button>
-            </div>
-          </div>
-        )}
-        {/* {Add_Index === 2 && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Room</h2>
+              <h2 className="popup_title">Room</h2>
               <form>
                 <table>
                   <tr>
-                    <td>
-                      <label> ชื่อห้อง </label>
-                      <input type="text" placeholder=" " />
+                    <td className="popup_item">
+                      <label className="popup_label"> ชื่อห้อง </label>
+                      <input type="text" className="popup_input_and_select" placeholder=" " />
                     </td>
-                    <td>
-                      <label>ระดับห้อง </label>
-                      <select>
+                    <td className="popup_item">
+                      <label className="popup_label">ระดับห้อง </label>
+                      <select className="popup_input_and_select">
                         <option value=""> </option>
                         <option value="option1">Normal</option>
                         <option value="option2">VIP</option>
@@ -162,9 +125,9 @@ function Room() {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                      <label>ตึก </label>
-                      <select>
+                    <td className="popup_item">
+                      <label className="popup_label">ตึก </label>
+                      <select className="popup_input_and_select">
                         <option value=""> </option>
                         <option value="option1">MII</option>
                         <option value="option2">MIIX</option>
@@ -172,9 +135,9 @@ function Room() {
                         <option value="option3">F</option>
                       </select>
                     </td>
-                    <td>
-                      <label>ชั้น </label>
-                      <select>
+                    <td className="popup_item">
+                      <label className="popup_label">ชั้น </label>
+                      <select className="popup_input_and_select">
                         <option value=""> </option>
                         <option value="option1">1</option>
                         <option value="option2">2</option>
@@ -188,17 +151,17 @@ function Room() {
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                      <label>ความจุ </label>
-                      <select>
+                    <td className="popup_item">
+                      <label className="popup_label">ความจุ </label>
+                      <select className="popup_input_and_select">
                         <option value=""> </option>
                         <option value="option1">10-15</option>
                         <option value="option2">20-30</option>
                       </select>
                     </td>
-                    <td>
-                      <label>สถานะห้อง </label>
-                      <select>
+                    <td className="popup_item">
+                      <label className="popup_label">สถานะห้อง </label>
+                      <select className="popup_input_and_select">
                         <option value=""> </option>
                         <option value="option1">เปิดให้ใช้งาน</option>
                         <option value="option2">ปิดปรับปรุง</option>
@@ -207,15 +170,11 @@ function Room() {
                   </tr>
                 </table>
               </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
+              <button className="close-popup" onClick={() => closePopup()}>Close</button>
+              <button className="save-popup" onClick={() => submitPopup()}>Save</button>
             </div>
           </div>
-        )} */}
+        )}
       </div>
     </>
   );

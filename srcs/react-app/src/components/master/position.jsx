@@ -1,281 +1,121 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
+import Nav from "../navbar/navbar";
 import "./position.css";
 import add from "../../assets/Adds.png";
 import deletes from "../../assets/Delete.png";
 import edits from "../../assets/Edits.png";
 import search from "../../assets/Search.png";
-
-import Nav from '../navbar/navbar'
+import Swal from 'sweetalert2'
 
 function Position() {
-  const [page_id, setPageId] = useState(0);
-  const [Is_underlinedId, setUnderlinedId] = useState(null);
-  const [columns, setColumns] = useState([]); // เก็บข้อมูลคอลัมน์ใน <thead>
-  const [Add_Index, setAdd] = useState(0);
-  const Add_Open = () => {
-    if (parseInt(page_id) === 1) setAdd(1);
-    else if (parseInt(page_id) === 2) setAdd(2);
-    else if (parseInt(page_id) === 3) setAdd(3);
-    else if (parseInt(page_id) === 4) setAdd(4);
+  const columns = ["รหัสสถานะ", "ชื่อสถานะ"];
+  const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
+  const openPopup = () => {
+    setPopup(true);
   };
-  const Add_Save = () => {
-    setAdd(0);
-  };
-  const Add_Close = () => {
-    setAdd(0);
-  };
-  const Page_Click = (id) => {
-    setUnderlinedId(id);
-    setPageId(id);
-
-    if (id === 1) {
-      const newColumns = ["รหัสแผนก", "ชื่อแผนก"];
-      setColumns(newColumns);
-    } else if (id === 2) {
-      const newColumns = [
-        "รหัสตำแหน่ง",
-        "ชื่อตำแหน่ง",
-        "เลขสิทธิ์การเข้าใช้งาน",
-      ];
-      setColumns(newColumns);
-    } else if (id === 3) {
-      const newColumns = ["รหัสตึก", "ชื่อตึก", "จำนวนชั้น"];
-      setColumns(newColumns);
-    } else {
-      const newColumns = ["รหัสสถานะ", "ชื่อสถานะ"];
-      setColumns(newColumns);
-    }
+  const closePopup = () => {
+    setPopup(false);
   };
 
-  useEffect(() => {
-    Page_Click(1);
-  }, []);
+  const Delete = () => {
+	Swal.fire({
+		title: "ยืนยันการลบข้อมูล",
+		text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: "ยืนยัน",
+		cancelButtonText: "ยกเลิก",
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33"
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกลบแล้ว",
+			icon: "success"
+		  });
+		}
+	  });
+	}
 
+	const submitPopup = () => {
+		setPopup(false);
+		Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกเพิ่มแล้ว",
+			icon: "success",
+			confirmButtonText: "ยืนยัน",
+			confirmButtonColor: "#3085d6",
+		  })
+	  };
+	
   return (
     <>
       <Nav />
-      <div className="container">
-        <div className="selection-zone">
-          <p
-            className="Department"
-            onClick={() => Page_Click(1)}
-            style={{
-              textDecoration: Is_underlinedId === 1 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            Department
-          </p>
+      <div className="header"></div>
+      <div className="event-zone">
+        <button type="submit" onClick={() => openPopup()}>
+          <img src={add} alt="add" className="add-data" />
+          Add
+        </button>
 
-          <p
-            className="Position"
-            onClick={() => Page_Click(2)}
-            style={{
-              textDecoration: Is_underlinedId === 2 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            Position
-          </p>
+        <button type="submit">
+          <img src={edits} alt="edits" className="edits-data" />
+          Edits
+        </button>
 
-          <p
-            className="Building"
-            onClick={() => Page_Click(3)}
-            style={{
-              textDecoration: Is_underlinedId === 3 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            Building
-          </p>
+        <button type="submit" onClick={() => Delete()}>
+          <img src={deletes} alt="delete" className="delete-data" />
+          Delete
+        </button>
 
-          <p
-            className="Status"
-            onClick={() => Page_Click(4)}
-            style={{
-              textDecoration: Is_underlinedId === 4 ? "underline" : "none",
-              cursor: "pointer",
-            }}
-          >
-            Status
-          </p>
+        <div class="search-container">
+          <input
+            className="input-text"
+            type="text"
+            placeholder="Search.."
+            name="search"
+          ></input>
+          <button className="input-pic" type="input-pic">
+            <img className="search-data" src={search} alt="search" />
+          </button>
         </div>
+      </div>
+      <div className="table-zone">
+        <table className="table_data">
+          <thead className="table_header">
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+        </table>
+      </div>
 
-        <div className="event-zone">
-          <button type="submit" onClick={() => Add_Open()}>
-            <img src={add} alt="add" className="add-data" />
-            Add
-          </button>
-
-          <button type="submit">
-            <img src={edits} alt="edits" className="edits-data" />
-            Edits
-          </button>
-
-          <button type="submit">
-            <img src={deletes} alt="delete" className="delete-data" />
-            Delete
-          </button>
-
-          <div class="search-container">
-            <input
-              className="input-text"
-              type="text"
-              placeholder="Search.."
-              name="search"
-            ></input>
-            <button className="input-pic" type="input-pic">
-              <img className="search-data" src={search} alt="search" />
+      {Popup && (
+        <div className="popup">
+          <div className="popup-inner">
+            <h2 className="popup_title">Status</h2>
+            <form>
+              <table>
+                <tr>
+                  <td>
+                    <label className="popup_label">ชื่อสถานะ </label>
+                    <input type="text" placeholder=" " />
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <button onClick={() => closePopup()} className="close-popup">
+              Close
+            </button>
+            <button className="save-popup" onClick={() => submitPopup()}>
+              Save
             </button>
           </div>
         </div>
-
-        {/* <div className='searchbox'>
-                    <input type='text' placeholder='search something...'>
-
-                    </input>
-                </div> */}
-
-        <div className="table-zone">
-          <table>
-            <thead>
-              <tr>
-                {columns.map((column, index) => (
-                  <th key={index}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-          </table>
-        </div>
-
-        {Add_Index === 1 && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Department</h2>
-              <form>
-                <table>
-                  <tr>
-                    <td>
-                      <label>ชื่อแผนก </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
-            </div>
-          </div>
-        )}
-
-        {Add_Index === 2 && (
-          <div className="popup">
-            <div className="popup-position">
-              <h2>Position</h2>
-              <form>
-                <div>
-                  <label>ชื่อตำแหน่ง</label>
-                  <input type="text" placeholder=" " />
-                </div>
-                <div class="row">
-                  <div class="col co-1">
-                    <label>สิทธิ์การเข้าใช้งาน</label>
-                  </div>
-                  <div class="col co-2">
-                    <label>
-                      <input type="checkbox" name="" value="4" /> การจอง
-                    </label>{" "}
-                    <br />
-                    <label>
-                      <input type="checkbox" name="" value="5" /> จัดการ
-                    </label>{" "}
-                    <br />
-                    <label>
-                      <input type="checkbox" name="" value="6" /> ข้อมูลพื้นฐาน
-                    </label>
-                  </div>
-                  <div class="col co-3">
-                    <label>
-                      <input type="checkbox" name="" value="4" /> ตรวจสอบประวัติ
-                    </label>{" "}
-                    <br />
-                    <label>
-                      <input type="checkbox" name="" value="5" /> รายงาน
-                    </label>
-                    <label>
-                      <input type="checkbox" name="" value="6" /> อนุมัติห้อง
-                    </label>
-                  </div>
-                </div>
-              </form>
-              <div className="buttons">
-                <button onClick={Add_Close} className="close-popup">
-                  Close
-                </button>
-                <button onClick={Add_Save} className="save-popup">
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {Add_Index === 3 && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Building</h2>
-              <form>
-                <table>
-                  <tr>
-                    <td>
-                      <label>ชื่อตึก </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                    <td>
-                      <label>จำนวนชั้น </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
-            </div>
-          </div>
-        )}
-
-        {Add_Index === 4 && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Status</h2>
-              <form>
-                <table>
-                  <tr>
-                    <td>
-                      <label>ชื่อสถานะ </label>
-                      <input type="text" placeholder=" " />
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <button onClick={Add_Close} className="close-popup">
-                Close
-              </button>
-              <button onClick={Add_Save} className="save-popup">
-                Save
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </>
   );
 }

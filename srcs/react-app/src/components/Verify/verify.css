@@ -20,6 +20,7 @@
 
 .vr_table-container {
 	overflow-x: auto;
+	justify-items: center;
 }
 
 .vr_table table {
