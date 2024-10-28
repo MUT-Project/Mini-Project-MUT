@@ -8,7 +8,7 @@ function Login() {
 			<div>
 				<h1>Login</h1>
 			</div>
-			<Link to="/">Login</Link>
+			<Link to="/home">Login</Link>
 		</>
 	);
 }
