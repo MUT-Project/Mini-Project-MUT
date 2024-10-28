@@ -14,7 +14,7 @@ function Login() {
 			if (inputUsername.trim() === "" || inputPassword.trim() === "") {
 				alert("Please input Username or Password");
 			} else {
-				window.location.href = "/";
+				window.location.href = "/home";
 			}
 		}
 	};

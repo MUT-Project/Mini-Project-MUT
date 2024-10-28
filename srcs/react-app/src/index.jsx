@@ -24,7 +24,7 @@ import Mylist from "./components/reserve/mylists";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "/home",
 		element: <Home />
 	},
 	{
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
 	}
 	,
 	{
-		path: "/login",
+		path: "/",
 		element: <Login />
 	}
 	,

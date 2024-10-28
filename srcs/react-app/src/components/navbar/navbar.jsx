@@ -16,7 +16,7 @@ function Navbar() {
 		<>
 			<nav className="navbar">
 				<div className="navbar-left">
-					<Link to="/" className="logo">
+					<Link to="/home" className="logo">
 						<img src={logo} alt="MUT Logo" />
 					</Link>
 					<ul className="navbar-links">
@@ -43,7 +43,7 @@ function Navbar() {
 					</ul>
 				</div>
 				<div className="navbar-icons">
-					<Link to="/login" className="navbar-icon"><FaSignOutAlt /></Link>
+					<Link to="/" className="navbar-icon"><FaSignOutAlt /></Link>
 					<div onClick={toggleNotifications} className="navbar-icon"><FaBell /></div>
 					<Link to="/profile" className="navbar-icon"><FaUserCircle /></Link>
 				</div>
