@@ -29,17 +29,16 @@
 
 		.mylists-btn-res {
 			display: flex;
+			display: flex;
 			align-items: center;
 			gap: 8px;
-			padding: 6px 12px;
-			background-color: #f3f4f6;
+			padding: 10px 20px;
+			background-color: #5b8bf7;
+			color: white;
 			border: none;
-			border-radius: 6px;
-			font-size: 14px;
-			font-weight: 500;
-			color: #4b5563;
+			border-radius: 3px;
 			cursor: pointer;
-			transition: background-color 0.2s ease;
+			font-size:15px;
 		}
 
 		.mylists-btn-res:hover {
@@ -97,7 +96,7 @@
 		color: #ffffff;
 		font-size: 0.9rem;
 		text-align: left;
-		padding-left: 10%;
+		padding-left: 6%;
 	}
 
 	.filters-res {

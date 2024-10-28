@@ -27,14 +27,14 @@ function Reserve() {
 			<div className="bg1-res">
 				<div className="container-res">
 					{/*Search and Filter Section*/}
-					<form className="filter-section-res">
+					<div className="filter-section-res">
 						<div className="button-wrapper-res">
 							<button className="mylists-btn-res" onClick={() => window.location.href = "/mylists"}>
 								<span>My lists</span>
 								<Bookmark size={20} />
 							</button>
 						</div>
-						<div className="search-wrapper-res">
+						<form className="search-wrapper-res">
 							<input
 								type="text"
 								placeholder="Search your room"
@@ -43,17 +43,17 @@ function Reserve() {
 								onChange={(e) => setSearchQuery(e.target.value)}
 							/>
 							<button className="search-button-res" type='submit'>Search</button>
-						</div>
-						
+						</form>
+
 						<div className="filter-text-res">Filter</div>
-						<div className="filters-res">
+						<form className="filters-res">
 							<input type="date" className="filter-select-res date" id="date" />
 							<input type="time" className="filter-select-res starttime" id="timepicker1" />
 							<input type="time" className="filter-select-res endtime" id="timepicker2" />
 							<input type="number" className="filter-select-res capacity" placeholder="Capacity" />
 							<input type="text" className="filter-select-res class" placeholder="Class" />
-						</div>
-					</form>
+						</form>
+					</div>
 
 					<div className="rooms-section-res">
 						<h2 className="section-title-res">Room</h2>
