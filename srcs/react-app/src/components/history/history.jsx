@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Nav from "../navbar/navbar";
+import search from "../../assets/Search.png";
 import "./history.css";
+import Swal from 'sweetalert2'
 
 function History() {
   const columns = [
@@ -28,9 +30,9 @@ function History() {
       case 3:
         return "สำเร็จแล้ว";
       case 4:
-        return "ยกเลิกการจอง";
-      case 5:
         return "ไม่อนุมัติ";
+      case 5:
+        return "ยกเลิกการจอง";
       case 6:
         return "เลยกำหนดการ";
     }
@@ -45,9 +47,9 @@ function History() {
       case 3:
         return "#3B9367";
       case 4:
-        return "#FF0302";
-      case 5:
         return "orange";
+      case 5:
+        return "#FF0302";
       case 6:
         return "#633B48";
     }
@@ -156,7 +158,12 @@ function History() {
             <th className="table_record">
               <p>14:30 - 19:30</p>
             </th>
-            <th className="table_record" style={{ color: setColor(Underlined) }}>
+
+            <th
+              className="table_record"
+              style={{ color: setColor(Underlined) }}
+            >
+             <img src={search} alt="add" className="add-data" />
               {setText(Underlined)}
             </th>
             {state === 1 && (

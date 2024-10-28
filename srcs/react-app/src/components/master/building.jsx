@@ -5,7 +5,7 @@ import add from "../../assets/Adds.png";
 import deletes from "../../assets/Delete.png";
 import edits from "../../assets/Edits.png";
 import search from "../../assets/Search.png";
-
+import Swal from 'sweetalert2'
 function Building() {
   const columns = ["รหัสชั้น", "ชื่อตึก", "จำนวนชั้น"];
   const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
@@ -14,6 +14,36 @@ function Building() {
   };
   const closePopup = () => {
     setPopup(false);
+  };
+  const Delete = () => {
+	Swal.fire({
+		title: "ยืนยันการลบข้อมูล",
+		text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: "ยืนยัน",
+		cancelButtonText: "ยกเลิก",
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33"
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกลบแล้ว",
+			icon: "success"
+		  });
+		}
+	  });
+  }
+  const submitPopup = () => {
+    setPopup(false);
+	Swal.fire({
+		title: "สำเร็จ",
+		text: "ข้อมูลถูกเพิ่มแล้ว",
+		icon: "success",
+		confirmButtonText: "ยืนยัน",
+		confirmButtonColor: "#3085d6",
+	  })
   };
 
   return (
@@ -31,7 +61,7 @@ function Building() {
           Edits
         </button>
 
-        <button type="submit">
+        <button type="submit" onClick={() => Delete()}>
           <img src={deletes} alt="delete" className="delete-data" />
           Delete
         </button>
@@ -80,7 +110,7 @@ function Building() {
             <button className="close-popup" onClick={() => closePopup()}>
               Close
             </button>
-            <button className="save-popup">
+            <button className="save-popup" onClick={() => submitPopup()}>
               Save
             </button>
           </div>
@@ -90,5 +120,6 @@ function Building() {
     </>
   );
 }
+
 
 export default Building;
