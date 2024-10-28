@@ -1,9 +1,12 @@
-import { useState} from 'react';
-import "./reserve.css";
+//necessary import
 import Nav from '../navbar/navbar';
+import { useState } from 'react';
 
+//assets things
+import "./reserve.css";
 import meet1 from '../../assets/meet1.jpg';
 
+//component import
 import { Bookmark } from "lucide-react";
 
 function Reserve() {
@@ -21,87 +24,61 @@ function Reserve() {
 	return (
 		<>
 			<Nav />
-			<div className="bg1">
-				<div className="container">
+			<div className="bg1-res">
+				<div className="container-res">
 					{/*Search and Filter Section*/}
-					<div className="filter-section">
-						<div className="button-wrapper">
-							<button className="my-lists-btn" onClick={() => window.location.href = "/mylists"}>
+					<form className="filter-section-res">
+						<div className="button-wrapper-res">
+							<button className="mylists-btn-res" onClick={() => window.location.href = "/mylists"}>
 								<span>My lists</span>
 								<Bookmark size={20} />
 							</button>
 						</div>
-
-						<div className="search-wrapper">
+						<div className="search-wrapper-res">
 							<input
 								type="text"
 								placeholder="Search your room"
-								className="search-input"
+								className="search-input-res"
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
 							/>
-							<button className="search-button">Search</button>
+							<button className="search-button-res" type='submit'>Search</button>
 						</div>
-
-						<div className="filter-text">Filter</div>
-						<div className="filters">
-							<select className="filter-select">
-								<option value="" disabled selected hidden>Building</option>
-							</select>
-							<select className="filter-select">
-								<option value="" disabled selected hidden>Date</option>
-							</select>
-							<select className="filter-select">
-								<option value="" disabled selected hidden>Time Slot</option>
-							</select>
-							
-							<select className="filter-select">
-								<option value="" disabled selected hidden>Capacity</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9 </option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-							</select>
-							<select className="filter-select">
-								<option value="" disabled selected hidden>Class</option>
-								<option value={"Normal"}>Normal</option>
-								<option value={"Vip"}>Vip</option>
-							</select>
+						
+						<div className="filter-text-res">Filter</div>
+						<div className="filters-res">
+							<input type="date" className="filter-select-res date" id="date" />
+							<input type="time" className="filter-select-res starttime" id="timepicker1" />
+							<input type="time" className="filter-select-res endtime" id="timepicker2" />
+							<input type="number" className="filter-select-res capacity" placeholder="Capacity" />
+							<input type="text" className="filter-select-res class" placeholder="Class" />
 						</div>
-					</div>
+					</form>
 
-					<div className="rooms-section">
-						<h2 className="section-title">Room</h2>
-						<div className="room-grid">
+					<div className="rooms-section-res">
+						<h2 className="section-title-res">Room</h2>
+						<div className="room-grid-res">
 							{rooms.map((room, index) => (
 								<button
 									key={index}
-									className="room-card"
+									className="room-card-res"
 									onClick={() => window.location.href = "/booking"}
-									//role="button"
 									tabIndex={0}
 								>
-									<div className="room-image-container">
+									<div className="room-image-container-res">
 										<img
 											src={room.image}
 											alt={`${room.building} ${room.id}`}
-											className="room-image"
+											className="room-image-res"
 										/>
 									</div>
-									<div className="room-details">
-										<h3 className="room-title">{`${room.building} ${room.id}`}</h3>
-										<p className="room-info-item">Open : {room.openHours}</p>
-										<p className="room-info-item">
+									<div className="room-details-res">
+										<h3 className="room-title-res">{`${room.building} ${room.id}`}</h3>
+										<p className="room-info-item-res">Open : {room.openHours}</p>
+										<p className="room-info-item-res">
 											Room Capacity : {room.capacity}
 										</p>
-										<p className="room-info-item">Class : {room.class}</p>
+										<p className="room-info-item-res">Class : {room.class}</p>
 									</div>
 								</button>
 							))}
