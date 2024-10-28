@@ -6,47 +6,52 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function Verify() {
 	const [verifyList] = useState([{}, {}, {}, {}, {}]);
-	const [Add_Index, setAdd] = useState(0);
+	const [selectedIndex, setSelectedIndex] = useState(null);
 	const [isRejectOpen, setIsRejectOpen] = useState(false);
 	const [isVerifyOpen, setIsVerifyOpen] = useState(false);
 	const [cancelReason, setCancelReason] = useState("");
 
-	const Add_Cancel = () => {
-		setAdd(0);
-	};
-	const Add_Verify = () => {
-		setAdd(0);
-	};
-
-	const openRejectPopup = () => {
+	// Open/Close popups and reset fields
+	const openRejectPopup = (index) => {
+		setSelectedIndex(index);
 		setIsRejectOpen(true);
 	};
 	const closeRejectPopup = () => {
 		setIsRejectOpen(false);
 		setCancelReason("");
+		setSelectedIndex(null);
 	};
-	const openVerifyPopup = () => {
+	const openVerifyPopup = (index) => {
+		setSelectedIndex(index);
 		setIsVerifyOpen(true);
 	};
 	const closeVerifyPopup = () => {
 		setIsVerifyOpen(false);
+		setSelectedIndex(null);
 	};
 
+	// Handle Reject Action
 	const handleCancelSubmit = () => {
-		console.log("Cancel Reason:", cancelReason);
+		console.log("Cancelled Booking for Index:", selectedIndex, "Reason:", cancelReason);
 		closeRejectPopup();
+	};
+
+	// Handle Verify Action
+	const handleVerifySubmit = () => {
+		console.log("Verified Booking for Index:", selectedIndex);
+		closeVerifyPopup();
 	};
 
 	return (
 		<>
 			<Nav />
-			<div className="select-background">
-				<div className="booking-container">
-					<div className="table-container">
-						<div className="table-header">
-							<h2 className="table-title">Booking VIP Lists</h2>
+			<div className="vr_select-background">
+				<div className="vr_booking-container">
+					<div className="vr_table-container">
+						<div className="vr_table-header">
+							<h2 className="vr_table-title">Booking VIP Lists</h2>
 						</div>
-						<table>
+						<table className="vr_table">
 							<thead>
 								<tr>
 									<th>เลขที่รายการ</th>
@@ -54,7 +59,7 @@ function Verify() {
 									<th>รายละเอียดการจอง</th>
 									<th>วันเดือนปี</th>
 									<th>เวลา</th>
-									<th> </th>
+									<th>Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -66,11 +71,11 @@ function Verify() {
 										<td></td>
 										<td></td>
 										<td>
-											<div className="action-buttons">
-												<button className="btn-reject" onClick={openRejectPopup}>
+											<div className="vr_action-buttons">
+												<button className="vr_btn-reject" onClick={() => openRejectPopup(index)}>
 													Reject
 												</button>
-												<button className="btn-verify" onClick={openVerifyPopup}>
+												<button className="vr_btn-verify" onClick={() => openVerifyPopup(index)}>
 													Verify
 												</button>
 											</div>
@@ -82,62 +87,44 @@ function Verify() {
 					</div>
 
 					{isRejectOpen && (
-						<div className="popup">
-							<div className="popup-inner">
-								<div
-									style={{
-										display: "flex",
-										justifyContent: "center",
-										marginBottom: "8px",
-									}}
-								>
-									<FiAlertCircle style={{ fontSize: "64px", color: "#526D82" }} />
+						<div className="vr_popup">
+							<div className="vr_popup-inner">
+								<div className="vr_icon-wrapper">
+									<FiAlertCircle className="vr_icon-alert" />
 								</div>
-
-								<h2 style={{ textAlign: "center" }}>Reject Bookinglist ?</h2>
-								<p></p>
-								<label htmlFor="cancelReason">
-									Please tell user why you reject their booking list
+								<h2 className="vr_popup-title">Reject Booking List?</h2>
+								<label htmlFor="cancelReason" className="vr_label">
+									Please tell the user why you are rejecting their booking list
 								</label>
 								<textarea
+									className="vr_textarea"
 									id="cancelReason"
 									value={cancelReason}
 									onChange={(e) => setCancelReason(e.target.value)}
-									placeholder=""
+									placeholder="Enter reason for rejection"
 									rows="3"
-									style={{ width: "100%", marginTop: "8px" }}
 								/>
-								<button onClick={closeRejectPopup} className="close-popup">
-									Cancle
-								</button>
-								<button onClick={handleCancelSubmit} className="save-popup">
-									Notify user
-								</button>
+								<div className="vr_popup-actions">
+									<button onClick={closeRejectPopup} className="vr_close-popup">
+										Cancel
+									</button>
+									<button onClick={handleCancelSubmit} className="vr_save-popup">
+										Notify user
+									</button>
+								</div>
 							</div>
 						</div>
 					)}
+
 					{isVerifyOpen && (
-						<div className="popup">
-							<div className="popup-inner">
-								<div
-									style={{
-										display: "flex",
-										justifyContent: "center",
-										marginBottom: "8px",
-									}}
-								>
-									<IoIosCheckmarkCircle
-										style={{ fontSize: "64px", color: "#526D82" }}
-									/>
+						<div className="vr_popup">
+							<div className="vr_popup-inner">
+								<div className="vr_icon-wrapper">
+									<IoIosCheckmarkCircle className="vr_icon-checkmark" />
 								</div>
-								<h2>Verify complete !!</h2>
-								<p>We will let the user know about their booking result</p>
-								<button
-									onClick={() => {
-										closeVerifyPopup();
-									}}
-									className="save-popup"
-								>
+								<h2 className="vr_popup-title">Verify complete!</h2>
+								<p className="vr_popup-message">We will notify the user about their booking result.</p>
+								<button onClick={handleVerifySubmit} className="vr_save-popup">
 									Yes
 								</button>
 							</div>
