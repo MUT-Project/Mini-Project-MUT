@@ -1,4 +1,4 @@
-.vr_select-background {
+.select-background {
 	background-color: #E5E7EB;
 	min-height: 92vh;
 	display: flex;
@@ -7,7 +7,7 @@
 	padding: 20px;
 }
 
-.vr_booking-container {
+.booking-container {
 	width: 100%;
 	max-width: 1000px;
 	padding: 20px;
@@ -17,75 +17,75 @@
 	margin-bottom: 40px;
 }
 
-.vr_table-container {
+.table-container {
 	overflow-x: auto;
 }
 
-.vr_table {
+table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.vr_table thead tr {
+thead tr {
 	background-color: #1E40AF;
 	color: #FFFFFF;
 }
 
-.vr_table thead th {
+thead th {
 	padding: 14px 20px;
 	text-align: left;
 	font-weight: 600;
 }
 
-.vr_table tbody tr {
+tbody tr {
 	transition: all 0.3s ease;
 }
 
-.vr_table tbody tr:hover {
+tbody tr:hover {
 	background-color: #F3F4F6;
 }
 
-.vr_table tbody td {
+tbody td {
 	padding: 14px 20px;
 	border-bottom: 1px solid #E5E7EB;
 }
 
-.vr_action-buttons {
+.action-buttons {
 	display: flex;
 	gap: 12px;
 	justify-content: center;
 }
 
-.vr_btn-reject,
-.vr_btn-verify {
+.btn-reject,
+.btn-verify {
 	padding: 8px 18px;
 	border-radius: 8px;
 	font-weight: 500;
 	transition: background-color 0.2s ease;
 }
 
-.vr_btn-reject {
+.btn-reject {
 	border: 1px solid #DC2626;
 	color: #DC2626;
 	background-color: #FFF7F7;
 }
 
-.vr_btn-reject:hover {
+.btn-reject:hover {
 	background-color: #FECACA;
 	color: #991B1B;
 }
 
-.vr_btn-verify {
+.btn-verify {
 	border: none;
 	background-color: #3B82F6;
 	color: #FFFFFF;
 }
 
-.vr_btn-verify:hover {
+.btn-verify:hover {
 	background-color: #2563EB;
 }
 
-.vr_popup {
+.popup {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -98,7 +98,7 @@
 	z-index: 10;
 }
 
-.vr_popup-inner {
+.popup-inner {
 	background: #FFFFFF;
 	padding: 24px;
 	border-radius: 12px;
@@ -108,15 +108,9 @@
 	text-align: center;
 }
 
-.vr_popup-actions {
-	display: flex;
-	justify-content: center;
-	gap: 8px;
-	margin-top: 16px;
-}
-
-.vr_close-popup,
-.vr_save-popup {
+.close-popup,
+.save-popup {
+	margin-top: 20px;
 	padding: 10px 20px;
 	border-radius: 6px;
 	cursor: pointer;
@@ -124,60 +118,44 @@
 	transition: opacity 0.2s ease;
 }
 
-.vr_close-popup {
+.close-popup {
 	border: 1px solid #374151;
 	color: #374151;
 	background-color: #FFFFFF;
+	margin-right: 8px;
 }
 
-.vr_save-popup {
+.save-popup {
 	background-color: #3B82F6;
 	color: #FFFFFF;
 	border: none;
 }
 
-.vr_close-popup:hover,
-.vr_save-popup:hover {
+.close-popup:hover,
+.save-popup:hover {
 	opacity: 0.9;
 }
 
 /* Textarea */
-.vr_textarea {
+textarea {
 	width: 100%;
 	padding: 10px;
 	border-radius: 8px;
 	border: 1px solid #D1D5DB;
+	margin-top: 12px;
 	resize: none;
 	font-size: 14px;
-	margin-top: 8px;
 }
 
-.vr_icon-wrapper {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 8px;
-}
-
-.vr_icon-alert {
-	font-size: 64px;
-	color: #526D82;
-}
-
-.vr_icon-checkmark {
-	font-size: 64px;
-	color: #526D82;
-}
-
-.vr_popup-title {
-	text-align: center;
-}
-
-.vr_popup-message {
-	margin-top: 8px;
+.notification-icon {
+	position: absolute;
+	top: -32px;
+	font-size: 32px;
+	color: #F59E0B;
 }
 
 @media (max-width: 768px) {
-	.vr_booking-container {
+	.booking-container {
 		padding: 10px;
 	}
 
@@ -185,7 +163,7 @@
 		min-width: 700px;
 	}
 
-	.vr_action-buttons {
+	.action-buttons {
 		flex-direction: column;
 	}
 }
