@@ -59,9 +59,6 @@
 	border: none;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	margin-left: 10px;
-}
-
-input[type="text"], input[type="number"], input[type="date"], input[type="time"] {
 	font-size: 16px;
 }
 
@@ -74,7 +71,7 @@ input[type="text"], input[type="number"], input[type="date"], input[type="time"]
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 } */
 
-button {
+.find-button {
 	width: 100%;
 	padding: 15px 40px;
 	background-color: #003366;
@@ -86,6 +83,6 @@ button {
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
+.find-button:hover {
 	background-color: #002244;
 }

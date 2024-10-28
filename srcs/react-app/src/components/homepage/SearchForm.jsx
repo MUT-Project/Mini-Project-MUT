@@ -16,7 +16,7 @@ const SearchCard = () => {
 					<input type="number" placeholder="Room capacity" />
 					<input type="text" placeholder="Class" />
 				</div>
-				<button>Find</button>
+				<button className='find-button'>Find</button>
 			</div>
 		</div>
 	);
