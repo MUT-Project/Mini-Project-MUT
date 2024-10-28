@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState} from 'react';
 import "./reserve.css";
 import Nav from '../navbar/navbar';
 
@@ -26,9 +26,9 @@ function Reserve() {
 					{/*Search and Filter Section*/}
 					<div className="filter-section">
 						<div className="button-wrapper">
-							<button className="my-lists-btn">
+							<button className="my-lists-btn" onClick={() => window.location.href = "/mylists"}>
 								<span>My lists</span>
-								<Bookmark size={16} />
+								<Bookmark size={20} />
 							</button>
 						</div>
 
@@ -46,19 +46,32 @@ function Reserve() {
 						<div className="filter-text">Filter</div>
 						<div className="filters">
 							<select className="filter-select">
-								<option value="">Building</option>
+								<option value="" disabled selected hidden>Building</option>
 							</select>
 							<select className="filter-select">
-								<option value="">Date</option>
+								<option value="" disabled selected hidden>Date</option>
 							</select>
 							<select className="filter-select">
-								<option value="">Time Slot</option>
+								<option value="" disabled selected hidden>Time Slot</option>
 							</select>
+							<input type="text" className="filter-select" list="capacityList"></input>
+							<datalist id="capacityList">
+								<option value="1"></option>
+								<option value="2"></option>
+								<option value="2"></option>
+								<option value="3"></option>
+								<option value="4"></option>
+								<option value="5"></option>
+								<option value="6"></option>
+								<option value="7"></option>
+								<option value="8"> </option>
+								<option value="9"></option>
+								<option value="10"></option>
+							</datalist>
 							<select className="filter-select">
-								<option value="">Room Capacity</option>
-							</select>
-							<select className="filter-select">
-								<option value="">Class</option>
+								<option value="" disabled selected hidden>Class</option>
+								<option value={"Normal"}>Normal</option>
+								<option value={"Vip"}>Vip</option>
 							</select>
 						</div>
 					</div>

@@ -1,8 +1,15 @@
+//necessary import
+import React, { useState, useEffect } from 'react';
 import Nav from '../navbar/navbar';
+
+//assets things
 import "./booking.css";
 import meet1 from '../../assets/meet1.jpg';
-import React, { useState, useEffect } from 'react';
+
+//component import
 import { ChevronLeft, ChevronRight, Bookmark, CheckCircle } from 'lucide-react';
+import Swal from 'sweetalert2';
+
 
 function Booking() {
 	const [selectedDate, setSelectedDate] = useState(19);
@@ -143,16 +150,34 @@ function Booking() {
 
 	const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
+	const handleClick = () => {
+		Swal.fire({
+			title: "You want to add to list?",
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "Your booking added.",
+					icon: "success"
+				});
+			}
+		});
+	};
+
 	return (
 		<>
 			<Nav />
 			<div className='bg2'>
 				<div className="meeting-room">
 					<header className="header">
-						<h1>My Lists</h1>
-						<button className="my-lists-btn">
+						<h1>Room information by Query</h1>
+						<button className="my-lists-btn" onClick={() => window.location.href="/mylists"}>
 							<span>My lists</span>
-							<Bookmark size={16} />
+							<Bookmark size={25} />
 						</button>
 					</header>
 
@@ -165,10 +190,10 @@ function Booking() {
 					<main className="content">
 						<div className="content__left">
 							<div className="room-image">
-								{/*<img
+								<img
 									src={meet1}
 									alt="Meeting Room"
-								/>*/}
+								/>
 							</div>
 						</div>
 
@@ -268,7 +293,7 @@ function Booking() {
 							</div>
 
 							<div className="booking__buttons">
-								<button className="booking__button">
+								<button className="booking__button" onClick={handleClick}>
 									Add to lists
 								</button>
 								<button

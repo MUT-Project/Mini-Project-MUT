@@ -1,5 +1,4 @@
 /* booking.css */
-
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
@@ -11,7 +10,7 @@
 	background-image: url("../../assets/BG.png");
 	background-position: top;
 	background-size: cover;
-	height: 14rem;
+	height: 236px;
 }
 
 .filter-section {
@@ -119,6 +118,11 @@
 	min-width: 160px;
 	cursor: pointer;
 	height: 40px;
+}
+
+.search-input::placeholder {
+	color: #6c757d;
+	text-align: center;
 }
 
 .rooms-section {
