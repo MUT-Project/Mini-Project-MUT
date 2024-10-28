@@ -1,0 +1,44 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.room-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 1fr;
+	gap: 20px;
+	padding: 20px;
+}
+
+.room-card {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s ease-in-out;
+}
+
+.room-card:hover {
+	transform: scale(1.02);
+	cursor: pointer;
+}
+
+.room-card img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.room-info {
+	padding: 15px;
+}
+
+.room-info h3 {
+	margin-top: -10px;
+	/* margin-bottom: 5px; */
+	/* margin: -5; */
+	font-size: 18px;
+}
+.room-info p {
+	color: #777;
+	margin-left: 0px;
+}

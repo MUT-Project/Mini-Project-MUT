@@ -1,0 +1,92 @@
+.footer-container {
+	background-color: #fff;
+	padding: 20px 0;
+	width: 100%;
+	border-top: 1px solid #ddd;
+	overflow: hidden;
+}
+
+.footer-content {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	color: #333;
+	font-size: 14px;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.contact-section {
+	max-width: 300px;
+	margin: 0;
+}
+
+.mut-logo {
+	width: 100px;
+	margin-bottom: 15px;
+}
+
+.social-links {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.social-links a {
+	color: #333;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 14px;
+}
+
+.social-links a:hover {
+	text-decoration: underline;
+}
+
+.contact-section p {
+	margin: 0;
+}
+
+.link-sections {
+	display: flex;
+	gap: 50px;
+	margin: 0;
+	margin-right: 40px;
+}
+
+.link-group {
+	margin-left: 0;
+}
+
+.link-group h4 {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.link-group ul {
+	list-style: none;
+	padding: 0;
+}
+
+.link-group ul li {
+	margin-bottom: 5px;
+}
+
+.link-group ul li a {
+	color: #333;
+	text-decoration: none;
+}
+
+.link-group ul li a:hover {
+	text-decoration: underline;
+}
+
+.footer-bottom {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 12px;
+	color: #888;
+}

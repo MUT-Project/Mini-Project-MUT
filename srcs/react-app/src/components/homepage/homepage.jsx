@@ -1,15 +1,23 @@
-import React from 'react'
-import Nav from '../navbar/navbar';
+import React from 'react';
+import './RoomGrid.css'
+import './BuildingGrid.css'
+import './SearchForm.css'
+import SearchForm from './SearchForm';
+import BuildingGrid from './BuildingGrid';
+import RoomGrid from './RoomGrid';
+import Navbar from '../navbar/navbar';
+import Footer from './Footer';
 
-function Home() {
+const HomePage = () => {
 	return (
-		<>
-			<div>
-				<Nav />
-				<h1>Sawadee krub</h1>
-			</div>
-		</>
-	)
-}
+		<div className="home-page">
+			<Navbar />
+			<SearchForm />
+			<BuildingGrid />
+			<RoomGrid />
+			<Footer />
+		</div>
+	);
+};
 
-export default Home;
+export default HomePage;
