@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
 import "./verify.css";
 import { FiAlertCircle } from "react-icons/fi";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { format } from 'date-fns';
+
 
 function Verify() {
-	const [verifyList] = useState([{}, {}, {}, {}, {}]);
+	const [verifyList, setVerifyList] = useState([]);
 	const [selectedIndex, setSelectedIndex] = useState(null);
 	const [isRejectOpen, setIsRejectOpen] = useState(false);
 	const [isVerifyOpen, setIsVerifyOpen] = useState(false);
 	const [cancelReason, setCancelReason] = useState("");
 
-	// Open/Close popups and reset fields
+	useEffect(() => {
+		const fetchBookings = async () => {
+			try {
+				const response = await fetch("http://localhost:8080/api/verify");
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const data = await response.json();
+				setVerifyList(data);
+			} catch (error) {
+				console.error("Error fetching bookings:", error);
+			}
+		};
+		fetchBookings();
+	}, []);
+
 	const openRejectPopup = (index) => {
 		setSelectedIndex(index);
 		setIsRejectOpen(true);
@@ -30,13 +47,11 @@ function Verify() {
 		setSelectedIndex(null);
 	};
 
-	// Handle Reject Action
 	const handleCancelSubmit = () => {
 		console.log("Cancelled Booking for Index:", selectedIndex, "Reason:", cancelReason);
 		closeRejectPopup();
 	};
 
-	// Handle Verify Action
 	const handleVerifySubmit = () => {
 		console.log("Verified Booking for Index:", selectedIndex);
 		closeVerifyPopup();
@@ -63,26 +78,31 @@ function Verify() {
 								</tr>
 							</thead>
 							<tbody>
-								{verifyList.map((_, index) => (
-									<tr key={index}>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td>
-											<div className="vr_action-buttons">
-												<button className="vr_btn-reject" onClick={() => openRejectPopup(index)}>
-													Reject
-												</button>
-												<button className="vr_btn-verify" onClick={() => openVerifyPopup(index)}>
-													Verify
-												</button>
-											</div>
-										</td>
-									</tr>
-								))}
+								{verifyList.map((booking, index) => {
+									console.log("Booking:", booking);
+									return (
+										<tr key={index}>
+											<td>{index + 1}</td>
+											<td>{booking.rname}</td>
+											<td>{booking.details}</td>
+											<td>{booking.start_date ? format(new Date(booking.start_date), 'dd/MM/yyyy') : 'N/A'}</td>
+											<td>{booking.Time_S ? booking.Time_S : 'N/A'} - {booking.Time_E ? booking.Time_E : 'N/A'}</td>
+											<td>
+												<div className="vr_action-buttons">
+													<button className="vr_btn-reject" onClick={() => openRejectPopup(index)}>
+														Reject
+													</button>
+													<button className="vr_btn-verify" onClick={() => openVerifyPopup(index)}>
+														Verify
+													</button>
+												</div>
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
+
+
 						</table>
 					</div>
 

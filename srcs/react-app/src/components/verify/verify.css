@@ -1,7 +1,7 @@
 /* Updated Unique Classes */
 .vr_select-background {
 	background-color: #E5E7EB;
-	min-height: 92vh;
+	min-height: 94vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -10,7 +10,8 @@
 
 .vr_booking-container {
 	width: 100%;
-	max-width: 1000px;
+	max-width: 1100px;
+	min-height: 600px;
 	padding: 20px;
 	background: #FFFFFF;
 	border-radius: 12px;
@@ -19,8 +20,16 @@
 }
 
 .vr_table-container {
+	width: 100%;
 	overflow-x: auto;
 	justify-items: center;
+	display: block;
+}
+
+.vr_table {
+	width: 100%;
+	min-width: 100%;
+	border-collapse: collapse;
 }
 
 .vr_table table {
@@ -110,6 +119,10 @@
 
 .vr_btn-verify:hover {
 	background-color: #2563EB;
+}
+
+.vr_table-title {
+	margin-bottom: 20px;
 }
 
 /* Popup */

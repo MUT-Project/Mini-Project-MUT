@@ -1,18 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
 import "./profile.css";
 
 function Profile() {
-	const Profile = {
-		Fname: "Chayut",
-		Lname: "Jiambanjong",
-		department: "MII",
+	const [profile, setProfile] = useState({
+		Fname: "",
+		Lname: "",
+		department: "",
 		point: 0,
-		position: "MII",
-		status: "Working",
-	};
+		position: "",
+		status: "",
+	});
 
-	const { Fname, Lname, department, point, position, status } = Profile;
+	useEffect(() => {
+		const fetchProfile = async () => {
+			try {
+				const response = await fetch("http://localhost:8080/api/profile");
+				if (!response.ok) {
+					throw new Error("Failed to fetch profile data");
+				}
+				const data = await response.json();
+				setProfile({
+					Fname: data.fname,
+					Lname: data.lname,
+					department: `Department ${data.department_number}`,
+					point: data.score,
+					position: `Position ${data.position_number}`,
+					status: data.status_number === 1 ? "Working" : "Not Working",
+				});
+			} catch (error) {
+				console.error("Error fetching profile:", error);
+			}
+		};
+
+		fetchProfile();
+	}, []);
+
+	const { Fname, Lname, department, point, position, status } = profile;
 
 	return (
 		<>
