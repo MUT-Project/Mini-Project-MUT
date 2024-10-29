@@ -17,7 +17,9 @@ import Profile from './components/profile/profile';
 import Building from './components/master/building';
 import Department from './components/master/department';
 import Position from './components/master/position';
-import Status from './components/master/status';
+import EmpStatus from './components/master/empstatus';
+import RoomStatus from './components/master/roomstatus';
+import BookingStatus from './components/master/bookingstatus';
 
 import Booking from "./components/reserve/booking";
 import Mylist from "./components/reserve/mylists";
@@ -52,8 +54,14 @@ const router = createBrowserRouter([
 		element: <Position />
 	},
 	{
-		path: "/status",
-		element: <Status />
+		path: "/empstatus",
+		element: <EmpStatus />
+	},{
+		path: "/roomstatus",
+		element: <RoomStatus />
+	},{
+		path: "/bookingstatus",
+		element: <BookingStatus />
 	},
 	{
 		path: "/reserve",

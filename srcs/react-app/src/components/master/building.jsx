@@ -7,118 +7,117 @@ import edits from "../../assets/Edits.png";
 import search from "../../assets/Search.png";
 import Swal from 'sweetalert2'
 function Building() {
-  const columns = ["รหัสชั้น", "ชื่อตึก", "จำนวนชั้น"];
-  const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
-  const openPopup = () => {
-    setPopup(true);
-  };
-  const closePopup = () => {
-    setPopup(false);
-  };
-  const Delete = () => {
-	Swal.fire({
-		title: "ยืนยันการลบข้อมูล",
-		text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
-		icon: "warning",
-		showCancelButton: true,
-		confirmButtonText: "ยืนยัน",
-		cancelButtonText: "ยกเลิก",
-		confirmButtonColor: "#3085d6",
-		cancelButtonColor: "#d33"
-	  }).then((result) => {
-		if (result.isConfirmed) {
-		  Swal.fire({
+	const columns = ["รหัสชั้น", "ชื่อตึก", "จำนวนชั้น"];
+	const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
+	const openPopup = () => {
+		setPopup(true);
+	};
+	const closePopup = () => {
+		setPopup(false);
+	};
+	const Delete = () => {
+		Swal.fire({
+			title: "ยืนยันการลบข้อมูล",
+			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "ยืนยัน",
+			cancelButtonText: "ยกเลิก",
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกลบแล้ว",
+					icon: "success"
+				});
+			}
+		});
+	}
+	const submitPopup = () => {
+		setPopup(false);
+		Swal.fire({
 			title: "สำเร็จ",
-			text: "ข้อมูลถูกลบแล้ว",
-			icon: "success"
-		  });
-		}
-	  });
-  }
-  const submitPopup = () => {
-    setPopup(false);
-	Swal.fire({
-		title: "สำเร็จ",
-		text: "ข้อมูลถูกเพิ่มแล้ว",
-		icon: "success",
-		confirmButtonText: "ยืนยัน",
-		confirmButtonColor: "#3085d6",
-	  })
-  };
+			text: "ข้อมูลถูกเพิ่มแล้ว",
+			icon: "success",
+			confirmButtonText: "ยืนยัน",
+			confirmButtonColor: "#3085d6",
+		})
+	};
 
-  return (
-    <>
-      <Nav />
-      <div className="header"></div>
-      <div className="event-zone">
-        <button type="submit" onClick={() => openPopup()}>
-          <img src={add} alt="add" className="add-data" />
-          Add
-        </button>
+	return (
+		<>
+			<Nav />
+			<div className="header"></div>
+			<div className="event-zone">
+				<button type="submit" onClick={() => openPopup()}>
+					<img src={add} alt="add" className="add-data" />
+					Add
+				</button>
 
-        <button type="submit">
-          <img src={edits} alt="edits" className="edits-data" />
-          Edits
-        </button>
+				<button type="submit">
+					<img src={edits} alt="edits" className="edits-data" />
+					Edits
+				</button>
 
-        <button type="submit" onClick={() => Delete()}>
-          <img src={deletes} alt="delete" className="delete-data" />
-          Delete
-        </button>
+				<button type="submit" onClick={() => Delete()}>
+					<img src={deletes} alt="delete" className="delete-data" />
+					Delete
+				</button>
 
-        <div class="search-container">
-          <input
-            className="input-text"
-            type="text"
-            placeholder="Search.."
-            name="search"
-          ></input>
-          <button className="input-pic" type="input-pic">
-            <img className="search-data" src={search} alt="search" />
-          </button>
-        </div>
-      </div>
-      <div className="table-zone">
-        <table className="table_data">
-          <thead className="table_header">
-            <tr>
-              {columns.map((column, index) => (
-                <th key={index}>{column}</th>
-              ))}
-            </tr>
-          </thead>
-        </table>
-      </div>
-      {Popup && (
-        <div className="popup">
-          <div className="popup-inner">
-            <h2 className="popup_title">Building</h2>
-            <form>
-              <table>
-                <tr>
-                  <td>
-                    <label className="popup_label">ชื่อตึก </label>
-                    <input type="text" placeholder=" " />
-                  </td>
-                  <td>
-                    <label className="popup_label">จำนวนชั้น </label>
-                    <input type="text" placeholder=" " />
-                  </td>
-                </tr>
-              </table>
-            </form>
-            <button className="close-popup" onClick={() => closePopup()}>
-              Close
-            </button>
-            <button className="save-popup" onClick={() => submitPopup()}>
-              Save
-            </button>
-          </div>
-        </div>
-      )}
-      ;
-    </>
-  );
+				<div class="search-container">
+					<input
+						className="input-text"
+						type="text"
+						placeholder="Search.."
+						name="search"
+					></input>
+					<button className="input-pic" type="input-pic">
+						<img className="search-data" src={search} alt="search" />
+					</button>
+				</div>
+			</div>
+			<div className="table-zone">
+				<table className="table_data">
+					<thead className="table_header">
+						<tr>
+							{columns.map((column, index) => (
+								<th key={index}>{column}</th>
+							))}
+						</tr>
+					</thead>
+				</table>
+			</div>
+			{Popup && (
+				<div className="popup">
+					<div className="popup-inner-bu">
+						<h2 className="popup_title">Building</h2>
+						<form>
+							<table>
+								<tr>
+									<td className="popup_item">
+										<label className="popup_label_building">ชื่อตึก </label>
+										<input type="text" className="popup_input_and_select_b" placeholder=" " />
+
+										<label className="popup_label_building">จำนวนชั้น </label>
+										<input type="number" className="popup_input_number" placeholder=" " />
+									</td>
+								</tr>
+							</table>
+						</form>
+						<button className="close-popup" onClick={() => closePopup()}>
+							Close
+						</button>
+						<button className="save-popup" onClick={() => submitPopup()}>
+							Save
+						</button>
+					</div>
+				</div>
+			)}
+			;
+		</>
+	);
 }
 
 export default Building;

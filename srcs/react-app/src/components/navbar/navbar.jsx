@@ -67,7 +67,9 @@ function Navbar() {
 										<li><Link to="/department">Department</Link></li>
 										<li><Link to="/position">Position</Link></li>
 										<li><Link to="/building">Building</Link></li>
-										<li><Link to="/status">Status</Link></li>
+										<li><Link to="/empstatus">EmpStatus</Link></li>
+										<li><Link to="/bookingstatus">BookingStatus</Link></li>
+										<li><Link to="/roomstatus">RoomStatus</Link></li>
 									</ul>
 								</li>
 							</>
