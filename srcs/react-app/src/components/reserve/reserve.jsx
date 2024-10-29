@@ -9,7 +9,6 @@ import meet1 from '../../assets/meet1.jpg';
 //component import
 import { Bookmark } from "lucide-react";
 import Select from 'react-select';
-import { colors } from '@mui/material';
 
 function Reserve() {
 	const options = [
@@ -59,13 +58,12 @@ function Reserve() {
 			...provided,
 			color: 'white'  // Changes the input text color
 		})
-
 	};
 	const [isClearable] = useState(true);
 
 	const [searchQuery, setSearchQuery] = useState("");
 
-	const rooms = Array(2).fill({
+	const rooms = Array(8).fill({
 		id: "K102",
 		building: "Building K",
 		openHours: "Monday - Friday",

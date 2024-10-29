@@ -153,7 +153,7 @@ const RoomBooking = () => {
 									<p><strong>Booking Detail:</strong> {booking.bookingDetail}</p>
 									<p><strong>Book Term:</strong> {booking.bookTerm}</p>
 								</div>
-								<button className="Trash" onClick={handleDel}>
+								<button type="submit" className="Trash" onClick={handleDel}>
 									<Trash size={20} />
 								</button>
 							</div>
@@ -171,11 +171,11 @@ const RoomBooking = () => {
 								/>
 								<span>Select All</span>
 							</label>
-							<label className="remove-btn" role="button">
+							<label type="submit" className="remove-btn" role="button">
 								<span>Remove</span>
 							</label>
 						</div>
-						<button className="book-now-btn" onClick={handleClick2}>Book Now</button>
+						<button type="submit" className="book-now-btn" onClick={handleClick2}>Book Now</button>
 					</div>
 				</div>
 			</div>

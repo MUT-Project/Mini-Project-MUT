@@ -294,10 +294,11 @@ function Booking() {
 
 
 							<div className="booking__buttons-boo">
-								<button className="add__button-boo" onClick={handleClick}>
+								<button type="submit" className="add__button-boo" onClick={handleClick}>
 									Add to lists
 								</button>
 								<button
+									type="submit"
 									className="booking__button--primary-boo"
 									onClick={() => window.location.href = "/mylists"}
 								//disabled={!startTime || !endTime}

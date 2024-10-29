@@ -1,4 +1,4 @@
-.event-zone {
+.event-buttons {
 	display: flex;
 	margin: 1rem 5rem;
 	height: 50px;
@@ -10,7 +10,7 @@
 	height: 30px;
 }
 
-.event-zone>button {
+.event-buttons>button {
 	height: 50px;
 	width: 150px;
 	border: #24344c;

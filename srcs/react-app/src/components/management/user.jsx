@@ -61,18 +61,18 @@ function User() {
 			<Nav />
 			<div className="all_componant">
 				<div className="header-use"></div>
-				<div className="event-zone">
-					<button type="submit" onClick={() => openPopup()}>
+				<div className="event-buttons">
+					<button className="event-add" type="submit" onClick={() => openPopup()}>
 						<img src={add} alt="add" className="add-data" />
 						Add
 					</button>
 
-					<button type="submit">
+					<button className="event-edits" type="submit">
 						<img src={edits} alt="edits" className="edits-data" />
 						Edits
 					</button>
 
-					<button type="submit" onClick={() => Delete()}>
+					<button className="event-del" type="submit" onClick={() => Delete()}>
 						<img src={deletes} alt="delete" className="delete-data" />
 						Delete
 					</button>

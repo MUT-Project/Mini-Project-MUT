@@ -6,16 +6,20 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	display: flex;
 }
 
 .search-card {
-	background-color: rgba(1, 1, 1, 0.3);
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(1, 1, 1, 0.2);
 	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-	max-width: 900px;
+	border-radius: 2px;
+	/*box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);*/
+	max-width: 1300px;
 	width: 100%;
 	text-align: center;
+	margin-bottom: 20px;
 }
 
 .logo-img {
@@ -37,28 +41,29 @@
 
 .room-input {
 	margin-bottom: 20px;
-	width: 90%;
+	width: 57%;
 	padding: 15px;
 	border-radius: 5px;
 	border: none;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	font-size: 16px;
+	text-align: center;
+	font-weight: bold;
 }
 
 .search-options {
-	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin-bottom: 20px;
 }
 
 .search-options input {
-	width: 18%;
 	padding: 10px;
 	border-radius: 5px;
 	border: none;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-	margin-left: 10px;
 	font-size: 16px;
 }
 
@@ -72,17 +77,35 @@
 } */
 
 .find-button {
-	width: 100%;
+	width: 57%;
 	padding: 15px 40px;
-	background-color: #003366;
+	background-color: #27374e;
 	color: white;
 	border: none;
 	cursor: pointer;
 	border-radius: 5px;
 	font-size: 16px;
+	font-weight: bold;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .find-button:hover {
 	background-color: #002244;
+}
+
+.form-select,
+.form-control {
+	background-color: #ffffff;
+	color: #8f8f8f;
+	border-color: #27374e;
+	min-width: 177px;
+	max-width: 177px;
+	cursor: pointer;
+	height: 60px;
+	text-align: center;
+}
+
+.FontColor {
+	color: #969696;
+
 }

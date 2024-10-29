@@ -3,8 +3,9 @@ import buildingImg from "../../assets/homepage/building.png";
 
 const BuildingGrid = () => {
 	return (
-		<div>
-			<p className=".bd_building-card-p">Buildings</p>
+
+		<>
+			<p className="bd_building-card-p">Buildings</p>
 			<div className="bd_building-grid">
 				<div className="bd_building-card">
 					<img src={buildingImg} alt="Building Code:Chicken" />
@@ -39,7 +40,7 @@ const BuildingGrid = () => {
 					<h3>Building K</h3>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

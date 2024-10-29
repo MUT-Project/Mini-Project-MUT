@@ -10,13 +10,15 @@ import Footer from './Footer';
 
 const HomePage = () => {
 	return (
-		<div className="home-page">
-			<Navbar />
-			<SearchForm />
-			<BuildingGrid />
-			<RoomGrid />
-			<Footer />
-		</div>
+		<>
+			<div className="home-page">
+				<Navbar />
+				<SearchForm />
+				<BuildingGrid />
+				<RoomGrid />
+				<Footer />
+			</div>
+		</>
 	);
 };
 
