@@ -9,13 +9,39 @@ function Login() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const buttonName = e.nativeEvent.submitter.name;
-
+	
 		if (buttonName === "signin") {
 			if (inputUsername.trim() === "" || inputPassword.trim() === "") {
 				alert("Please input Username or Password");
-			} else {
-				window.location.href = "/home";
+				return;
 			}
+	
+			// ส่งข้อมูลไปที่ API
+			fetch("http://localhost:8080/api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					username: inputUsername,
+					password: inputPassword,
+				}),
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error("Invalid username or password");
+					}
+					return response.json();
+				})
+				.then((data) => {
+					alert(data.message); // "Login successful"
+					window.location.href = "/home"; // ไปที่หน้าหลัก
+				})
+				.catch((error) => {
+					alert(error.message); // แจ้งเตือนข้อผิดพลาด
+					setInputUsername("")
+					setInputPassword("")
+				});
 		}
 	};
 
