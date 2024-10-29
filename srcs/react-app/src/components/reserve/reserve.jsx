@@ -82,7 +82,7 @@ function Reserve() {
 						<div className="button-wrapper-res">
 							<button className="mylists-btn-res" onClick={() => window.location.href = "/mylists"}>
 								<span>My lists</span>
-								<Bookmark size={20} />
+								<Bookmark size={20}/>
 							</button>
 						</div>
 						<form className="search-wrapper-res">

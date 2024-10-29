@@ -1,57 +1,38 @@
+.header-use {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 1rem;
+}
+
+.event-zone-use {
+	display: flex;
+	margin: 30px auto;
+}
+
 .event-buttons {
 	display: flex;
-	margin: 1rem 5rem;
-	height: 50px;
-	width: auto;
-	/*border: 1px solid red;*/
-}
+	justify-content: space-between;
+	justify-items: center;
+	gap: 10px;
 
-.header-use {
-	height: 30px;
-}
+	.event-add,
+	.event-edits,
+	.event-del {
+		display: flex;
+		align-items: center;
+		border: #A0C5E2;
+		border-radius: 10px;
+		font-size: 20px;
+		font-weight: 500;
+		gap: 8px;
+	}
 
-.event-buttons>button {
-	height: 50px;
-	width: 150px;
-	border: #24344c;
-	border-radius: 5px;
-	background-color: #ffffff;
-	color: #24344c;
-	font-size: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0 1rems;
-	margin: 0 5rem 0 0;
-}
-
-.event-zone>button:hover {
-	background-color: #A0C5E2;
-	color: #050f1d;
-}
-
-.add-data {
-	width: 25px;
-	height: 25px;
-	margin-right: 20px;
-}
-
-.delete-data {
-	width: 25px;
-	height: 25px;
-	margin-right: 20px;
-}
-
-.edits-data {
-	width: 25px;
-	height: 25px;
-	margin-right: 20px;
-}
-
-.searchbox {
-	/*margin-left: 2rem;*/
-	margin-right: 0;
-	margin-left: auto;
+	.event-add:hover,
+	.event-edits:hover,
+	.event-del:hover {
+		background-color: #A0C5E2;
+		color: white;
+	}
 }
 
 .search-data {
@@ -63,45 +44,44 @@
 	background-color: #020a1600;
 }
 
-.search-container {
+.search-container-use {
 	display: flex;
 	align-items: center;
 	margin-left: auto;
-	margin-right: 0;
+
+	.input-text {
+		font-size: 20px;
+		height: 52px;
+		width: 400px;
+		background-color: #c4d4dc;
+		color: #24344c;
+		text-indent: 1rem;
+		border: none;
+		border-radius: 5px 0 0 5px;
+		border-right: none;
+	}
+
+	.input-text::placeholder {
+		color: #24344c;
+	}
+
+	.input-pic-use {
+		height: 52px;
+		margin-left: 0;
+		margin-right: auto;
+		background-color: #c4d4dc;
+		border: none;
+		border-radius: 0 5px 5px 0;
+		/* Top left, Top right, Bottom right, Bottom left */
+		width: 50px;
+	}
+
+	.input-pic-use:hover {
+		background-color: #a4c4e3;
+		color: #24344c;
+	}
 }
 
-.input-text {
-	font-size: 20px;
-	height: 36px;
-	width: 400px;
-	background-color: #c4d4dc;
-	color: #24344c;
-	text-indent: 1rem;
-	border: none;
-	border-radius: 5px 0 0 5px;
-	border-right: none;
-}
-
-.input-text::placeholder {
-	color: #24344c;
-}
-
-.input-pic {
-	height: 52px;
-	margin-left: 0;
-	margin-right: auto;
-	padding: 0 0;
-	background-color: #c4d4dc;
-	border: none;
-	border-radius: 0 5px 5px 0;
-	/* Top left, Top right, Bottom right, Bottom left */
-	width: 50px;
-}
-
-.input-pic:hover {
-	background-color: #a4c4e3;
-	color: #24344c;
-}
 
 .table_data {
 	width: 100%;

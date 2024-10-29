@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
 import "./verify.css";
-import { FiAlertCircle } from "react-icons/fi";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import { format } from 'date-fns';
-
+import Swal from "sweetalert2";
 
 function Verify() {
 	const [verifyList, setVerifyList] = useState([]);
 	const [selectedIndex, setSelectedIndex] = useState(null);
-	const [isRejectOpen, setIsRejectOpen] = useState(false);
-	const [isVerifyOpen, setIsVerifyOpen] = useState(false);
 	const [cancelReason, setCancelReason] = useState("");
 
 	useEffect(() => {
@@ -31,31 +27,74 @@ function Verify() {
 
 	const openRejectPopup = (index) => {
 		setSelectedIndex(index);
-		setIsRejectOpen(true);
-	};
-	const closeRejectPopup = () => {
-		setIsRejectOpen(false);
-		setCancelReason("");
-		setSelectedIndex(null);
+		rejectchoose()
 	};
 	const openVerifyPopup = (index) => {
 		setSelectedIndex(index);
-		setIsVerifyOpen(true);
-	};
-	const closeVerifyPopup = () => {
-		setIsVerifyOpen(false);
-		setSelectedIndex(null);
+		verifychoose()
 	};
 
-	const handleCancelSubmit = () => {
-		console.log("Cancelled Booking for Index:", selectedIndex, "Reason:", cancelReason);
-		closeRejectPopup();
-	};
+	const verifychoose = () => {
+		Swal.fire({
+			title: "ยืนยันการอนุญาต",
+			text: "อนุญาตให้เข้าใช้ห้อง",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "ยืนยัน",
+			cancelButtonText: "ยกเลิก",
+			reverseButtons: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "อนุญาตการใช้ห้องแล้ว",
+					icon: "success"
+				});
+			} else {
+				setSelectedIndex(null)
+			}
+		});
+	}
 
-	const handleVerifySubmit = () => {
-		console.log("Verified Booking for Index:", selectedIndex);
-		closeVerifyPopup();
-	};
+	const rejectchoose = () => {
+		const { value: reason } = Swal.fire({
+			title: "ยืนยันการปฏิเสธ",
+			text: "ปฏิเสธการเข้าใช้ห้อง",
+			icon: "warning",
+			input: "text",
+			inputValue: "เหตุผลการปฏิเสธ",
+			showCancelButton: true,
+			confirmButtonText: "ยืนยัน",
+			cancelButtonText: "ยกเลิก",
+			reverseButtons: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const value = result.value?.trim(); // ตัดช่องว่างออก
+				if (!value) { // เช็คว่าค่าว่างหรือไม่
+					Swal.fire({
+						title: "กรุณากรอกเหตุผล",
+						text: "คุณต้องระบุเหตุผลการปฏิเสธ",
+						icon: "warning"
+					});
+					setSelectedIndex(null)
+				} else {
+					Swal.fire({
+						title: "สำเร็จ",
+						text: "ปฏิเสธการใช้ห้องแล้ว",
+						icon: "error"
+					});
+				}
+			} else {
+				setSelectedIndex(null)
+				setCancelReason("");
+			}
+		});
+	}
+
 
 	return (
 		<>
@@ -101,55 +140,8 @@ function Verify() {
 									);
 								})}
 							</tbody>
-
-
 						</table>
 					</div>
-
-					{isRejectOpen && (
-						<div className="vr_popup">
-							<div className="vr_popup-inner">
-								<div style={{ display: "flex", justifyContent: "center", marginBottom: "8px" }}>
-									<FiAlertCircle style={{ fontSize: "64px", color: "#526D82" }} />
-								</div>
-								<h2 style={{ textAlign: "center" }}>Reject Booking List?</h2>
-								<label htmlFor="cancelReason">
-									Please tell the user why you are rejecting their booking list
-								</label>
-								<textarea
-									id="cancelReason"
-									value={cancelReason}
-									onChange={(e) => setCancelReason(e.target.value)}
-									placeholder="Enter reason for rejection"
-									rows="3"
-									style={{ width: "100%", marginTop: "8px" }}
-								/>
-								<div style={{ display: "flex", justifyContent: "center", gap: "8px" }}>
-									<button onClick={closeRejectPopup} className="vr_close-popup">
-										Cancel
-									</button>
-									<button onClick={handleCancelSubmit} className="vr_save-popup">
-										Notify user
-									</button>
-								</div>
-							</div>
-						</div>
-					)}
-
-					{isVerifyOpen && (
-						<div className="vr_popup">
-							<div className="vr_popup-inner">
-								<div style={{ display: "flex", justifyContent: "center", marginBottom: "8px" }}>
-									<IoIosCheckmarkCircle style={{ fontSize: "64px", color: "#526D82" }} />
-								</div>
-								<h2>Verify complete!</h2>
-								<p>We will notify the user about their booking result.</p>
-								<button onClick={handleVerifySubmit} className="vr_save-popup">
-									Yes
-								</button>
-							</div>
-						</div>
-					)}
 				</div>
 			</div>
 		</>
