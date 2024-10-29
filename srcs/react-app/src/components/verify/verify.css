@@ -1,7 +1,7 @@
 /* Updated Unique Classes */
 .vr_select-background {
 	background-color: #E5E7EB;
-	min-height: 92vh;
+	min-height: 94vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -110,6 +110,11 @@
 
 .vr_btn-verify:hover {
 	background-color: #2563EB;
+}
+
+.vr_table-title {
+	margin-bottom: 20px;
+	margin-right: 35rem;
 }
 
 /* Popup */
