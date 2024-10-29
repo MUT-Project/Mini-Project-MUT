@@ -4,7 +4,7 @@ import roomImg from '../../assets/homepage/room.png';
 const RoomGrid = () => {
 	return (
 		<div>
-			<p>Rooms</p>
+			<p className="bd_room-card-p">Rooms</p>
 			<div className="r_room-grid">
 				<div className="r_room-card">
 					<img src={roomImg} alt="Building D D504" />

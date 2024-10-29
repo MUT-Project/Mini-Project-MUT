@@ -4,6 +4,9 @@ import search from "../../assets/Search.png";
 import "./history.css";
 import Swal from 'sweetalert2'
 
+
+import { Bookmark } from 'lucide-react';
+
 function History() {
 	const columns = [
 		"ลำดับ",
@@ -58,121 +61,129 @@ function History() {
 	return (
 		<>
 			<Nav />
-			<div className="all_componant">
-				<div className="header-his"></div>
-				<div className="selection-zone">
-					<p
-						className="upcomming"
-						onClick={() => Filter_Click(1)}
-						style={{
-							textDecoration: Underlined === 1 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						upcomming
-					</p>
-
-					<p
-						className="On_Progress"
-						onClick={() => Filter_Click(2)}
-						style={{
-							textDecoration: Underlined === 2 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						On_Progress
-					</p>
-
-					<p
-						className="Complete"
-						onClick={() => Filter_Click(3)}
-						style={{
-							textDecoration: Underlined === 3 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						Complete
-					</p>
-
-					<p
-						className="Uncomplete"
-						onClick={() => Filter_Click(4)}
-						style={{
-							textDecoration: Underlined === 4 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						Uncomplete
-					</p>
-
-					<p
-						className="Canceled"
-						onClick={() => Filter_Click(5)}
-						style={{
-							textDecoration: Underlined === 5 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						Canceled
-					</p>
-
-					<p
-						className="Not_Coming"
-						onClick={() => Filter_Click(6)}
-						style={{
-							textDecoration: Underlined === 6 ? "underline" : "none",
-							cursor: "pointer",
-						}}
-					>
-						Not coming on time
-					</p>
-				</div>
-
-				<div className="table-zone">
-					<table className="table_data">
-						<thead className="table_header">
-							<tr>
-								{/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
-								{columns.map((column, index) => (
-									<th key={index}>{column}</th>
-								))}
-								<th></th>
-							</tr>
-						</thead>
-
-						<th className="table_record">
-							<p>1</p>
-						</th>
-						<th className="table_record">
-							<p>1004</p>
-						</th>
-						<th className="table_record">
-							<p>ห้องประชุมชั้น 5</p>
-						</th>
-						<th className="table_record">
-							<p>ซ้อมมวย</p>
-						</th>
-						<th className="table_record">
-							<p>12 พ.ย. 2567</p>
-						</th>
-						<th className="table_record">
-							<p>14:30 - 19:30</p>
-						</th>
-
-						<th
-							className="table_record"
-							style={{ color: setColor(Underlined) }}
+			<div className="all_componant-his">
+				<div className="header-his">
+					<header className="someHeader">
+						<h1>History / Booking information</h1>
+						<button className="mylists-btn-his" onClick={() => window.location.href = "/mylists"}>
+							<span>My lists</span>
+							<Bookmark size={25} />
+						</button>
+					</header>
+					<div className="selection-zone-his">
+						<p
+							className="upcomming"
+							onClick={() => Filter_Click(1)}
+							style={{
+								textDecoration: Underlined === 1 ? "underline" : "none",
+								cursor: "pointer",
+							}}
 						>
-							<img src={search} alt="add" className="add-data" />
-							{setText(Underlined)}
-						</th>
-						{state === 1 && (
+							อนุมัติ
+						</p>
+
+						<p
+							className="On_Progress"
+							onClick={() => Filter_Click(2)}
+							style={{
+								textDecoration: Underlined === 2 ? "underline" : "none",
+								cursor: "pointer",
+							}}
+						>
+							รออนุมัติ
+						</p>
+
+						<p
+							className="Complete"
+							onClick={() => Filter_Click(3)}
+							style={{
+								textDecoration: Underlined === 3 ? "underline" : "none",
+								cursor: "pointer",
+							}}
+						>
+							เสร็จสิ้น
+						</p>
+
+						<p
+							className="Uncomplete"
+							onClick={() => Filter_Click(4)}
+							style={{
+								textDecoration: Underlined === 4 ? "underline" : "none",
+								cursor: "pointer",
+							}}
+						>
+							ถูกปฎิเสธ
+						</p>
+
+						<p
+							className="Canceled"
+							onClick={() => Filter_Click(5)}
+							style={{
+								textDecoration: Underlined === 5 ? "underline" : "none",
+								cursor: "pointer",
+							}}
+						>
+							ยกเลิก
+						</p>
+
+						<p
+							className="Not_Coming"
+							onClick={() => Filter_Click(6)}
+							style={{
+								textDecoration: Underlined === 6 ? "underline" : "none",
+								cursor: "pointer",
+							}}
+						>
+							ไม่มา
+						</p>
+					</div>
+
+					<div className="table-zone">
+						<table className="table_data">
+							<thead className="table_header">
+								<tr>
+									{/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
+									{columns.map((column, index) => (
+										<th key={index}>{column}</th>
+									))}
+									<th></th>
+								</tr>
+							</thead>
+
 							<th className="table_record">
-								<button className="table_button">QR Code</button>
-								<button className="table_button">Cancel</button>
+								<p>1</p>
 							</th>
-						)}
-					</table>
+							<th className="table_record">
+								<p>1004</p>
+							</th>
+							<th className="table_record">
+								<p>ห้องประชุมชั้น 5</p>
+							</th>
+							<th className="table_record">
+								<p>ซ้อมมวย</p>
+							</th>
+							<th className="table_record">
+								<p>12 พ.ย. 2567</p>
+							</th>
+							<th className="table_record">
+								<p>14:30 - 19:30</p>
+							</th>
+
+							<th
+								className="table_record"
+								style={{ color: setColor(Underlined) }}
+							>
+								<img src={search} alt="add" className="add-data" />
+								{setText(Underlined)}
+							</th>
+							{state === 1 && (
+								<th className="table_record">
+									<button className="table_button">QR Code</button>
+									<button className="table_button">Cancel</button>
+								</th>
+							)}
+						</table>
+					</div>
 				</div>
 			</div>
 		</>

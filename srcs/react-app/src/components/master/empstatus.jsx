@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import Nav from "../navbar/navbar";
-import "./status.css";
-import add from "../../assets/Adds.png";
-import deletes from "../../assets/Delete.png";
-import edits from "../../assets/Edits.png";
-import search from "../../assets/Search.png";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesome
+import { faPlus, faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons"; // Import specific icons
 
 function Status() {
 	const columns = ["รหัสสถานะ", "สถานะพนักงาน"];
-	const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
+	const [Popup, setPopup] = useState(false); // State to control pop-up
+
 	const openPopup = () => {
 		setPopup(true);
 	};
+
 	const closePopup = () => {
 		setPopup(false);
 	};
@@ -26,17 +25,17 @@ function Status() {
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
 			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33"
+			cancelButtonColor: "#d33",
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
 					title: "สำเร็จ",
 					text: "ข้อมูลถูกลบแล้ว",
-					icon: "success"
+					icon: "success",
 				});
 			}
 		});
-	}
+	};
 
 	const submitPopup = () => {
 		setPopup(false);
@@ -46,75 +45,82 @@ function Status() {
 			icon: "success",
 			confirmButtonText: "ยืนยัน",
 			confirmButtonColor: "#3085d6",
-		})
+		});
 	};
 
 	return (
 		<>
 			<Nav />
-			<div className="header"></div>
-			<div className="event-zone">
-				<button type="submit" onClick={() => openPopup()}>
-					<img src={add} alt="add" className="add-data" />
-					Add
-				</button>
-
-				<button type="submit">
-					<img src={edits} alt="edits" className="edits-data" />
-					Edits
-				</button>
-
-				<button type="submit" onClick={() => Delete()}>
-					<img src={deletes} alt="delete" className="delete-data" />
-					Delete
-				</button>
-
-				<div class="search-container">
-					<input
-						className="input-text"
-						type="text"
-						placeholder="Search.."
-						name="search"
-					></input>
-					<button className="input-pic" type="input-pic">
-						<img className="search-data" src={search} alt="search" />
-					</button>
-				</div>
-			</div>
-			<div className="table-zone">
-				<table className="table_data">
-					<thead className="table_header">
-						<tr>
-							{columns.map((column, index) => (
-								<th key={index}>{column}</th>
-							))}
-						</tr>
-					</thead>
-				</table>
-			</div>
-			{Popup && (
-				<div className="popup">
-					<div className="popup-inner-st">
-						<h2 className="popup_title">EmployeeStatus</h2>
-						<form>
-							<table>
-								<tr>
-									<td className="popup_item">
-										<label className="popup_label_status">สถานะพนักงาน </label>
-										<input type="text" className="popup_input_and_select_s" placeholder=" " />
-									</td>
-								</tr>
-							</table>
-						</form>
-						<button onClick={() => closePopup()} className="close-popup_status">
-							Close
-						</button>
-						<button className="save-popup" onClick={() => submitPopup()}>
-							Save
-						</button>
+			<div className="vr_select-background">
+				<div className="header-room"></div>
+				<div className="table-zone">
+					<div className="event-zone">
+						<div className="vr_action-buttons">
+							<button className="event-button" onClick={openPopup}>
+								<FontAwesomeIcon icon={faPlus} className="button-icon" />
+								Add
+							</button>
+							<button className="event-button">
+								<FontAwesomeIcon icon={faEdit} className="button-icon" />
+								Edit
+							</button>
+							<button className="event-button" onClick={Delete}>
+								<FontAwesomeIcon icon={faTrash} className="button-icon" />
+								Delete
+							</button>
+						</div>
+						<div className="search-container">
+							<input className="input-text" type="text" placeholder="Search..." />
+							<button className="input-pic">
+								<FontAwesomeIcon icon={faSearch} className="search-icon" />
+							</button>
+						</div>
 					</div>
+					<table className="vr_table">
+						<thead className="vr_table-head-row">
+							<tr>
+								{columns.map((col, idx) => (
+									<th className="vr_table-head-cell" key={idx}>
+										{col}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							<tr className="vr_table-body-row">
+								<td className="vr_table-cell">101</td>
+								<td className="vr_table-cell">Active</td>
+							</tr>
+							{/* Add more rows as needed */}
+						</tbody>
+					</table>
 				</div>
-			)}
+				{Popup && (
+					<div className="popup">
+						<div className="popup-inner-st">
+							<h2 className="popup_title">Employee Status</h2>
+							<form>
+								<div className="popup_item">
+									<label className="popup_label_status">สถานะพนักงาน</label>
+									<input
+										type="text"
+										className="popup_input_and_select_s"
+										placeholder=" "
+									/>
+								</div>
+							</form>
+							<div className="popup-buttons">
+								<button onClick={closePopup} className="close-popup_status">
+									Close
+								</button>
+								<button className="save-popup" onClick={submitPopup}>
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
 		</>
 	);
 }

@@ -16,22 +16,20 @@ function User() {
 		"คะแนนผู้ใช้",
 	];
 
-	const [Popup, setPopup] = useState(false); // State to control popup
+	const [Popup, setPopup] = useState(false);
 	const openPopup = () => setPopup(true);
 	const closePopup = () => setPopup(false);
 
-	const [searchTerm, setSearchTerm] = useState(""); // State for search term
+	const [searchTerm, setSearchTerm] = useState("");
 	const users = [
 		{ id: "001", firstName: "John", lastName: "Doe", department: "MII", position: "หัวหน้าห้องประชุม", status: "ทำงานอยู่", score: 85 },
-		// Add more user data as needed
+
 		{ id: "002", firstName: "Jane", lastName: "Smith", department: "VET", position: "พนักงานทั่วไป", status: "ทำงานอยู่", score: 90 },
-		// Additional user entries can be added here
 	];
 
-	// Function to filter users based on the search term
-	const filteredUsers = users.filter(user => 
-		user.firstName.includes(searchTerm) || 
-		user.lastName.includes(searchTerm) || 
+	const filteredUsers = users.filter(user =>
+		user.firstName.includes(searchTerm) ||
+		user.lastName.includes(searchTerm) ||
 		user.department.includes(searchTerm) ||
 		user.position.includes(searchTerm) ||
 		user.status.includes(searchTerm)
@@ -75,28 +73,28 @@ function User() {
 			<div className="vr_select-background">
 				<div className="header-room"></div>
 				<div className="table-zone">
-				<div className="event-zone">
-					<div className="vr_action-buttons">
-						<button className="event-button" onClick={openPopup}>
-							<FontAwesomeIcon icon={faPlus} className="button-icon" />
-							Add
-						</button>
-						<button className="event-button">
-							<FontAwesomeIcon icon={faEdit} className="button-icon" />
-							Edit
-						</button>
-						<button className="event-button" onClick={Delete}>
-							<FontAwesomeIcon icon={faTrash} className="button-icon" />
-							Delete
-						</button>
+					<div className="event-zone">
+						<div className="vr_action-buttons">
+							<button className="event-button" onClick={openPopup}>
+								<FontAwesomeIcon icon={faPlus} className="button-icon" />
+								Add
+							</button>
+							<button className="event-button">
+								<FontAwesomeIcon icon={faEdit} className="button-icon" />
+								Edit
+							</button>
+							<button className="event-button" onClick={Delete}>
+								<FontAwesomeIcon icon={faTrash} className="button-icon" />
+								Delete
+							</button>
+						</div>
+						<div className="search-container">
+							<input className="input-text" type="text" placeholder="Search..." />
+							<button className="input-pic">
+								<FontAwesomeIcon icon={faSearch} className="search-icon" />
+							</button>
+						</div>
 					</div>
-					<div className="search-container">
-						<input className="input-text" type="text" placeholder="Search..." />
-						<button className="input-pic">
-							<FontAwesomeIcon icon={faSearch} className="search-icon" />
-						</button>
-					</div>
-				</div>
 					<table className="vr_table">
 						<thead className="vr_table-head-row">
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>

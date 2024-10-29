@@ -1,20 +1,49 @@
 .header-his {
-	height: 30px;
+	max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.selection-zone {
+.mylists-btn-his {
 	display: flex;
-	justify-content: flex-start;
 	align-items: center;
-	padding: 0 60px;
-	margin-left: 20px;
-	height: 5rem;
+	gap: 8px;
+	padding: 10px 20px;
+	background-color: #5b8bf7;
+	color: white;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size:15px;
+}
+.all_componant-his {
+	background-image: url("../../assets/BG.png");
+	background-position: top;
+	background-size: cover;
+	height: 145px;
 }
 
-.selection-zone>p {
+.someHeader {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 34.5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+.selection-zone-his {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 1400px;
+	justify-content: space-between;
+	margin: 0 auto;
+	margin-top: 30px;
+	/*height: 5rem;*/
+}
+
+.selection-zone-his>p {
 	cursor: pointer;
 	font-size: 20px;
-	padding-right: 5rem;
 	font-weight: bold;
 }
 
