@@ -1,5 +1,5 @@
 
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Nav from "../navbar/navbar";
 import "./room.css";
 import add from "../../assets/Adds.png";
@@ -9,42 +9,42 @@ import search from "../../assets/Search.png";
 import Swal from 'sweetalert2'
 
 function Room() {
-  const columns = [
-    "รหัสห้อง",
-    "ชื่อห้อง",
-    "รหัสตึก",
-    "ชั้น",
-    "ระดับห้อง",
-    "สถานะ",
-    "ความจุ",
-  ];
-  const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
-  const openPopup = () => {
-    setPopup(true);
-  };
-  const closePopup = () => {
-    setPopup(false);
-  };
+	const columns = [
+		"รหัสห้อง",
+		"ชื่อห้อง",
+		"รหัสตึก",
+		"ชั้น",
+		"ระดับห้อง",
+		"สถานะ",
+		"ความจุ",
+	];
+	const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
+	const openPopup = () => {
+		setPopup(true);
+	};
+	const closePopup = () => {
+		setPopup(false);
+	};
 
-  const Delete = () => {
-	Swal.fire({
-		title: "ยืนยันการลบข้อมูล",
-		text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
-		icon: "warning",
-		showCancelButton: true,
-		confirmButtonText: "ยืนยัน",
-		cancelButtonText: "ยกเลิก",
-		confirmButtonColor: "#3085d6",
-		cancelButtonColor: "#d33"
-	  }).then((result) => {
-		if (result.isConfirmed) {
-		  Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกลบแล้ว",
-			icon: "success"
-		  });
-		}
-	  });
+	const Delete = () => {
+		Swal.fire({
+			title: "ยืนยันการลบข้อมูล",
+			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "ยืนยัน",
+			cancelButtonText: "ยกเลิก",
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกลบแล้ว",
+					icon: "success"
+				});
+			}
+		});
 	}
 	const submitPopup = () => {
 		setPopup(false);
@@ -54,130 +54,130 @@ function Room() {
 			icon: "success",
 			confirmButtonText: "ยืนยัน",
 			confirmButtonColor: "#3085d6",
-		  })
-	  };
-	
-  return (
-    <>
-      <Nav />
-      <div className="all_componant">
-        <div className="header"></div>
-        <div className="event-zone">
-          <button type="submit" onClick={() => openPopup()}>
-            <img src={add} alt="add" className="add-data" />
-            Add
-          </button>
+		})
+	};
 
-          <button type="submit">
-            <img src={edits} alt="edits" className="edits-data" />
-            Edits
-          </button>
+	return (
+		<>
+			<Nav />
+			<div className="all_componant">
+				<div className="header-roo"></div>
+				<div className="event-zone">
+					<button type="submit" onClick={() => openPopup()}>
+						<img src={add} alt="add" className="add-data" />
+						Add
+					</button>
 
-          <button type="submit" onClick={() => Delete()}>
-            <img src={deletes} alt="delete" className="delete-data" />
-            Delete
-          </button>
+					<button type="submit">
+						<img src={edits} alt="edits" className="edits-data" />
+						Edits
+					</button>
 
-          <div class="search-container">
-            <input
-              className="input-text"
-              type="text"
-              placeholder="Search.."
-              name="search"
-            ></input>
-            <button className="input-pic" type="input-pic">
-              <img className="search-data" src={search} alt="search" />
-            </button>
-          </div>
-        </div>
+					<button type="submit" onClick={() => Delete()}>
+						<img src={deletes} alt="delete" className="delete-data" />
+						Delete
+					</button>
 
-        <div className="table-zone">
-          <table className="table_data">
-            <thead className="table_header">
-              <tr>
-                {/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
-                {columns.map((column, index) => (
-                  <th key={index}>{column}</th>
-                ))}
-              </tr>
-            </thead>
-          </table>
-        </div>
+					<div class="search-container">
+						<input
+							className="input-text"
+							type="text"
+							placeholder="Search.."
+							name="search"
+						></input>
+						<button className="input-pic" type="input-pic">
+							<img className="search-data" src={search} alt="search" />
+						</button>
+					</div>
+				</div>
 
-        {Popup && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2 className="popup_title">Room</h2>
-              <form>
-                <table>
-                  <tr>
-                    <td className="popup_item">
-                      <label className="popup_label"> ชื่อห้อง </label>
-                      <input type="text" className="popup_input_and_select" placeholder=" " />
-                    </td>
-                    <td className="popup_item">
-                      <label className="popup_label">ระดับห้อง </label>
-                      <select className="popup_input_and_select">
-                        <option value=""> </option>
-                        <option value="option1">Normal</option>
-                        <option value="option2">VIP</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="popup_item">
-                      <label className="popup_label">ตึก </label>
-                      <select className="popup_input_and_select">
-                        <option value=""> </option>
-                        <option value="option1">MII</option>
-                        <option value="option2">MIIX</option>
-                        <option value="option3">D</option>
-                        <option value="option3">F</option>
-                      </select>
-                    </td>
-                    <td className="popup_item">
-                      <label className="popup_label">ชั้น </label>
-                      <select className="popup_input_and_select">
-                        <option value=""> </option>
-                        <option value="option1">1</option>
-                        <option value="option2">2</option>
-                        <option value="option3">3</option>
-                        <option value="option1">4</option>
-                        <option value="option2">5</option>
-                        <option value="option3">6</option>
-                        <option value="option2">7</option>
-                        <option value="option3">8</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="popup_item">
-                      <label className="popup_label">ความจุ </label>
-                      <select className="popup_input_and_select">
-                        <option value=""> </option>
-                        <option value="option1">10-15</option>
-                        <option value="option2">20-30</option>
-                      </select>
-                    </td>
-                    <td className="popup_item">
-                      <label className="popup_label">สถานะห้อง </label>
-                      <select className="popup_input_and_select">
-                        <option value=""> </option>
-                        <option value="option1">เปิดให้ใช้งาน</option>
-                        <option value="option2">ปิดปรับปรุง</option>
-                      </select>
-                    </td>
-                  </tr>
-                </table>
-              </form>
-              <button className="close-popup" onClick={() => closePopup()}>Close</button>
-              <button className="save-popup" onClick={() => submitPopup()}>Save</button>
-            </div>
-          </div>
-        )}
-      </div>
-    </>
-  );
+				<div className="table-zone">
+					<table className="table_data">
+						<thead className="table_header">
+							<tr>
+								{/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
+								{columns.map((column, index) => (
+									<th key={index}>{column}</th>
+								))}
+							</tr>
+						</thead>
+					</table>
+				</div>
+
+				{Popup && (
+					<div className="popup">
+						<div className="popup-inner">
+							<h2 className="popup_title">Room</h2>
+							<form>
+								<table>
+									<tr>
+										<td className="popup_item">
+											<label className="popup_label"> ชื่อห้อง </label>
+											<input type="text" className="popup_input_and_select" placeholder=" " />
+										</td>
+										<td className="popup_item">
+											<label className="popup_label">ระดับห้อง </label>
+											<select className="popup_input_and_select">
+												<option value=""> </option>
+												<option value="option1">Normal</option>
+												<option value="option2">VIP</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td className="popup_item">
+											<label className="popup_label">ตึก </label>
+											<select className="popup_input_and_select">
+												<option value=""> </option>
+												<option value="option1">MII</option>
+												<option value="option2">MIIX</option>
+												<option value="option3">D</option>
+												<option value="option3">F</option>
+											</select>
+										</td>
+										<td className="popup_item">
+											<label className="popup_label">ชั้น </label>
+											<select className="popup_input_and_select">
+												<option value=""> </option>
+												<option value="option1">1</option>
+												<option value="option2">2</option>
+												<option value="option3">3</option>
+												<option value="option1">4</option>
+												<option value="option2">5</option>
+												<option value="option3">6</option>
+												<option value="option2">7</option>
+												<option value="option3">8</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td className="popup_item">
+											<label className="popup_label">ความจุ </label>
+											<select className="popup_input_and_select">
+												<option value=""> </option>
+												<option value="option1">10-15</option>
+												<option value="option2">20-30</option>
+											</select>
+										</td>
+										<td className="popup_item">
+											<label className="popup_label">สถานะห้อง </label>
+											<select className="popup_input_and_select">
+												<option value=""> </option>
+												<option value="option1">เปิดให้ใช้งาน</option>
+												<option value="option2">ปิดปรับปรุง</option>
+											</select>
+										</td>
+									</tr>
+								</table>
+							</form>
+							<button className="close-popup" onClick={() => closePopup()}>Close</button>
+							<button className="save-popup" onClick={() => submitPopup()}>Save</button>
+						</div>
+					</div>
+				)}
+			</div>
+		</>
+	);
 }
 
 export default Room;

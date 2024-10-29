@@ -1,6 +1,6 @@
 //necessary import
 import Nav from '../navbar/navbar';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 //assets things
 import "./reserve.css";
@@ -8,8 +8,61 @@ import meet1 from '../../assets/meet1.jpg';
 
 //component import
 import { Bookmark } from "lucide-react";
+import Select from 'react-select';
+import { colors } from '@mui/material';
 
 function Reserve() {
+	const options = [
+		{ value: 'D502', label: 'D502' },
+		{ value: 'F502', label: 'F502' },
+		{ value: 'K502', label: 'K502' },
+		{ value: 'D503', label: 'D503' },
+		{ value: 'F506', label: 'F506' },
+		{ value: 'D508', label: 'D508' },
+		{ value: 'F509', label: 'F509' },
+	]
+	const capVal = [
+		{ value: '1', label: '1' },
+		{ value: '2', label: '2' },
+		{ value: '3', label: '3' }
+	]
+	const classVal = [
+		{ value: 'Normal', label: 'Normal' },
+		{ value: 'Vip', label: 'Vip' }
+	]
+
+	const customStyles = {
+		control: (provided) => ({
+			...provided,
+			background: '#27374e',
+			display: 'flex',
+			flexWrap: 'nowrap',
+			borderColor: '#27374e',
+			width: '10em',
+			height: '3.8em'
+		}),
+		menu: (provided) => ({
+			...provided,
+			width: '10em'
+		}),
+		placeholder: (provided) => ({
+			...provided,
+			color: 'white',  // Change this to your desired color
+			// Optional: additional placeholder styling
+			fontWeight: 'normal'
+		}),
+		singleValue: (provided) => ({
+			...provided,
+			color: 'white'  // This changes the selected value color
+		}),
+		input: (provided) => ({
+			...provided,
+			color: 'white'  // Changes the input text color
+		})
+
+	};
+	const [isClearable] = useState(true);
+
 	const [searchQuery, setSearchQuery] = useState("");
 
 	const rooms = Array(2).fill({
@@ -46,13 +99,38 @@ function Reserve() {
 						</form>
 
 						<div className="filter-text-res">Filter</div>
-						<form className="filters-res">
-							<input type="date" className="filter-select-res date" id="date" />
-							<input type="time" className="filter-select-res starttime" id="timepicker1" />
-							<input type="time" className="filter-select-res endtime" id="timepicker2" />
-							<input type="number" className="filter-select-res capacity" placeholder="Capacity" />
-							<input type="text" className="filter-select-res class" placeholder="Class" />
-						</form>
+						<div className="filters-res">
+							<Select
+								styles={customStyles}
+								options={options}
+								isClearable={isClearable}
+								placeholder={'Building'}
+							/>
+							<div className="form-floating">
+								<input type="date" className="form-control" id="Date" placeholder="" value="" />
+								<label className="FontColor" htmlFor="Date">Date</label>
+							</div>
+							<div className="form-floating">
+								<input type="time" className="form-control" id="Start" placeholder="" value="" />
+								<label className="FontColor" htmlFor="Start">Start Time</label>
+							</div>
+							<div className="form-floating">
+								<input type="time" className="form-control" id="End" placeholder="" value="" />
+								<label className="FontColor" htmlFor="End">End Time</label>
+							</div>
+							<Select
+								styles={customStyles}
+								options={capVal}
+								isClearable={isClearable}
+								placeholder={'Capacity'}
+							/>
+							<Select
+								styles={customStyles}
+								options={classVal}
+								isClearable={isClearable}
+								placeholder={'Class'}
+							/>
+						</div>
 					</div>
 
 					<div className="rooms-section-res">

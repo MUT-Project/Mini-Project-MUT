@@ -1,6 +1,6 @@
 /* booking.css */
 .container-res {
-	max-width: 1200px;
+	max-width: 1400px;
 	margin: 0 auto;
 	padding: 1rem;
 	background-color: rgba(255, 255, 255, 0);
@@ -10,7 +10,7 @@
 	background-image: url("../../assets/BG.png");
 	background-position: top;
 	background-size: cover;
-	height: 236px;
+	height: 261px;
 }
 
 .filter-section-res {
@@ -105,7 +105,20 @@
 		flex-wrap: wrap;
 		justify-content: center;
 
-		.filter-select-res {
+		.form-select,.form-control {
+			background-color: #27374e;
+			color: #ffffff;
+			border-color: #27374e;
+			min-width: 177px;
+			max-width: 177px;
+			cursor: pointer;
+			height: 60px;
+		}
+
+		.FontColor {
+			color: #ffffff;
+		}
+		/*.filter-select-res {
 			padding: 0.5rem;
 			border: 1px solid #dee2e6;
 			border-radius: 0.25rem;
@@ -115,9 +128,9 @@
 			min-width: 160px;
 			cursor: pointer;
 			height: 40px;
-		}
+		}*/
 
-		.capacity::placeholder {
+		/*.capacity::placeholder {
 			color: #ffffff;
 			font-size: 0.9rem;
 			text-align: left;
@@ -128,10 +141,10 @@
 			font-size: 0.9rem;
 			text-align: left;
 			padding-left: 5px;
-		}
+		}*/
 	}
 
-	#date:before {
+	/*#date:before {
 		content: 'Date:';
 		margin-right: .6em;
 		color: #ffffff;
@@ -147,7 +160,7 @@
 		content: 'End Time:';
 		margin-right: .6em;
 		color: #ffffff;
-	}
+	}*/
 }
 
 .rooms-section-res {
