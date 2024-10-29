@@ -292,6 +292,7 @@ function Booking() {
 								</div>
 							</div>
 
+
 							<div className="booking__buttons-boo">
 								<button className="add__button-boo" onClick={handleClick}>
 									Add to lists
