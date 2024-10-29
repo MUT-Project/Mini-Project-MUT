@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
-import "./verify.css";
 import { FiAlertCircle } from "react-icons/fi";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { format } from 'date-fns';

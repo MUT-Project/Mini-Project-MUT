@@ -25,7 +25,6 @@ function Report() {
 			{/* <MyChart /> */}
 			<div className="bg-report">
 				<div className="container-report">
-				
 					<div className="b2_po1-report">
 						<div className="b2_po1_lef-report">
 							<b className="b2_po1_lef_b-report" >REPORT !!!</b>

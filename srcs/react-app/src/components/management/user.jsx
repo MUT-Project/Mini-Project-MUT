@@ -1,17 +1,9 @@
-
 import React, { useState } from "react";
 import Nav from "../navbar/navbar";
-import "./user.css";
-
-
-import add from "../../assets/Adds.png";
-import deletes from "../../assets/Delete.png";
-import edits from "../../assets/Edits.png";
-import search from "../../assets/Search.png";
-
-
+import "./style_management.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faEdit, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
-import { Plus, UserRoundPen, Trash2, Search } from "lucide-react";
 
 function User() {
 	const columns = [
@@ -23,13 +15,27 @@ function User() {
 		"สถานะ",
 		"คะแนนผู้ใช้",
 	];
-	const [Popup, setPopup] = useState(false); // state เพื่อควบคุม pop-up
-	const openPopup = () => {
-		setPopup(true);
-	};
-	const closePopup = () => {
-		setPopup(false);
-	};
+
+	const [Popup, setPopup] = useState(false); // State to control popup
+	const openPopup = () => setPopup(true);
+	const closePopup = () => setPopup(false);
+
+	const [searchTerm, setSearchTerm] = useState(""); // State for search term
+	const users = [
+		{ id: "001", firstName: "John", lastName: "Doe", department: "MII", position: "หัวหน้าห้องประชุม", status: "ทำงานอยู่", score: 85 },
+		// Add more user data as needed
+		{ id: "002", firstName: "Jane", lastName: "Smith", department: "VET", position: "พนักงานทั่วไป", status: "ทำงานอยู่", score: 90 },
+		// Additional user entries can be added here
+	];
+
+	// Function to filter users based on the search term
+	const filteredUsers = users.filter(user => 
+		user.firstName.includes(searchTerm) || 
+		user.lastName.includes(searchTerm) || 
+		user.department.includes(searchTerm) ||
+		user.position.includes(searchTerm) ||
+		user.status.includes(searchTerm)
+	);
 
 	const submitPopup = () => {
 		setPopup(false);
@@ -39,7 +45,7 @@ function User() {
 			icon: "success",
 			confirmButtonText: "ยืนยัน",
 			confirmButtonColor: "#3085d6",
-		})
+		});
 	};
 
 	const Delete = () => {
@@ -51,137 +57,78 @@ function User() {
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
 			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33"
+			cancelButtonColor: "#d33",
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
 					title: "สำเร็จ",
 					text: "ข้อมูลถูกลบแล้ว",
-					icon: "success"
+					icon: "success",
 				});
 			}
 		});
-	}
+	};
 
 	return (
 		<>
 			<Nav />
-			<div className="all_componant">
-				<div className="header-use">
-					<div className="event-zone-use">
-						<div className="event-buttons">
-							<button className="event-add" type="submit" onClick={() => openPopup()}>
-								<Plus size={30} />
-								<span>Add</span>
-							</button>
-							<button className="event-edits" type="submit">
-								<UserRoundPen size={25} />
-								<span>Edits</span>
-							</button>
-							<button className="event-del" type="submit" onClick={() => Delete()}>
-								<Trash2 size={25} />
-								<span>Delete</span>
-							</button>
-						</div>
-						<div class="search-container-use">
-							<input
-								className="input-text"
-								type="text"
-								placeholder="Search..."
-								name="search"
-							></input>
-							<button className="input-pic-use" type="input-pic">
-								<Search size={25}/>
-							</button>
-						</div>
+			<div className="vr_select-background">
+				<div className="header-room"></div>
+				<div className="table-zone">
+				<div className="event-zone">
+					<div className="vr_action-buttons">
+						<button className="event-button" onClick={openPopup}>
+							<FontAwesomeIcon icon={faPlus} className="button-icon" />
+							Add
+						</button>
+						<button className="event-button">
+							<FontAwesomeIcon icon={faEdit} className="button-icon" />
+							Edit
+						</button>
+						<button className="event-button" onClick={Delete}>
+							<FontAwesomeIcon icon={faTrash} className="button-icon" />
+							Delete
+						</button>
 					</div>
-
-					<div className="table-zone">
-						<table className="table_data">
-							<thead className="table_header">
-								<tr>
-									{/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
-									{columns.map((column, index) => (
-										<th key={index}>{column}</th>
-									))}
-								</tr>
-							</thead>
-						</table>
+					<div className="search-container">
+						<input className="input-text" type="text" placeholder="Search..." />
+						<button className="input-pic">
+							<FontAwesomeIcon icon={faSearch} className="search-icon" />
+						</button>
 					</div>
-
-					{Popup && (
-						<div className="popup">
-							<div className="popup-inner">
-								<h2>User Form</h2>
-								<form>
-									<table>
-										<tbody>
-											<tr>
-												<td>
-													<label>ชื่อ </label>
-													<input type="text" placeholder=" " />
-												</td>
-												<td>
-													<label>นามสกุล </label>
-													<input type="text" placeholder=" " />
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label>username </label>
-													<input type="text" placeholder=" " />
-												</td>
-												<td>
-													<label>Password </label>
-													<input type="password" placeholder=" " />
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label>แผนก </label>
-													<select>
-														<option value=""> </option>
-														<option value="option1">MII</option>
-														<option value="option2">VET</option>
-														<option value="option3">BU</option>
-														<option value="option4">ELEC</option>
-													</select>
-												</td>
-												<td>
-													<label>ตำแหน่ง </label>
-													<select>
-														<option value=""> </option>
-														<option value="option1">หัวหน้าห้องประชุม</option>
-														<option value="option2">พนักงานทั่วไป</option>
-														<option value="option3">แม่บ้าน</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label>สถานะผู้ใช้ </label>
-													<select>
-														<option value=""> </option>
-														<option value="option1">ทำงานอยู่</option>
-														<option value="option2">ลาออก</option>
-													</select>
-												</td>
-												<td>
-													<label>Email </label>
-													<input type="email" placeholder=" " />
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</form>
-								<button className="close-popup" onClick={() => closePopup()}>Close</button>
-								<button className="save-popup" onClick={() => submitPopup()}>Save</button>
+				</div>
+					<table className="vr_table">
+						<thead className="vr_table-head-row">
+							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
+						</thead>
+						<tbody>
+							<tr className="vr_table-body-row">
+								<td className="vr_table-cell">101</td>
+								<td className="vr_table-cell">Conference Room</td>
+								<td className="vr_table-cell">B1</td>
+								<td className="vr_table-cell">1</td>
+								<td className="vr_table-cell">VIP</td>
+								<td className="vr_table-cell">Available</td>
+								<td className="vr_table-cell">10</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				{Popup && (
+					<div className="vr_popup">
+						<div className="vr_popup-inner">
+							<h2>Room Details</h2>
+							<form className="popup-form">
+								{/* Form contents here */}
+							</form>
+							<div className="popup-buttons">
+								<button className="vr_close-popup" onClick={closePopup}>Close</button>
+								<button className="vr_save-popup" onClick={submitPopup}>Save</button>
 							</div>
 						</div>
-					)}
-				</div>
-			</div>
-		</>
+					</div>
+				)}
+			</div>		</>
 	);
 }
 

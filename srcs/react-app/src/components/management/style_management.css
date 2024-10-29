@@ -1,0 +1,276 @@
+/* Updated Unique Classes */
+.vr_select-background {
+	background-color: #E5E7EB;
+	min-height: 94vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.vr_booking-container {
+	width: 100%;
+	max-width: 1100px;
+	min-height: 600px;
+	padding: 20px;
+	background: #FFFFFF;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	margin-bottom: 40px;
+}
+
+.vr_table {
+	width: 100%;
+	min-width: 100%;
+	border-collapse: collapse;
+}
+
+.vr_table {
+	width: 100%;
+	min-width: 100%;
+	border-collapse: collapse;
+}
+
+.vr_table thead tr,
+.table-header {
+	background-color: #1E40AF;
+	color: #FFFFFF;
+}
+
+.vr_table thead th,
+.table-header th {
+	padding: 14px 20px;
+	text-align: left;
+	font-weight: 600;
+}
+
+.vr_table tbody tr,
+.table-data tbody tr {
+	transition: all 0.3s ease;
+}
+
+.vr_table tbody tr:hover,
+.table-data tbody tr:hover {
+	background-color: #F3F4F6;
+}
+
+.vr_table tbody td,
+.table-data tbody td {
+	padding: 14px 20px;
+	border-bottom: 1px solid #E5E7EB;
+}
+
+/* Action Buttons */
+.vr_action-buttons {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+}
+
+.event-zone {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1rem 0;
+	gap: 12px;
+}
+
+.vr_btn-reject,
+.vr_btn-verify,
+.event-button {
+	padding: 8px 18px;
+	border-radius: 8px;
+	font-weight: 500;
+	transition: background-color 0.2s ease;
+}
+
+.vr_btn-reject {
+	border: 1px solid #DC2626;
+	color: #DC2626;
+	background-color: #FFF7F7;
+}
+
+.vr_btn-reject:hover {
+	background-color: #FECACA;
+	color: #991B1B;
+}
+
+.vr_btn-verify {
+	border: none;
+	background-color: #3B82F6;
+	color: #FFFFFF;
+}
+
+.vr_btn-verify:hover {
+	background-color: #2563EB;
+}
+
+.event-button {
+	height: 50px;
+	padding: 0 20px;
+	background-color: #1E40AF;
+	color: #FFFFFF;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.event-button:hover {
+	background-color: #3B82F6;
+	transform: translateY(-2px);
+}
+
+.event-button:active {
+	transform: translateY(1px);
+}
+
+.add-data,
+.delete-data,
+.edits-data {
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.input-text {
+	font-size: 16px;
+	height: 40px;
+	width: 300px;
+	padding: 0 12px;
+	background-color: #E2E8F0;
+	color: #374151;
+	border-radius: 6px 0 0 6px;
+	border: 1px solid #D1D5DB;
+}
+
+.input-text::placeholder {
+	color: #A0AEC0;
+}
+
+.button-icon {
+	margin-right: 8px;
+}
+
+.input-pic {
+	height: 40px;
+	background-color: #1E40AF;
+	border: 1px solid #D1D5DB;
+	border-radius: 0 6px 6px 0;
+	cursor: pointer;
+	color: #FFFFFF;
+	transition: background-color 0.3s ease;
+}
+
+.input-pic:hover {
+	background-color: #3B82F6;
+}
+
+.table-zone {
+	background-color: #FFFFFF;
+	width: 100%;
+	height: 85vh;
+	padding: 20px;
+}
+
+.table-data {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+/* Textarea */
+textarea.vr_textarea {
+	width: 100%;
+	padding: 10px;
+	border-radius: 8px;
+	border: 1px solid #D1D5DB;
+	margin-top: 12px;
+	resize: none;
+	font-size: 14px;
+}
+
+.vr_notification-icon {
+	position: absolute;
+	top: -32px;
+	font-size: 32px;
+	color: #F59E0B;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+	.vr_booking-container {
+		padding: 10px;
+	}
+
+	.vr_table {
+		min-width: 700px;
+	}
+
+	.vr_action-buttons {
+		flex-direction: column;
+	}
+
+	.event-zone {
+		flex-direction: column;
+	}
+
+	.input-text {
+		width: 100%;
+	}
+
+	.popup-inner {
+		width: 90%;
+	}
+}
+
+/* CSS for SweetAlert2 Popup Form */
+.popup-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+.popup-form .form-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.popup-form .form-column {
+	flex: 1;
+	margin-right: 10px;
+}
+
+.popup-form .form-column:last-child {
+	margin-right: 0;
+}
+
+.popup-form label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.swal2-input,
+.swal2-select {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.swal2-input:focus,
+.swal2-select:focus {
+	border-color: #3085d6;
+	outline: none;
+}
