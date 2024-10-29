@@ -6,23 +6,23 @@ import logo from '../../assets/MUT_LOGO_crop.png';
 import NotificationsPopup from '../notifications/notifications';
 
 function Navbar() {
-	const [authority, setAuthority] = useState("000000");
+	const [authority, setAuthority] = useState("111111");
 
-	useEffect(() => {
-		const fetchAuthority = async () => {
-			try {
-				const response = await fetch(
-					`http://localhost:8080/api/navbar`
-				);
-				const data = await response.json();
-				setAuthority(data.accessno);
-			} catch (error) {
-				console.error("Error fetching history:", error);
-			}
-		};
+	// useEffect(() => {
+	// 	const fetchAuthority = async () => {
+	// 		try {
+	// 			const response = await fetch(
+	// 				`http://localhost:8080/api/navbar`
+	// 			);
+	// 			const data = await response.json();
+	// 			setAuthority(data.accessno);
+	// 		} catch (error) {
+	// 			console.error("Error fetching history:", error);
+	// 		}
+	// 	};
 
-		fetchAuthority();
-	}, []);
+	// 	fetchAuthority();
+	// }, []);
 
 	const [showNotifications, setShowNotifications] = useState(false);
 
