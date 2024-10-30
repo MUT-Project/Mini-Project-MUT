@@ -290,7 +290,8 @@ textarea.vr_textarea {
 }
 
 .popup-form .form-column:last-child {
-	margin-right: 0;
+	flex: 1;
+	margin-right: 10px;
 }
 
 .popup-form label {
@@ -410,4 +411,14 @@ input[name="Bf"] {
 	margin: 20px 0 0 0;
 	border: 1px solid gray;
 	border-radius: 10px;
+}
+
+.Reset {
+	border: 1px solid #ffffff;
+	border-radius: 5px;
+	text-align: center;
+	height: 50px;
+	width: 200px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(137, 0, 0);
 }

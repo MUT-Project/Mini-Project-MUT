@@ -78,7 +78,7 @@ function User() {
 			}
 		});
 	};
-	
+
 	const openPopup = () => {
 		Swal.fire({
 			title: 'Manage User',
@@ -212,6 +212,10 @@ function User() {
 								<option value="Register">Register</option>
 								<option value="Finance">Finance</option>
 							</select>
+						</div>
+						<div class="form-column">
+							<label>แก้ไขคะแนน</label>
+							<button class="Reset">ล้างคะแนน</button>
 						</div>
 					</div>
 				</form>
