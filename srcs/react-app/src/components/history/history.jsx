@@ -67,9 +67,9 @@ function History() {
 			text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?",
 			icon: "warning",
 			showCancelButton: true,
+			reverseButtons: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
-			confirmButtonColor: "#3085d6",
 			cancelButtonColor: "#d33",
 		}).then((result) => {
 			if (result.isConfirmed) {
@@ -77,6 +77,15 @@ function History() {
 			}
 		});
 	};
+
+	const qr = () => {
+		Swal.fire({
+			imageUrl: "https://unsplash.it/400/200",
+			imageWidth: 300,
+			imageHeight: 300,
+			imageAlt: "QR code"
+		});
+	}
 
 	return (
 		<>
@@ -137,7 +146,7 @@ function History() {
 								</td>
 								{state === 1 && (
 									<td className="vr_action-buttons">
-										<button className="vr_btn-verify">QR Code</button>
+										<button className="vr_btn-verify" onClick={qr}>QR Code</button>
 										<button className="vr_btn-reject" onClick={handleCancel}>
 											Cancel
 										</button>

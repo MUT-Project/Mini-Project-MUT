@@ -1,10 +1,42 @@
 import React, { useState } from "react";
 import "./login.css";
 import Logofull from "../../assets/homepage/logo-full.png";
+import Swal  from "sweetalert2";
 
 function Login() {
 	const [inputUsername, setInputUsername] = useState("");
 	const [inputPassword, setInputPassword] = useState("");
+
+	const login = () => {
+		Swal.fire({
+			title: "สำเร็จ",
+			text: "เข้าสู่ระบบสำเร็จแล้ว",
+			icon: "success"
+		  }).then(() => {
+			window.location.href = "/home";
+		  });
+	}
+	const Err = () => {
+		Swal.fire({
+			title: "ข้อผิดพลาด",
+			text: "Username หรือ Password ไม่ถูกต้อง",
+			icon: "error"
+		});
+	}
+	const noinput = () => {
+		Swal.fire({
+			title: "ข้อผิดพลาด",
+			text: "กรุณากรอกข้อมูล Username หรือ Password",
+			icon: "warning"
+		});
+	}
+	const forgotpassword = () => {
+		Swal.fire({
+			title: "ลืมรหัสผ่าน",
+			text: "กรุณาติดต่อ Admin หรือ ผู้ดูแลระบบ",
+			icon: "info"
+		});
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -12,7 +44,7 @@ function Login() {
 	
 		if (buttonName === "signin") {
 			if (inputUsername.trim() === "" || inputPassword.trim() === "") {
-				alert("Please input Username or Password");
+				noinput()
 				return;
 			}
 	
@@ -34,11 +66,12 @@ function Login() {
 					return response.json();
 				})
 				.then((data) => {
-					alert(data.message); // "Login successful"
-					window.location.href = "/home"; // ไปที่หน้าหลัก
+					// alert(data.message); // "Login successful"
+					// window.location.href = "/home"; // ไปที่หน้าหลัก
+					login()
 				})
 				.catch((error) => {
-					alert(error.message); // แจ้งเตือนข้อผิดพลาด
+					Err()
 					setInputUsername("")
 					setInputPassword("")
 				});
@@ -68,7 +101,7 @@ function Login() {
 							className="info-login"
 							placeholder="Enter your password"
 						/>
-						<a className="forgot-login" onClick={() => alert("I forgot my password")}>
+						<a className="forgot-login" onClick={() => forgotpassword()}>
 							I forgot my password
 						</a>
 						<button className="signin-login" type="submit" name="signin">
