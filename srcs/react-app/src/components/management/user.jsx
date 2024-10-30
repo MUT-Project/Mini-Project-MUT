@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
 import "./style_management.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
+import axios from 'axios';
 
 function User() {
 	const columns = [
@@ -16,48 +17,83 @@ function User() {
 		"คะแนนผู้ใช้",
 	];
 
-	const [Popup, setPopup] = useState(false);
-	// const openPopup = () => setPopup(true);
-	// const closePopup = () => setPopup(false);
-
+	const [users, setUsers] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
-	const users = [
-		{ id: "001", firstName: "John", lastName: "Doe", department: "MII", position: "หัวหน้าห้องประชุม", status: "ทำงานอยู่", score: 85 },
+	const [selectedUser, setSelectedUser] = useState(null);
+	const [isEditMode, setIsEditMode] = useState(false);
+	const [isRowSelected, setIsRowSelected] = useState(false);
 
-		{ id: "002", firstName: "Jane", lastName: "Smith", department: "VET", position: "พนักงานทั่วไป", status: "ทำงานอยู่", score: 90 },
-	];
+
+	const departments = ["MII", "Register", "Finance"];
+	const positions = ["Admin", "Employee"];
+
+	useEffect(() => {
+		fetchUsers();
+	}, []);
+
+	const fetchUsers = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getuser");
+			setUsers(response.data);
+		} catch (error) {
+			console.error("Error fetching users:", error);
+		}
+	};
 
 	const filteredUsers = users.filter(user =>
-		user.firstName.includes(searchTerm) ||
-		user.lastName.includes(searchTerm) ||
-		user.department.includes(searchTerm) ||
-		user.position.includes(searchTerm) ||
-		user.status.includes(searchTerm)
+		user.fname.includes(searchTerm) ||
+		user.lname.includes(searchTerm) ||
+		user.dname.includes(searchTerm) ||
+		user.pname.includes(searchTerm) ||
+		user.sname.includes(searchTerm)
 	);
 
-	const submitPopup = () => {
-		setPopup(false);
-		Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกเพิ่มแล้ว",
-			icon: "success",
-			confirmButtonText: "ยืนยัน",
-			confirmButtonColor: "#3085d6",
-		});
+	const handleAddUser = () => {
+		setSelectedUser(null);
+		setIsEditMode(false);
+		openUserPopup("Add User", submitPopup);
 	};
 
-	const EditPopup = () => {
-		setPopup(false);
-		Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกแก้ไขแล้ว",
-			icon: "success",
-			confirmButtonText: "ยืนยัน",
-			confirmButtonColor: "#3085d6",
-		});
+	const handleEditMode = () => {
+		setIsEditMode(true);
 	};
 
-	const Delete = () => {
+	const handleRowClick = (user) => {
+		if (isEditMode) {
+			if (isRowSelected) {
+				setIsRowSelected(false);
+				setSelectedUser(null);
+			} else {
+				setSelectedUser(user);
+				setIsRowSelected(true);
+				openUserPopup("Edit User", editPopup);
+			}
+		}
+	};
+
+
+	const submitPopup = async (userData) => {
+		try {
+			await axios.post("http://localhost:8080/api/adduser", userData);
+			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
+			fetchUsers();
+		} catch (error) {
+			Swal.fire("ข้อผิดพลาด", error.response?.data?.error || "เกิดข้อผิดพลาดในการเพิ่มผู้ใช้", "error");
+			console.error("Error adding user:", error);
+		}
+	};
+
+	const editPopup = async (userData) => {
+		try {
+			await axios.put("http://localhost:8080/api/edituser", { ...userData, ENUMBER: selectedUser.ENumber });
+			Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
+			fetchUsers();
+		} catch (error) {
+			console.error("Error updating user:", error);
+		}
+	};
+
+	const handleDeleteUser = (userId) => {
 		Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
 			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
@@ -65,77 +101,60 @@ function User() {
 			showCancelButton: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
-			reverseButtons: true,
 			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33"
-		}).then((result) => {
+			cancelButtonColor: "#d33",
+			reverseButtons: true,
+		}).then(async (result) => {
 			if (result.isConfirmed) {
-				Swal.fire({
-					title: "สำเร็จ",
-					text: "ข้อมูลถูกลบแล้ว",
-					icon: "success",
-				});
+				try {
+					await axios.delete("http://localhost:8080/api/deluser", { data: { ENUMBER: userId } });
+					Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
+					fetchUsers();
+				} catch (error) {
+					console.error("Error deleting user:", error);
+				}
 			}
 		});
 	};
-	
-	const openPopup = () => {
+
+	const openUserPopup = (title, submitAction) => {
 		Swal.fire({
-			title: 'Manage User',
+			title,
 			html: `
-				<form id="manage-room-form" class="popup-form">
+				<form id="manage-user-form" class="popup-form">
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อ</label>
-							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="FName" class="swal2-input" placeholder=" " required value="${selectedUser?.fname || ''}" />
 						</div>
 						<div class="form-column">
 							<label>นามสกุล</label>
-							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="LName" class="swal2-input" placeholder=" " required value="${selectedUser?.lname || ''}" />
 						</div>
 					</div>
 					<div class="form-row">
-						<div class="form-column">
-							<label>Username</label>
-							<input type="text" name="UserName" class="swal2-input" placeholder=" " required />
-						</div>
-						<div class="form-column">
-							<label>Password</label>
-							<input type="text" name="Password" class="swal2-input" placeholder=" " required />
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>Email</label>
-							<input type="text" name="Email" class="swal2-input" placeholder=" " required />
-						</div>
 						<div class="form-column">
 							<label>แผนก</label>
-							<select name="Department" class="swal2-select" required>
+							<select name="DName" class="swal2-select" required>
 								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
+								${departments.map(department => `<option value="${department}" ${selectedUser?.dname === department ? 'selected' : ''}>${department}</option>`).join('')}
+							</select>
+						</div>
+						<div class="form-column">
+							<label>ตำแหน่ง</label>
+							<select name="PName" class="swal2-select" required>
+								<option value=""> </option>
+								${positions.map(position => `<option value="${position}" ${selectedUser?.pname === position ? 'selected' : ''}>${position}</option>`).join('')}
 							</select>
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-column">
-							<label>ตำแหน่ง</label>
-							<select name="Position" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
-							</select>
-						</div>
-						<div class="form-column">
 							<label>สถานะ</label>
-							<select name="Status" class="swal2-select" required>
+							<select name="SName" class="swal2-select" required>
 								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
+								<option value="Active">ทำงานอยู่</option>
+								<option value="Inactive">ลางาน</option>
 							</select>
 						</div>
 					</div>
@@ -145,90 +164,13 @@ function User() {
 			showCancelButton: true,
 			confirmButtonText: 'ยืนยัน',
 			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
 			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
+				const form = document.getElementById('manage-user-form');
+				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
 			}
 		}).then((result) => {
 			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				submitPopup(formData);
-			}
-		});
-	};
-
-	const EditUser = () => {
-		Swal.fire({
-			title: 'Manage User',
-			html: `
-				<form id="manage-room-form" class="popup-form">
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชื่อ</label>
-							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
-						</div>
-						<div class="form-column">
-							<label>นามสกุล</label>
-							<input type="text" name="LastName" class="swal2-input" placeholder=" " required />
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>Username</label>
-							<input type="text" name="UserName" class="swal2-input" placeholder=" " required />
-						</div>
-						<div class="form-column">
-							<label>Email</label>
-							<input type="text" name="Email" class="swal2-input" placeholder=" " required />
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>แผนก</label>
-							<select name="Department" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
-							</select>
-						</div>
-						<div class="form-column">
-							<label>ตำแหน่ง</label>
-							<select name="Position" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>สถานะ</label>
-							<select name="Status" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="Register">Register</option>
-								<option value="Finance">Finance</option>
-							</select>
-						</div>
-					</div>
-				</form>
-			`,
-			focusConfirm: false,
-			showCancelButton: true,
-			confirmButtonText: 'แก้ไข',
-			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
-			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
-			}
-		}).then((result) => {
-			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				EditPopup(formData);
+				submitAction(result.value);
 			}
 		});
 	};
@@ -241,21 +183,26 @@ function User() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={handleAddUser}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={EditUser}>
+							<button className="event-button" onClick={handleEditMode}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
-							<button className="event-button" onClick={Delete}>
+							<button className="event-button" onClick={() => handleDeleteUser(selectedUser?.ENumber)}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
 								Delete
 							</button>
 						</div>
 						<div className="search-container">
-							<input className="input-text" type="text" placeholder="Search..." />
+							<input
+								className="input-text"
+								type="text"
+								placeholder="Search..."
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
 							<button className="input-pic">
 								<FontAwesomeIcon icon={faSearch} className="search-icon" />
 							</button>
@@ -266,19 +213,27 @@ function User() {
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							<tr className="vr_table-body-row">
-								<td className="vr_table-cell">101</td>
-								<td className="vr_table-cell">Conference Room</td>
-								<td className="vr_table-cell">B1</td>
-								<td className="vr_table-cell">1</td>
-								<td className="vr_table-cell">VIP</td>
-								<td className="vr_table-cell">Available</td>
-								<td className="vr_table-cell">10</td>
-							</tr>
+							{filteredUsers.map((user, index) => (
+								<tr
+									className="vr_table-body-row"
+									key={user.idx}
+									onClick={() => handleRowClick(user, index)}
+									style={{ cursor: isEditMode ? "pointer" : "default" }}
+								>
+									<td className="vr_table-cell">{user.enumber}</td>
+									<td className="vr_table-cell">{user.fname}</td>
+									<td className="vr_table-cell">{user.lname}</td>
+									<td className="vr_table-cell">{user.dname}</td>
+									<td className="vr_table-cell">{user.pname}</td>
+									<td className="vr_table-cell">{user.sname}</td>
+									<td className="vr_table-cell">{user.score}</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
-			</div>		</>
+			</div>
+		</>
 	);
 }
 
