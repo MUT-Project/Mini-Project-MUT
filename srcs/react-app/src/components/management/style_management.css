@@ -1,4 +1,3 @@
-/* Updated Unique Classes */
 .vr_select-background {
 	background-color: #E7E6E3;
 	min-height: 96vh;
@@ -60,7 +59,7 @@
 	border-bottom: 1px solid #E5E7EB;
 }
 
-/* Action Buttons */
+
 .vr_action-buttons {
 	display: flex;
 	gap: 12px;
@@ -188,7 +187,7 @@
 	margin-top: 20px;
 }
 
-/* Textarea */
+
 textarea.vr_textarea {
 	width: 100%;
 	padding: 10px;
@@ -206,7 +205,7 @@ textarea.vr_textarea {
 	color: #F59E0B;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
 	.vr_booking-container {
 		padding: 10px;
@@ -233,7 +232,7 @@ textarea.vr_textarea {
 	}
 }
 
-/* CSS for SweetAlert2 Popup Form */
+
 .popup-form {
 	display: flex;
 	flex-direction: column;
@@ -273,4 +272,39 @@ textarea.vr_textarea {
 .swal2-select:focus {
 	border-color: #3085d6;
 	outline: none;
+}
+
+.selection-zone-his {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 20px 0;
+}
+
+.status-filter {
+	cursor: pointer;
+	padding: 10px 15px;
+	border-radius: 6px;
+	margin: 0 10px;
+	background-color: #E2E8F0;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	font-weight: 500;
+}
+
+.status-filter:hover {
+	background-color: #1E40AF;
+	color: white;
+}
+
+@media (max-width: 768px) {
+	.selection-zone-his {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.status-filter {
+		margin: 5px 0;
+		width: 100%;
+		text-align: center;
+	}
 }
