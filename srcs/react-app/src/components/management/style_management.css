@@ -210,7 +210,14 @@
 	width: 100%;
 	height: 85vh;
 	padding: 20px;
+	overflow: auto;
 }
+
+.table-scroll {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
 
 .table-data {
 	width: 100%;

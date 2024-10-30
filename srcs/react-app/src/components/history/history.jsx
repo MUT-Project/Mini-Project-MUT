@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../navbar/navbar";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faClock, faTimesCircle, faTimes, faEye } from '@fortawesome/free-solid-svg-icons'; // Import relevant icons
+import { faCheckCircle, faClock, faTimesCircle, faTimes, faEye } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { format } from 'date-fns';
+
 
 function History() {
 	const columns = [
@@ -15,6 +18,7 @@ function History() {
 		"สถานะ",
 	];
 
+	const [bookingHistories, setBookingHistories] = useState([]);
 	const [underlined, setUnderlined] = useState(1);
 	const [state, setState] = useState(1);
 
@@ -81,6 +85,19 @@ function History() {
 			imageAlt: "QR code"
 		});
 	}
+	useEffect(() => {
+		const fetchBookingHistory = async () => {
+			try {
+				const response = await axios.get('http://localhost:8080/api/bookinghistory');
+				setBookingHistories(response.data);
+			} catch (error) {
+				console.error("Error fetching booking history:", error);
+			}
+		};
+
+		fetchBookingHistory();
+	}, []);
+
 
 	return (
 		<>
@@ -108,74 +125,79 @@ function History() {
 							</div>
 						</div>
 					</div>
-
-					<table className="vr_table">
-						<thead>
-							<tr>
-								{columns.map((column, index) => (
-									<th className="vr_table-head-cell" key={index}>
-										{column}
-									</th>
+					<div class="table-scroll">
+						<table className="vr_table">
+							<thead>
+								<tr>
+									{columns.map((column, index) => (
+										<th className="vr_table-head-cell" key={index}>
+											{column}
+										</th>
+									))}
+									<th className="vr_table-head-cell"></th>
+								</tr>
+							</thead>
+							<tbody>
+								{bookingHistories.map((bh, index) => (
+									<tr className="vr_table-body-row" key={bh.bknumber}>
+										<td className="vr_table-cell">{index + 1}</td>
+										<td className="vr_table-cell">{bh.bknumber}</td>
+										<td className="vr_table-cell">{bh.rname}</td>
+										<td className="vr_table-cell">{bh.details}</td>
+										<td className="vr_table-cell">
+											{bh.bkdate
+												? format(new Date(bh.bkdate), "dd/MM/yyyy")
+												: "N/A"}
+										</td>
+										<td className="vr_table-cell">{bh.start_time} - {bh.end_time}</td>
+										<td className="vr_table-cell" style={{ color: setColor(underlined) }}>
+											<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+												{underlined === 1 ? (
+													<>
+														<FontAwesomeIcon icon={faCheckCircle} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : underlined === 2 ? (
+													<>
+														<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : underlined === 3 ? (
+													<>
+														<FontAwesomeIcon icon={faEye} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : underlined === 4 ? (
+													<>
+														<FontAwesomeIcon icon={faTimesCircle} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : underlined === 5 ? (
+													<>
+														<FontAwesomeIcon icon={faTimes} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : underlined === 6 ? (
+													<>
+														<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
+														{setText(underlined)}
+													</>
+												) : null}
+											</div>
+										</td>
+										{state === 1 && (
+											<td className="vr_action-buttons">
+												<button className="vr_btn-verify">QR Code</button>
+												<button className="vr_btn-reject" onClick={handleCancel}>
+													Cancel
+												</button>
+											</td>
+										)}
+									</tr>
 								))}
-								<th className="vr_table-head-cell"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr className="vr_table-body-row">
-								<td className="vr_table-cell">1</td>
-								<td className="vr_table-cell">1004</td>
-								<td className="vr_table-cell">ห้องประชุมชั้น 5</td>
-								<td className="vr_table-cell">ซ้อมมวย</td>
-								<td className="vr_table-cell">12 พ.ย. 2567</td>
-								<td className="vr_table-cell">14:30 - 19:30</td>
-								<td className="vr_table-cell" style={{ color: setColor(underlined) }}>
-									<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-										{underlined === 1 ? (
-											<>
-												<FontAwesomeIcon icon={faCheckCircle} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : underlined === 2 ? (
-											<>
-												<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : underlined === 3 ? (
-											<>
-												<FontAwesomeIcon icon={faEye} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : underlined === 4 ? (
-											<>
-												<FontAwesomeIcon icon={faTimesCircle} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : underlined === 5 ? (
-											<>
-												<FontAwesomeIcon icon={faTimes} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : underlined === 6 ? (
-											<>
-												<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
-												{setText(underlined)}
-											</>
-										) : null}
-									</div>
-								</td>
-
-
-								{state === 1 && (
-									<td className="vr_action-buttons">
-										<button className="vr_btn-verify" onClick={qr}>QR Code</button>
-										<button className="vr_btn-reject" onClick={handleCancel}>
-											Cancel
-										</button>
-									</td>
-								)}
-							</tr>
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</>
