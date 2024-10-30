@@ -10,10 +10,84 @@ function Building() {
 
 	const openPopup = () => {
 		setPopup(true);
+		Swal.fire({
+			title: 'Manage Building',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตึก</label>
+							<input type="text" name="BuildingName" class="swal2-input-building" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>จำนวนชั้น</label>
+							<input type="number" name="Bf" class="swal2-select" required min="1" max="10"></input>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกเพิ่มแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
 	};
 
-	const closePopup = () => {
-		setPopup(false);
+	const Edit = () => {
+		setPopup(true);
+		Swal.fire({
+			title: 'Manage Building',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตึก</label>
+							<input type="text" name="BuildingName" class="swal2-input-building" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>จำนวนชั้น</label>
+							<input type="number" name="Bfloor" class="swal2-select" required min="1" max="100"></input>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกแก้ไขแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
 	};
 
 	const Delete = () => {
@@ -60,7 +134,7 @@ function Building() {
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={Edit}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
@@ -95,37 +169,6 @@ function Building() {
 						</tbody>
 					</table>
 				</div>
-				{Popup && (
-					<div className="popup">
-						<div className="popup-inner-bu">
-							<h2 className="popup_title">Building</h2>
-							<form>
-								<div className="popup_item">
-									<label className="popup_label_building">ชื่อตึก</label>
-									<input
-										type="text"
-										className="popup_input_and_select_b"
-										placeholder=" "
-									/>
-									<label className="popup_label_building">จำนวนชั้น</label>
-									<input
-										type="number"
-										className="popup_input_number"
-										placeholder=" "
-									/>
-								</div>
-							</form>
-							<div className="popup-buttons">
-								<button className="close-popup" onClick={closePopup}>
-									Close
-								</button>
-								<button className="save-popup" onClick={submitPopup}>
-									Save
-								</button>
-							</div>
-						</div>
-					</div>
-				)}
 			</div>
 		</>
 	);

@@ -4,6 +4,7 @@ import { FaSignOutAlt, FaBell, FaUserCircle } from 'react-icons/fa';
 import './navbar.css';
 import logo from '../../assets/MUT_LOGO_crop.png';
 import NotificationsPopup from '../notifications/notifications';
+import Swal from "sweetalert2";
 
 function Navbar() {
 	const [authority, setAuthority] = useState("111111");
@@ -29,6 +30,29 @@ function Navbar() {
 	const toggleNotifications = () => {
 		setShowNotifications(!showNotifications);
 	};
+
+	const Logout = () => {
+		Swal.fire({
+			title: "ยืนยันการออกจากระบบ",
+			text: "คุณต้องการออกจากระบบหรือไม่",
+			icon: "warning",
+			showCancelButton: true,
+			cancelButtonText: "ยกเลิก",
+			confirmButtonText: "ยืนยัน",
+			reverseButtons: true,
+			cancelButtonColor: "#d33"
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire({
+				title: "สำเร็จ",
+				text: "ออกจากระบบสำเร็จแล้ว",
+				icon: "success"
+			  }).then(() => {
+				window.location.href = "/";
+			  });
+			}
+		  });
+		}
 
 	return (
 		<>
@@ -87,7 +111,7 @@ function Navbar() {
 					</ul>
 				</div>
 				<div className="navbar-icons">
-					<Link to="/" className="navbar-icon"><FaSignOutAlt /></Link>
+					<div onClick={Logout} className="navbar-icon"><FaSignOutAlt /></div>
 					<div onClick={toggleNotifications} className="navbar-icon"><FaBell /></div>
 					<Link to="/profile" className="navbar-icon"><FaUserCircle /></Link>
 				</div>
