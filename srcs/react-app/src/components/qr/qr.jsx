@@ -5,7 +5,7 @@ function QR() {
 	return (
 		<>
 			<div className="bgqr">
-				<h3>KUAY</h3>
+				<h3>ยืนยันการเข้าใช้ห้อง</h3>
 				<div className="GAY">
 					<button className="YES">ยืนยัน</button>
 					<button className="NO">ยกเลิก</button>
