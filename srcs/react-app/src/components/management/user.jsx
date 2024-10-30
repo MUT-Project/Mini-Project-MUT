@@ -17,8 +17,8 @@ function User() {
 	];
 
 	const [Popup, setPopup] = useState(false);
-	const openPopup = () => setPopup(true);
-	const closePopup = () => setPopup(false);
+	// const openPopup = () => setPopup(true);
+	// const closePopup = () => setPopup(false);
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const users = [
@@ -54,8 +54,9 @@ function User() {
 			showCancelButton: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
+			reverseButtons: true,
 			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
+			cancelButtonColor: "#d33"
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
@@ -63,6 +64,160 @@ function User() {
 					text: "ข้อมูลถูกลบแล้ว",
 					icon: "success",
 				});
+			}
+		});
+	};
+	
+	const openPopup = () => {
+		Swal.fire({
+			title: 'Manage User',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อ</label>
+							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>นามสกุล</label>
+							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>Username</label>
+							<input type="text" name="UserName" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>Password</label>
+							<input type="text" name="Password" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>Email</label>
+							<input type="text" name="Email" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>แผนก</label>
+							<select name="Department" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>ตำแหน่ง</label>
+							<select name="Position" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+						<div class="form-column">
+							<label>สถานะ</label>
+							<select name="Status" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'Save',
+			cancelButtonText: 'Cancel',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				submitPopup(formData);
+			}
+		});
+	};
+
+	const EditUser = () => {
+		Swal.fire({
+			title: 'Manage User',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อ</label>
+							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>นามสกุล</label>
+							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>Username</label>
+							<input type="text" name="UserName" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>Email</label>
+							<input type="text" name="Email" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>แผนก</label>
+							<select name="Department" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+						<div class="form-column">
+							<label>ตำแหน่ง</label>
+							<select name="Position" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>สถานะ</label>
+							<select name="Status" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="Register">Register</option>
+								<option value="Finance">Finance</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'Save',
+			cancelButtonText: 'Cancel',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				submitPopup(formData);
 			}
 		});
 	};
@@ -79,7 +234,7 @@ function User() {
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={EditUser}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
@@ -112,20 +267,20 @@ function User() {
 						</tbody>
 					</table>
 				</div>
-				{Popup && (
+				{/*Popup && (
 					<div className="vr_popup">
 						<div className="vr_popup-inner">
 							<h2>Room Details</h2>
 							<form className="popup-form">
 								{/* Form contents here */}
-							</form>
+							{/* </form>
 							<div className="popup-buttons">
 								<button className="vr_close-popup" onClick={closePopup}>Close</button>
 								<button className="vr_save-popup" onClick={submitPopup}>Save</button>
 							</div>
 						</div>
 					</div>
-				)}
+				)} */}
 			</div>		</>
 	);
 }

@@ -5,7 +5,7 @@ import { faPlus, faEdit, faTrash, faSearch } from '@fortawesome/free-solid-svg-i
 import Swal from "sweetalert2";
 
 function Position() {
-	const columns = ["รหัสสถานะ", "ชื่อสถานะ"];
+	const columns = ["รหัสตำแหน่ง", "ชื่อตำแหน่ง", "สิทธิ์การเข้าใช้"];
 	const [Popup, setPopup] = useState(false); // State to control the popup
 	const [positionName, setPositionName] = useState(""); // State for position name
 	const [permissions, setPermissions] = useState({
@@ -16,9 +16,6 @@ function Position() {
 		report: false,
 		approveRoom: false,
 	}); // State for checkbox permissions
-
-	const openPopup = () => setPopup(true);
-	const closePopup = () => setPopup(false);
 
 	const Delete = () => {
 		Swal.fire({
@@ -41,33 +38,113 @@ function Position() {
 		});
 	};
 
-	const submitPopup = (event) => {
-		event.preventDefault(); // Prevent default form submission
-		if (!positionName) {
-			Swal.fire({
-				title: "ข้อผิดพลาด",
-				text: "กรุณากรอกชื่อตำแหน่ง",
-				icon: "error",
-			});
-			return;
-		}
-
-		setPopup(false);
+	const AddPosition = () => {
 		Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกเพิ่มแล้ว",
-			icon: "success",
-			confirmButtonText: "ยืนยัน",
-			confirmButtonColor: "#3085d6",
+			title: 'Manage Department',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตำแหน่ง</label>
+							<input type="text" name="PositionName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>สิทธิ์การเข้าใช้ : </label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">การจอง</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">เช็คประวัติ</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">การจัดการ</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">จัดการข้อมูลพื้นฐาน</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">รายงาน</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">อนุมัติ</label>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกเพิ่มแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
 		});
 	};
 
-	const handleCheckboxChange = (event) => {
-		const { name, checked } = event.target;
-		setPermissions((prevPermissions) => ({
-			...prevPermissions,
-			[name]: checked,
-		}));
+	const EditPosition = () => {
+		Swal.fire({
+			title: 'Manage Department',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตำแหน่ง</label>
+							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกแก้ไขแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
 	};
 
 	return (
@@ -78,11 +155,11 @@ function Position() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={AddPosition}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={EditPosition}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
@@ -106,12 +183,13 @@ function Position() {
 							<tr className="vr_table-body-row">
 								<td className="vr_table-cell">101</td>
 								<td className="vr_table-cell">Position A</td>
+								<td className="vr_table-cell">111111</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
-				{Popup && (
+				{/* {Popup && (
 					<div className="popup">
 						<div className="popup-position-po">
 							<h2 className="popup_title">Position</h2>
@@ -211,7 +289,7 @@ function Position() {
 							</form>
 						</div>
 					</div>
-				)}
+				)} */}
 			</div>
 		</>
 	);

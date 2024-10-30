@@ -95,11 +95,7 @@ function Room() {
 						</div>
 						<div class="form-column">
 							<label>ความจุ</label>
-							<select name="capacity" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="10-15">10-15</option>
-								<option value="20-30">20-30</option>
-							</select>
+							<input type="number" class="swal2-select" required min="1" max="100"></input>
 						</div>
 					</div>
 				</form>
@@ -108,6 +104,7 @@ function Room() {
 			showCancelButton: true,
 			confirmButtonText: 'Save',
 			cancelButtonText: 'Cancel',
+			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
 				return form.reportValidity() ? form : false;
@@ -133,7 +130,7 @@ function Room() {
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={openPopup}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>

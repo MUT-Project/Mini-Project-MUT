@@ -8,8 +8,6 @@ function Department() {
 	const columns = ["รหัสแผนก", "ชื่อแผนก"];
 	const [Popup, setPopup] = useState(false); // State to control the popup
 
-	const openPopup = () => setPopup(true);
-	const closePopup = () => setPopup(false);
 
 	const Delete = () => {
 		Swal.fire({
@@ -32,29 +30,78 @@ function Department() {
 		});
 	};
 
-	const submitPopup = (event) => {
-		event.preventDefault(); // Prevent default form submission
-		const form = event.target;
-		const departmentName = form.departmentName.value;
-
-		if (!departmentName) {
-			Swal.fire({
-				title: "ข้อผิดพลาด",
-				text: "กรุณากรอกชื่อแผนก",
-				icon: "error",
-			});
-			return;
-		}
-
-		setPopup(false);
+	const AddDepart = () => {
 		Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกเพิ่มแล้ว",
-			icon: "success",
-			confirmButtonText: "ยืนยัน",
-			confirmButtonColor: "#3085d6",
+			title: 'Manage Department',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตำแหน่ง</label>
+							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกเพิ่มแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
 		});
 	};
+
+	const EditDepart = () => {
+		Swal.fire({
+			title: 'Manage Department',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อตำแหน่ง</label>
+							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกแก้ไขแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
+	};
+
 
 	return (
 		<>
@@ -64,11 +111,11 @@ function Department() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={AddDepart}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={EditDepart}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
@@ -96,34 +143,6 @@ function Department() {
 						</tbody>
 					</table>
 				</div>
-
-				{Popup && (
-					<div className="popup">
-						<div className="popup-inner-de">
-							<h2 className="popup_title">Department</h2>
-							<form onSubmit={submitPopup}>
-								<div className="popup_item">
-									<label className="popup_label">ชื่อแผนก</label>
-									<input
-										type="text"
-										name="departmentName" // Name attribute for form data
-										className="popup_input_and_select_d"
-										placeholder=" "
-										required
-									/>
-								</div>
-								<div className="popup-buttons">
-									<button type="button" className="close-popup-department" onClick={closePopup}>
-										Close
-									</button>
-									<button type="submit" className="save-popup">
-										Save
-									</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				)}
 			</div>
 		</>
 	);
