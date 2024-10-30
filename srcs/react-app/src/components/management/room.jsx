@@ -39,6 +39,12 @@ function Room() {
 		Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
 	};
 
+	const EddPopup = (formData) => {
+		console.log(formData);
+
+		Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
+	};
+
 	const openPopup = () => {
 		Swal.fire({
 			title: 'Manage Room',
@@ -102,8 +108,8 @@ function Room() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Save',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
 			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
@@ -113,6 +119,84 @@ function Room() {
 			if (result.isConfirmed) {
 				const formData = Object.fromEntries(new FormData(result.value));
 				submitPopup(formData);
+			}
+		});
+	};
+
+	const EditPopup = () => {
+		Swal.fire({
+			title: 'Manage Room',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อห้อง</label>
+							<input type="text" name="roomName" class="swal2-input" placeholder=" " required />
+						</div>
+						<div class="form-column">
+							<label>ระดับห้อง</label>
+							<select name="roomLevel" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="Normal">Normal</option>
+								<option value="VIP">VIP</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>ตึก</label>
+							<select name="building" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="MII">MII</option>
+								<option value="MIIX">MIIX</option>
+								<option value="D">D</option>
+								<option value="F">F</option>
+							</select>
+						</div>
+						<div class="form-column">
+							<label>สถานะห้อง</label>
+							<select name="status" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="เปิดให้ใช้งาน">เปิดให้ใช้งาน</option>
+								<option value="ปิดปรับปรุง">ปิดปรับปรุง</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชั้น</label>
+							<select name="floor" class="swal2-select" required>
+								<option value=""> </option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+							</select>
+						</div>
+						<div class="form-column">
+							<label>ความจุ</label>
+							<input type="number" class="swal2-select" required min="1" max="100"></input>
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				EddPopup(formData);
 			}
 		});
 	};
@@ -130,7 +214,7 @@ function Room() {
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={EditPopup}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>

@@ -38,7 +38,7 @@ function Department() {
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อตำแหน่ง</label>
-							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="DepartName" class="swal2-input-depart" placeholder=" " required />
 						</div>
 					</div>
 				</form>
@@ -74,7 +74,7 @@ function Department() {
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อตำแหน่ง</label>
-							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="DepartName" class="swal2-input-depart" placeholder=" " required />
 						</div>
 					</div>
 				</form>

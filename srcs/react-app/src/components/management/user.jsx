@@ -46,6 +46,17 @@ function User() {
 		});
 	};
 
+	const EditPopup = () => {
+		setPopup(false);
+		Swal.fire({
+			title: "สำเร็จ",
+			text: "ข้อมูลถูกแก้ไขแล้ว",
+			icon: "success",
+			confirmButtonText: "ยืนยัน",
+			confirmButtonColor: "#3085d6",
+		});
+	};
+
 	const Delete = () => {
 		Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
@@ -132,8 +143,8 @@ function User() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Save',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'ยืนยัน',
+			cancelButtonText: 'ยกเลิก',
 			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
@@ -159,7 +170,7 @@ function User() {
 						</div>
 						<div class="form-column">
 							<label>นามสกุล</label>
-							<input type="text" name="FirstName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="LastName" class="swal2-input" placeholder=" " required />
 						</div>
 					</div>
 					<div class="form-row">
@@ -207,8 +218,8 @@ function User() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Save',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
 			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
@@ -217,7 +228,7 @@ function User() {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				const formData = Object.fromEntries(new FormData(result.value));
-				submitPopup(formData);
+				EditPopup(formData);
 			}
 		});
 	};
@@ -267,20 +278,6 @@ function User() {
 						</tbody>
 					</table>
 				</div>
-				{/*Popup && (
-					<div className="vr_popup">
-						<div className="vr_popup-inner">
-							<h2>Room Details</h2>
-							<form className="popup-form">
-								{/* Form contents here */}
-							{/* </form>
-							<div className="popup-buttons">
-								<button className="vr_close-popup" onClick={closePopup}>Close</button>
-								<button className="vr_save-popup" onClick={submitPopup}>Save</button>
-							</div>
-						</div>
-					</div>
-				)} */}
 			</div>		</>
 	);
 }

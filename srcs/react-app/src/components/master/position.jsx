@@ -46,7 +46,7 @@ function Position() {
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อตำแหน่ง</label>
-							<input type="text" name="PositionName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="PositionName" class="swal2-input-depart" placeholder=" " required />
 						</div>
 					</div>
 					<div class="form-row">
@@ -119,7 +119,44 @@ function Position() {
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อตำแหน่ง</label>
-							<input type="text" name="DepartName" class="swal2-input" placeholder=" " required />
+							<input type="text" name="PositionName" class="swal2-input-depart" placeholder=" " required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>สิทธิ์การเข้าใช้ : </label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">การจอง</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">เช็คประวัติ</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">การจัดการ</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">จัดการข้อมูลพื้นฐาน</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="reserve" value="1">
+							<label for="vehicle1">รายงาน</label>
+						</div>
+						<div class="form-column">
+							<input type="checkbox" name="้history" value="1">
+							<label for="vehicle1">อนุมัติ</label>
 						</div>
 					</div>
 				</form>

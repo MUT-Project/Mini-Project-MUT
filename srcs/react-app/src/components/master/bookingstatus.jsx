@@ -10,6 +10,78 @@ function Status() {
 
 	const openPopup = () => {
 		setPopup(true);
+		setPopup(true);
+		Swal.fire({
+			title: 'Manage BookingStatus',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>สถานะการจอง</label>
+							<input type="text" name="BookingStatus" class="swal2-input-depart" placeholder=" " required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกเพิ่มแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
+	};
+
+	const EditPopup = () => {
+		setPopup(true);
+		setPopup(true);
+		Swal.fire({
+			title: 'Manage BookingStatus',
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>สถานะการจอง</label>
+							<input type="text" name="BookingStatus" class="swal2-input-depart" placeholder=" " required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? form : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const formData = Object.fromEntries(new FormData(result.value));
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ข้อมูลถูกแก้ไขแล้ว",
+					icon: "success",
+					confirmButtonText: "ยืนยัน",
+					confirmButtonColor: "#3085d6",
+				});
+			}
+		});
 	};
 
 	const closePopup = () => {
@@ -60,7 +132,7 @@ function Status() {
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button">
+							<button className="event-button" onClick={EditPopup}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								Edit
 							</button>
@@ -95,31 +167,7 @@ function Status() {
 						</tbody>
 					</table>
 				</div>
-				{Popup && (
-					<div className="popup">
-						<div className="popup-inner-st">
-							<h2 className="popup_title">Booking Status</h2>
-							<form>
-								<div className="popup_item">
-									<label className="popup_label_status">สถานะการจอง</label>
-									<input
-										type="text"
-										className="popup_input_and_select_s"
-										placeholder="Enter status"
-									/>
-								</div>
-							</form>
-							<div className="popup-buttons">
-								<button onClick={closePopup} className="close-popup_status">
-									Close
-								</button>
-								<button className="save-popup" onClick={submitPopup}>
-									Save
-								</button>
-							</div>
-						</div>
-					</div>
-				)}
+
 			</div>
 		</>
 	);
