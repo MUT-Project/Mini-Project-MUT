@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Nav from "../navbar/navbar";
-import search from "../../assets/Search.png";
-import "./history.css";
-import Swal from 'sweetalert2'
-
-
-import { Bookmark } from 'lucide-react';
+import Swal from "sweetalert2";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faClock, faTimesCircle, faTimes, faEye } from '@fortawesome/free-solid-svg-icons'; // Import relevant icons
 
 function History() {
 	const columns = [
@@ -18,172 +15,158 @@ function History() {
 		"สถานะ",
 	];
 
-	const [Underlined, setUnderlined] = useState(1);
-	const [state, setstate] = useState(1);
-	const Filter_Click = (id) => {
+	const [underlined, setUnderlined] = useState(1);
+	const [state, setState] = useState(1);
+
+	const filters = [
+		"อนุมัติ",
+		"รออนุมัติ",
+		"เสร็จสิ้น",
+		"ถูกปฎิเสธ",
+		"ยกเลิก",
+		"ไม่มา",
+	];
+
+	const filterClick = (id) => {
 		setUnderlined(id);
-		setstate(id);
+		setState(id);
 	};
+
 	const setText = (value) => {
 		switch (value) {
-			case 1:
-				return "อนุมัติการจอง";
-			case 2:
-				return "รอการอนุมัติ";
-			case 3:
-				return "สำเร็จแล้ว";
-			case 4:
-				return "ไม่อนุมัติ";
-			case 5:
-				return "ยกเลิกการจอง";
-			case 6:
-				return "เลยกำหนดการ";
+			case 1: return "อนุมัติการจอง";
+			case 2: return "รอการอนุมัติ";
+			case 3: return "สำเร็จแล้ว";
+			case 4: return "ไม่อนุมัติ";
+			case 5: return "ยกเลิกการจอง";
+			case 6: return "เลยกำหนดการ";
+			default: return "";
 		}
 	};
 
 	const setColor = (value) => {
 		switch (value) {
-			case 1:
-				return "#15432C";
-			case 2:
-				return "#D08C51";
-			case 3:
-				return "#3B9367";
-			case 4:
-				return "orange";
-			case 5:
-				return "#FF0302";
-			case 6:
-				return "#633B48";
+			case 1: return "#15432C";
+			case 2: return "#D08C51";
+			case 3: return "#3B9367";
+			case 4: return "orange";
+			case 5: return "#FF0302";
+			case 6: return "#633B48";
+			default: return "#000";
 		}
+	};
+
+	const handleCancel = () => {
+		Swal.fire({
+			title: "ยืนยันการยกเลิก",
+			text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "ยืนยัน",
+			cancelButtonText: "ยกเลิก",
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire("สำเร็จ", "การจองถูกยกเลิกแล้ว", "success");
+			}
+		});
 	};
 
 	return (
 		<>
 			<Nav />
-			<div className="all_componant-his">
-				<div className="header-his">
-					<header className="someHeader">
-						<h1>History / Booking information</h1>
-						<button className="mylists-btn-his" onClick={() => window.location.href = "/mylists"}>
-							<span>My lists</span>
-							<Bookmark size={25} />
-						</button>
-					</header>
-					<div className="selection-zone-his">
-						<p
-							className="upcomming"
-							onClick={() => Filter_Click(1)}
-							style={{
-								textDecoration: Underlined === 1 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							อนุมัติ
-						</p>
-
-						<p
-							className="On_Progress"
-							onClick={() => Filter_Click(2)}
-							style={{
-								textDecoration: Underlined === 2 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							รออนุมัติ
-						</p>
-
-						<p
-							className="Complete"
-							onClick={() => Filter_Click(3)}
-							style={{
-								textDecoration: Underlined === 3 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							เสร็จสิ้น
-						</p>
-
-						<p
-							className="Uncomplete"
-							onClick={() => Filter_Click(4)}
-							style={{
-								textDecoration: Underlined === 4 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							ถูกปฎิเสธ
-						</p>
-
-						<p
-							className="Canceled"
-							onClick={() => Filter_Click(5)}
-							style={{
-								textDecoration: Underlined === 5 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							ยกเลิก
-						</p>
-
-						<p
-							className="Not_Coming"
-							onClick={() => Filter_Click(6)}
-							style={{
-								textDecoration: Underlined === 6 ? "underline" : "none",
-								cursor: "pointer",
-							}}
-						>
-							ไม่มา
-						</p>
+			<header className="vr_header">
+				<h1>History / Booking Information</h1>
+			</header>
+			<div className="vr_select-background">
+				<div className="table-zone">
+					<div className="selection-zone-container">
+						<div className="selection-zone-his">
+							<div className="status-filters">
+								{filters.map((label, index) => (
+									<p
+										key={index}
+										className={`status-filter ${underlined === index + 1 ? 'active' : ''}`}
+										onClick={() => filterClick(index + 1)}
+										style={{
+											textDecoration: underlined === index + 1 ? "underline" : "none",
+										}}
+									>
+										{label}
+									</p>
+								))}
+							</div>
+						</div>
 					</div>
 
-					<div className="table-zone">
-						<table className="table_data">
-							<thead className="table_header">
-								<tr>
-									{/* ใช้ map เพื่อสร้าง <th> ทั้ง 7 คอลัมน์เมื่อมีการคลิก */}
-									{columns.map((column, index) => (
-										<th key={index}>{column}</th>
-									))}
-									<th></th>
-								</tr>
-							</thead>
+					<table className="vr_table">
+						<thead>
+							<tr>
+								{columns.map((column, index) => (
+									<th className="vr_table-head-cell" key={index}>
+										{column}
+									</th>
+								))}
+								<th className="vr_table-head-cell"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr className="vr_table-body-row">
+								<td className="vr_table-cell">1</td>
+								<td className="vr_table-cell">1004</td>
+								<td className="vr_table-cell">ห้องประชุมชั้น 5</td>
+								<td className="vr_table-cell">ซ้อมมวย</td>
+								<td className="vr_table-cell">12 พ.ย. 2567</td>
+								<td className="vr_table-cell">14:30 - 19:30</td>
+								<td className="vr_table-cell" style={{ color: setColor(underlined) }}>
+									<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+										{underlined === 1 ? (
+											<>
+												<FontAwesomeIcon icon={faCheckCircle} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : underlined === 2 ? (
+											<>
+												<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : underlined === 3 ? (
+											<>
+												<FontAwesomeIcon icon={faEye} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : underlined === 4 ? (
+											<>
+												<FontAwesomeIcon icon={faTimesCircle} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : underlined === 5 ? (
+											<>
+												<FontAwesomeIcon icon={faTimes} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : underlined === 6 ? (
+											<>
+												<FontAwesomeIcon icon={faClock} className="vr_icon-spacing" />
+												{setText(underlined)}
+											</>
+										) : null}
+									</div>
+								</td>
 
-							<th className="table_record">
-								<p>1</p>
-							</th>
-							<th className="table_record">
-								<p>1004</p>
-							</th>
-							<th className="table_record">
-								<p>ห้องประชุมชั้น 5</p>
-							</th>
-							<th className="table_record">
-								<p>ซ้อมมวย</p>
-							</th>
-							<th className="table_record">
-								<p>12 พ.ย. 2567</p>
-							</th>
-							<th className="table_record">
-								<p>14:30 - 19:30</p>
-							</th>
 
-							<th
-								className="table_record"
-								style={{ color: setColor(Underlined) }}
-							>
-								<img src={search} alt="add" className="add-data" />
-								{setText(Underlined)}
-							</th>
-							{state === 1 && (
-								<th className="table_record">
-									<button className="table_button">QR Code</button>
-									<button className="table_button">Cancel</button>
-								</th>
-							)}
-						</table>
-					</div>
+								{state === 1 && (
+									<td className="vr_action-buttons">
+										<button className="vr_btn-verify">QR Code</button>
+										<button className="vr_btn-reject" onClick={handleCancel}>
+											Cancel
+										</button>
+									</td>
+								)}
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</>

@@ -1,4 +1,34 @@
-/* Updated Unique Classes */
+.vr_header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 145px;
+	background-image: url('../../assets/BG.png');
+	background-position: top;
+	background-size: cover;
+	color: #FFFFFF;
+	text-align: center;
+	position: relative;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.vr_header::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.vr_header h1 {
+	z-index: 2;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+	font-size: 2.5rem;
+	margin: 0;
+}
+
 .vr_select-background {
 	background-color: #E7E6E3;
 	min-height: 96vh;
@@ -60,7 +90,7 @@
 	border-bottom: 1px solid #E5E7EB;
 }
 
-/* Action Buttons */
+
 .vr_action-buttons {
 	display: flex;
 	gap: 12px;
@@ -188,7 +218,7 @@
 	margin-top: 20px;
 }
 
-/* Textarea */
+
 textarea.vr_textarea {
 	width: 100%;
 	padding: 10px;
@@ -206,7 +236,7 @@ textarea.vr_textarea {
 	color: #F59E0B;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
 	.vr_booking-container {
 		padding: 10px;
@@ -233,7 +263,7 @@ textarea.vr_textarea {
 	}
 }
 
-/* CSS for SweetAlert2 Popup Form */
+
 .popup-form {
 	display: flex;
 	flex-direction: column;
@@ -273,4 +303,60 @@ textarea.vr_textarea {
 .swal2-select:focus {
 	border-color: #3085d6;
 	outline: none;
+}
+
+.selection-zone-container {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
+.selection-zone-his {
+	display: flex;
+	justify-content: center;
+}
+
+.status-filters {
+	display: flex;
+	/* border: 1px solid #ccc; */
+	border-radius: 5px;
+	/* overflow: hidden; */
+}
+
+.status-filter {
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	margin: 0;
+}
+
+.status-filter:hover {
+	background-color: #f0f0f0;
+}
+
+.status-filter+.status-filter {
+	border-left: 1px solid #ccc;
+}
+
+.status-filter.active {
+	background-color: #1E40AF;
+	color: white;
+}
+
+.vr_icon-spacing {
+	margin-right: 8px;
+}
+
+
+@media (max-width: 768px) {
+	.selection-zone-his {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.status-filter {
+		margin: 5px 0;
+		width: 100%;
+		text-align: center;
+	}
 }
