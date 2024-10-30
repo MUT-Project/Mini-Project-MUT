@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faClock, faTimesCircle, faTimes, faEye } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { format } from 'date-fns';
+import { da } from "date-fns/locale";
 
 
 function History() {
@@ -19,6 +20,7 @@ function History() {
 	];
 
 	const [bookingHistories, setBookingHistories] = useState([]);
+	const [status, setStatus] = useState("Approved");
 	const [underlined, setUnderlined] = useState(1);
 	const [state, setState] = useState(1);
 
@@ -31,7 +33,13 @@ function History() {
 		"ไม่มา",
 	];
 
+	useEffect(() => {
+		fetchHistory();
+	}, [status]);
+
 	const filterClick = (id) => {
+		setBookingHistories([]);
+		setStatusInput(id);
 		setUnderlined(id);
 		setState(id);
 	};
@@ -45,6 +53,18 @@ function History() {
 			case 5: return "ยกเลิกการจอง";
 			case 6: return "เลยกำหนดการ";
 			default: return "";
+		}
+	};
+
+	const setStatusInput = (value) => {
+		switch (value) {
+			case 1: return setStatus("Approved");
+			case 2: return setStatus("Verifying");
+			case 3: return setStatus("Complete");
+			case 4: return setStatus("Not Approved");
+			case 5: return setStatus("Canceled");
+			case 6: return setStatus("Late");
+			default: return setStatus("Approved");
 		}
 	};
 
@@ -85,17 +105,33 @@ function History() {
 			imageAlt: "QR code"
 		});
 	}
-	useEffect(() => {
-		const fetchBookingHistory = async () => {
-			try {
-				const response = await axios.get('http://localhost:8080/api/bookinghistory');
-				setBookingHistories(response.data);
-			} catch (error) {
-				console.error("Error fetching booking history:", error);
+	const fetchHistory = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/api/bookinghistory", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					sname: status
+				}),
+			});
+			if (!response.ok) {
+				throw new Error("Failed to fetch history data");
 			}
-		};
+			const data = await response.json();
+			if (data.length === 0) {
+				setBookingHistories([]);
+			} else {
+				setBookingHistories(data);
+			}
+		} catch (error) {
+			console.error("Error fetching profile:", error);
+		}
+	};
 
-		fetchBookingHistory();
+	useEffect(() => {
+		fetchHistory();
 	}, []);
 
 
