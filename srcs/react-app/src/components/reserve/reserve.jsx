@@ -38,7 +38,11 @@ function Reserve() {
 			flexWrap: 'nowrap',
 			borderColor: '#27374e',
 			width: '10em',
-			height: '3.8em'
+			height: '3.8em',
+
+			'&:hover': {
+				backgroundColor: '#27374e'
+			}
 		}),
 		menu: (provided) => ({
 			...provided,
@@ -57,6 +61,11 @@ function Reserve() {
 		input: (provided) => ({
 			...provided,
 			color: 'white'  // Changes the input text color
+		}),
+		option: (provided, state) => ({
+			...provided,
+			backgroundColor: state.isHovered ? '#27374e' : 'initial',
+			color: state.isHovered ? 'white' : 'initial'
 		})
 	};
 	const [isClearable] = useState(true);
@@ -82,7 +91,7 @@ function Reserve() {
 						<div className="button-wrapper-res">
 							<button className="mylists-btn-res" onClick={() => window.location.href = "/mylists"}>
 								<span>My lists</span>
-								<Bookmark size={20}/>
+								<Bookmark size={20} />
 							</button>
 						</div>
 						<form className="search-wrapper-res">

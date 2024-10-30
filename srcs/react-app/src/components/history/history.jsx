@@ -102,9 +102,9 @@ function History() {
 	return (
 		<>
 			<Nav />
-			<header className="vr_header">
+			<div className="vr_header">
 				<h1>History / Booking Information</h1>
-			</header>
+			</div>
 			<div className="vr_select-background">
 				<div className="table-zone">
 					<div className="selection-zone-container">

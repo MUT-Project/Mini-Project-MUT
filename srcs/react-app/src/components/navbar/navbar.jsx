@@ -41,18 +41,18 @@ function Navbar() {
 			confirmButtonText: "ยืนยัน",
 			reverseButtons: true,
 			cancelButtonColor: "#d33"
-		  }).then((result) => {
+		}).then((result) => {
 			if (result.isConfirmed) {
-			  Swal.fire({
-				title: "สำเร็จ",
-				text: "ออกจากระบบสำเร็จแล้ว",
-				icon: "success"
-			  }).then(() => {
-				window.location.href = "/";
-			  });
+				Swal.fire({
+					title: "สำเร็จ",
+					text: "ออกจากระบบสำเร็จแล้ว",
+					icon: "success"
+				}).then(() => {
+					window.location.href = "/";
+				});
 			}
-		  });
-		}
+		});
+	}
 
 	return (
 		<>
