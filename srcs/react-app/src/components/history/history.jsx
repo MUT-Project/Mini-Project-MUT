@@ -223,7 +223,7 @@ function History() {
 										</td>
 										{state === 1 && (
 											<td className="vr_action-buttons">
-												<button className="vr_btn-verify">QR Code</button>
+												<button className="vr_btn-verify" onClick={qr}>QR Code</button>
 												<button className="vr_btn-reject" onClick={handleCancel}>
 													Cancel
 												</button>
