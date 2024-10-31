@@ -42,7 +42,7 @@ function Status() {
             showCancelButton: true,
             confirmButtonText: title.includes("Edit") ? 'แก้ไข' : 'เพิ่ม',
             cancelButtonText: 'ยกเลิก',
-            reverseButtons: true,
+            //reverseButtons: true,
             preConfirm: () => {
                 const form = document.getElementById('manage-status-form');
                 const formData = new FormData(form);

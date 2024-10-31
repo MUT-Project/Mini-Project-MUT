@@ -39,7 +39,7 @@ function Navbar() {
 			showCancelButton: true,
 			cancelButtonText: "ยกเลิก",
 			confirmButtonText: "ยืนยัน",
-			reverseButtons: true,
+			//reverseButtons: true,
 			cancelButtonColor: "#d33"
 		}).then((result) => {
 			if (result.isConfirmed) {
