@@ -23,6 +23,7 @@ import BookingStatus from './components/master/bookingstatus';
 
 import Booking from "./components/reserve/booking";
 import Mylist from "./components/reserve/mylists";
+import { BookingProvider } from './components/reserve/bookingcontext';
 
 const router = createBrowserRouter([
 	{
@@ -56,10 +57,10 @@ const router = createBrowserRouter([
 	{
 		path: "/empstatus",
 		element: <EmpStatus />
-	},{
+	}, {
 		path: "/roomstatus",
 		element: <RoomStatus />
-	},{
+	}, {
 		path: "/bookingstatus",
 		element: <BookingStatus />
 	},
@@ -103,9 +104,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<BookingProvider>
+			<RouterProvider router={router} />
+		</BookingProvider>
 	</React.StrictMode>
 );
-
 
 reportWebVitals();

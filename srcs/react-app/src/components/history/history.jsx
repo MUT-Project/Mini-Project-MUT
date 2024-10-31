@@ -202,9 +202,7 @@ function History() {
 										<td className="vr_table-cell">{bh.rname}</td>
 										<td className="vr_table-cell">{bh.details}</td>
 										<td className="vr_table-cell">
-											{bh.bkdate
-												? format(new Date(bh.bkdate), "dd/MM/yyyy")
-												: "N/A"}
+											{bh.bkdate}
 										</td>
 										<td className="vr_table-cell">{bh.start_time} - {bh.end_time}</td>
 										<td className="vr_table-cell" style={{ color: setColor(underlined) }}>

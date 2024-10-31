@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../navbar/navbar";
 import "./style_management.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function Room() {
 	const columns = [
@@ -11,12 +12,109 @@ function Room() {
 		"ชื่อห้อง",
 		"รหัสตึก",
 		"ชั้น",
-		"ระดับห้อง",
 		"สถานะ",
-		"ความจุ",
+		"ระดับห้อง",
+		"ความจุ"
 	];
 
-	const Delete = () => {
+	const [rooms, setRooms] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [selectedRoom, setSelectedRoom] = useState(null);
+	const [mode, setMode] = useState(null);
+
+	useEffect(() => {
+		fetchRooms();
+	}, []);
+
+	const fetchRooms = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getrooms");
+			setRooms(response.data);
+		} catch (error) {
+			Swal.fire("ข้อผิดพลาด", error.response?.data?.error || "เกิดข้อผิดพลาดในการเพิ่มห้อง", "error");
+			console.error("Error fetching rooms:", error);
+		}
+	};
+
+	const openRoomPopup = (title, submitAction, roomData = {}) => {
+		Swal.fire({
+			title: title,
+			html: `
+				<form id="manage-room-form" class="popup-form">
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชื่อห้อง</label>
+							<input type="text" name="rname" class="swal2-input" value="${roomData.rname || ''}" required />
+						</div>
+						<div class="form-column">
+							<label>รหัสตึก</label>
+							<input type="text" name="bname" class="swal2-input" value="${roomData.bname || ''}" required />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>ชั้น</label>
+							<input type="text" name="flname" class="swal2-input" value="${roomData.flname || ''}" required />
+						</div>
+						<div class="form-column">
+							<label>สถานะ</label>
+							<select name="sname" class="swal2-select" required>
+								<option value="${roomData.sname || ''}" selected>${roomData.sname || ''}</option>
+								<option value="Available">Available</option>
+								<option value="Not Available">Not Available</option>
+								<option value="Temporary Close">Temporary Close</option>
+								<option value="Busy">Busy</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-column">
+							<label>ระดับห้อง</label>
+							<select name="vip" class="swal2-select" required>
+								<option value="${roomData.vip || ''}" selected>${roomData.vip || ''}</option>
+								<option value="0">Standard</option>
+								<option value="1">VIP</option>
+							</select>
+						</div>
+						<div class="form-column">
+							<label>ความจุ</label>
+							<input type="number" name="capacity" class="swal2-input" value="${roomData.capacity || ''}" required />
+						</div>
+					</div>
+				</form>
+			`,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'Submit',
+			cancelButtonText: 'Cancel',
+			preConfirm: () => {
+				const form = document.getElementById('manage-room-form');
+				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				submitAction(result.value);
+			}
+		});
+	};
+
+	const handleAddRoom = () => {
+		setSelectedRoom(null);
+		setMode(null);
+		openRoomPopup("Add Room", submitAddRoom);
+	};
+
+	const handleEditRoom = (room) => {
+		setSelectedRoom(room.rnumber);
+		openRoomPopup("Edit Room", submitEditRoom, room);
+	};
+
+	const handleDeleteRoom = async (roomId) => {
+		if (!roomId) {
+			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกห้องที่ต้องการลบ", "error");
+			return;
+		}
+	
 		Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
 			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
@@ -25,182 +123,73 @@ function Room() {
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
 			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33"
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
-			}
-		});
-	};
-
-	const submitPopup = (formData) => {
-		console.log(formData);
-
-		Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
-	};
-
-	const EddPopup = (formData) => {
-		console.log(formData);
-
-		Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
-	};
-
-	const openPopup = () => {
-		Swal.fire({
-			title: 'Manage Room',
-			html: `
-				<form id="manage-room-form" class="popup-form">
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชื่อห้อง</label>
-							<input type="text" name="roomName" class="swal2-input" placeholder=" " required />
-						</div>
-						<div class="form-column">
-							<label>ระดับห้อง</label>
-							<select name="roomLevel" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="Normal">Normal</option>
-								<option value="VIP">VIP</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>ตึก</label>
-							<select name="building" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="MIIX">MIIX</option>
-								<option value="D">D</option>
-								<option value="F">F</option>
-							</select>
-						</div>
-						<div class="form-column">
-							<label>สถานะห้อง</label>
-							<select name="status" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="เปิดให้ใช้งาน">เปิดให้ใช้งาน</option>
-								<option value="ปิดปรับปรุง">ปิดปรับปรุง</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชั้น</label>
-							<select name="floor" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-							</select>
-						</div>
-						<div class="form-column">
-							<label>ความจุ</label>
-							<input type="number" class="swal2-select" required min="1" max="100"></input>
-						</div>
-					</div>
-				</form>
-			`,
-			focusConfirm: false,
-			showCancelButton: true,
-			confirmButtonText: 'เพิ่ม',
-			cancelButtonText: 'ยกเลิก',
+			cancelButtonColor: "#d33",
 			reverseButtons: true,
-			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
-			}
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				submitPopup(formData);
-			}
-		});
-	};
-
-	const EditPopup = () => {
-		Swal.fire({
-			title: 'Manage Room',
-			html: `
-				<form id="manage-room-form" class="popup-form">
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชื่อห้อง</label>
-							<input type="text" name="roomName" class="swal2-input" placeholder=" " required />
-						</div>
-						<div class="form-column">
-							<label>ระดับห้อง</label>
-							<select name="roomLevel" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="Normal">Normal</option>
-								<option value="VIP">VIP</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>ตึก</label>
-							<select name="building" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="MII">MII</option>
-								<option value="MIIX">MIIX</option>
-								<option value="D">D</option>
-								<option value="F">F</option>
-							</select>
-						</div>
-						<div class="form-column">
-							<label>สถานะห้อง</label>
-							<select name="status" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="เปิดให้ใช้งาน">เปิดให้ใช้งาน</option>
-								<option value="ปิดปรับปรุง">ปิดปรับปรุง</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชั้น</label>
-							<select name="floor" class="swal2-select" required>
-								<option value=""> </option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-							</select>
-						</div>
-						<div class="form-column">
-							<label>ความจุ</label>
-							<input type="number" class="swal2-select" required min="1" max="100"></input>
-						</div>
-					</div>
-				</form>
-			`,
-			focusConfirm: false,
-			showCancelButton: true,
-			confirmButtonText: 'แก้ไข',
-			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
-			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
-			}
-		}).then((result) => {
-			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				EddPopup(formData);
+				try {
+					console.log("Deleting room with ID:", roomId);
+					const response = await axios.delete("http://localhost:8080/api/delrooms", {
+						data: { RNumber: roomId }
+					});
+	
+					console.log("Delete response:", response.data);
+					Swal.fire("สำเร็จ", "ข้อมูลห้องถูกลบแล้ว", "success");
+					fetchRooms();
+					setSelectedRoom(null);
+					setMode(null);
+				} catch (error) {
+					console.error("Error deleting room:", error);
+					Swal.fire("ข้อผิดพลาด", error.response?.data?.error || "เกิดข้อผิดพลาดในการลบห้อง", "error");
+				}
 			}
 		});
 	};
 	
+	
+
+
+	const submitAddRoom = async (roomData) => {
+		try {
+			await axios.post("http://localhost:8080/api/addrooms", roomData);
+			Swal.fire("สำเร็จ", "ห้องถูกเพิ่มแล้ว", "success");
+			fetchRooms();
+		} catch (error) {
+			Swal.fire("ข้อผิดพลาด", error.response?.data?.error || "เกิดข้อผิดพลาดในการเพิ่มห้อง", "error");
+			console.error("Error adding room:", error);
+		}
+	};
+
+	const submitEditRoom = async (roomData) => {
+		if (!selectedRoom) {
+			Swal.fire("ข้อผิดพลาด", "ไม่พบข้อมูลห้องที่ต้องการแก้ไข", "error");
+			return;
+		}
+		try {
+			await axios.put("http://localhost:8080/api/editrooms", { ...roomData, rnumber: selectedRoom });
+			Swal.fire("สำเร็จ", "ข้อมูลห้องถูกแก้ไขแล้ว", "success");
+			fetchRooms();
+		} catch (error) {
+			Swal.fire("ข้อผิดพลาด", "เกิดข้อผิดพลาดในการแก้ไขข้อมูลห้อง", "error");
+			console.error("Error editing room:", error);
+		}
+	};
+
+	const filteredRooms = rooms.filter(room =>
+		room.rname.includes(searchTerm) ||
+		room.bname.includes(searchTerm) ||
+		room.flname.includes(searchTerm) ||
+		room.sname.includes(searchTerm) ||
+		room.vip.includes(searchTerm)
+	);
+
+	const handleRowClick = (room) => {
+		if (mode === "edit") {
+			handleEditRoom(room);
+		} else if (mode === "delete") {
+			handleDeleteRoom(room.rnumber);
+		}
+	};
 
 	return (
 		<>
@@ -210,21 +199,26 @@ function Room() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={handleAddRoom}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={EditPopup}>
+							<button className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
-								Edit
+								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={Delete}>
+							<button className="event-button" onClick={() => setMode("delete")}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
 								Delete
 							</button>
 						</div>
 						<div className="search-container">
-							<input className="input-text" type="text" placeholder="Search..." />
+							<input
+								className="input-text"
+								type="text"
+								placeholder="Search..."
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
 							<button className="input-pic">
 								<FontAwesomeIcon icon={faSearch} className="search-icon" />
 							</button>
@@ -235,15 +229,22 @@ function Room() {
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							<tr className="vr_table-body-row">
-								<td className="vr_table-cell">101</td>
-								<td className="vr_table-cell">Conference Room</td>
-								<td className="vr_table-cell">B1</td>
-								<td className="vr_table-cell">1</td>
-								<td className="vr_table-cell">VIP</td>
-								<td className="vr_table-cell">Available</td>
-								<td className="vr_table-cell">10</td>
-							</tr>
+							{filteredRooms.map((room) => (
+								<tr
+									className="vr_table-body-row"
+									key={room.rnumber}
+									onClick={() => handleRowClick(room)}
+									style={{ cursor: mode ? "pointer" : "default" }}
+								>
+									<td className="vr_table-cell">{room.rnumber}</td>
+									<td className="vr_table-cell">{room.rname}</td>
+									<td className="vr_table-cell">{room.bname}</td>
+									<td className="vr_table-cell">{room.flname}</td>
+									<td className="vr_table-cell">{room.sname}</td>
+									<td className="vr_table-cell">{room.vip}</td>
+									<td className="vr_table-cell">{room.capacity}</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
