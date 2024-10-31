@@ -97,8 +97,9 @@ function User() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -169,8 +170,9 @@ function User() {
 		`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Update',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('edit-user-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -235,7 +237,7 @@ function User() {
 	};
 
 	const handleDeleteMode = () => {
-		setMode("delete");
+		setMode((prevMode) => (prevMode === "delete" ? null : "delete"));
 	};
 
 	const submitPopup = async (userData) => {
@@ -289,17 +291,17 @@ function User() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={handleAddUser}>
+							<button name="Add" className="event-button" onClick={handleAddUser}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={handleEditMode}>
+							<button name="Edit" className="event-button" onClick={handleEditMode}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={handleDeleteMode}>
+							<button name="Delete" className="event-button" onClick={handleDeleteMode}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								Delete
+								{mode === "delete" ? 'Cancel Delete' : 'Delete'}
 							</button>
 						</div>
 						<div className="search-container">

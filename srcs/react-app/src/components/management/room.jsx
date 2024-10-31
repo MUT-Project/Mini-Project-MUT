@@ -85,8 +85,9 @@ function Room() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -110,6 +111,7 @@ function Room() {
 	};
 
 	const handleDeleteRoom = async (roomId) => {
+		
 		if (!roomId) {
 			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกห้องที่ต้องการลบ", "error");
 			return;
@@ -199,17 +201,17 @@ function Room() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={handleAddRoom}>
+							<button name="Add" className="event-button" onClick={handleAddRoom}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
+							<button name="Edit" className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={() => setMode("delete")}>
+							<button name="Delete" className="event-button" onClick={() => setMode(mode === "delete" ? null : "edit")}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								Delete
+								{mode === "delete" ? 'Cancel Delete' : 'Delete'}
 							</button>
 						</div>
 						<div className="search-container">

@@ -28,15 +28,17 @@ function Reserve() {
 	const customStyles = {
 		control: (provided) => ({
 			...provided,
-			background: '#27374e',
+			background: '#1E40AF',
 			display: 'flex',
 			flexWrap: 'nowrap',
-			borderColor: '#27374e',
+			borderColor: '#ffffff38',
 			width: '10em',
 			height: '3.8em',
+			color: '#8f8f8f',
+			
 
 			'&:hover': {
-				backgroundColor: '#27374e'
+				backgroundColor: '#18379c'
 			}
 		}),
 		menu: (provided) => ({
