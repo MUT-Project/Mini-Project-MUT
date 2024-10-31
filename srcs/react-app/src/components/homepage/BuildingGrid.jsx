@@ -1,47 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import buildingImg from "../../assets/homepage/building.png";
+import { Building } from "lucide-react";
 
-const BuildingGrid = () => {
+const RoomGrid = () => {
+	const [rooms, setRooms] = useState([]);
+
+	useEffect(() => {
+		const fetchRooms = async () => {
+			try {
+				const response = await fetch("http://localhost:8080/api/getbuilding");
+				if (!response.ok) {
+					throw new Error("Failed to fetch rooms");
+				}
+				const data = await response.json();
+				setRooms(data);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchRooms();
+	}, []);
+
 	return (
-
 		<>
-			<p className="bd_building-card-p">Buildings</p>
+			<p className="bd_building-card-p">Rooms</p>
 			<div className="bd_building-grid">
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building Code:Chicken" />
-					<h3>Building Code:Chicken</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building D" />
-					<h3>Building D</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building T-ONE" />
-					<h3>Building T-ONE</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building SQUARE" />
-					<h3>Building SQUARE</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building F" />
-					<h3>Building F</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building MII" />
-					<h3>Building MII</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building MIIX" />
-					<h3>Building MIIX</h3>
-				</div>
-				<div className="bd_building-card" onClick={() => window.location.href = "/reserve"}>
-					<img src={buildingImg} alt="Building K" />
-					<h3>Building K</h3>
-				</div>
+				{rooms.map((room, index) => (
+					<div
+						className="bd_building-card"
+						key={index}
+						onClick={() => window.location.href = "/reserve"}
+					>
+						<img src={buildingImg} alt={room.Name} />
+						<h3>Building {room.Name}</h3>
+					</div>
+				))}
 			</div>
 		</>
 	);
 };
 
-export default BuildingGrid;
+export default RoomGrid;
