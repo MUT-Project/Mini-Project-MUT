@@ -24,7 +24,7 @@ const RoomGrid = () => {
 
 	return (
 		<>
-			<p className="bd_building-card-p">Rooms</p>
+			<p className="bd_building-card-p">Buildings</p>
 			<div className="bd_building-grid">
 				{rooms.map((room, index) => (
 					<div
