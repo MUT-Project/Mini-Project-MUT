@@ -22,7 +22,7 @@ const SearchCard = () => {
 			flexWrap: 'nowrap',
 			borderColor: '#27374e',
 			width: '10em',
-			height: '3.8em'
+			height: '50px'
 		}),
 		menu: (provided) => ({
 			...provided,
@@ -53,30 +53,37 @@ const SearchCard = () => {
 			<div className="search-form">
 				<input type="text" className="room-input" placeholder="Choose your room" />
 				<div className="search-options">
-					<div className="form-floating">
-						<input type="date" className="form-control" id="Date"/>
-						<label className="FontColor" htmlFor="Date">Date</label>
+					<div className="custom-date-input2">
+						<label className="FontColor2" htmlFor="Date">Date</label>
+						<input type="date" className="form-control" id="Date" />
+						<label for="Date" class="date-icon2">📅</label>
 					</div>
-					<div className="form-floating">
-						<input type="time" className="form-control" id="Start"/>
-						<label className="FontColor" htmlFor="Start">Start Time</label>
+					<div className="custom-date-input">
+						<label className="FontColor2" htmlFor="Start">Start Time</label>
+						<input type="time" className="form-control" id="Start" />
+						<label for="time" class="time-icon2">🕒</label>
 					</div>
-					<div className="form-floating">
-						<input type="time" className="form-control" id="End"/>
-						<label className="FontColor" htmlFor="End">End Time</label>
+					<div className="custom-date-input2">
+						<label className="FontColor2" htmlFor="End">End Time</label>
+						<input type="time" className="form-control" id="End" />
+						<label for="time" class="time-icon2">🕒</label>
 					</div>
-					<Select
-						styles={customStyles}
-						options={capVal}
-						isClearable={isClearable}
-						placeholder={'Capacity'}
-					/>
-					<Select
-						styles={customStyles}
-						options={classVal}
-						isClearable={isClearable}
-						placeholder={'Class'}
-					/>
+					<div className="custom-date-input2">
+						<label className="FontColor2">Capacity</label>
+						<Select
+							styles={customStyles}
+							options={capVal}
+							isClearable={isClearable}
+						/>
+					</div>
+					<div className="custom-date-input2">
+						<label className="FontColor2">Class</label>
+						<Select
+							styles={customStyles}
+							options={classVal}
+							isClearable={isClearable}
+						/>
+					</div>
 				</div>
 				<button className='find-button'>FIND</button>
 			</div>

@@ -327,6 +327,8 @@ textarea.vr_textarea {
 
 .status-filters {
 	display: flex;
+	justify-content: space-between;
+	gap: 9rem;
 	/* border: 1px solid #ccc; */
 	border-radius: 5px;
 	/* overflow: hidden; */
@@ -343,9 +345,9 @@ textarea.vr_textarea {
 	background-color: #f0f0f0;
 }
 
-.status-filter+.status-filter {
+/*.status-filter+.status-filter {
 	border-left: 1px solid #ccc;
-}
+}*/
 
 .status-filter.active {
 	background-color: #1E40AF;

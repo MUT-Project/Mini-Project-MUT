@@ -28,17 +28,15 @@ function Reserve() {
 	const customStyles = {
 		control: (provided) => ({
 			...provided,
-			background: '#1E40AF',
+			background: 'white',
 			display: 'flex',
 			flexWrap: 'nowrap',
-			borderColor: '#ffffff38',
+			borderColor: 'white',
 			width: '10em',
-			height: '3.8em',
-			color: '#8f8f8f',
-			
+			height: '50px',
 
 			'&:hover': {
-				backgroundColor: '#18379c'
+				backgroundColor: '#cccc'
 			}
 		}),
 		menu: (provided) => ({
@@ -47,7 +45,7 @@ function Reserve() {
 		}),
 		placeholder: (provided) => ({
 			...provided,
-			color: 'white',  // Change this to your desired color
+			color: '#9d9d9d',  // Change this to your desired color
 			// Optional: additional placeholder styling
 			fontWeight: 'normal'
 		}),
@@ -120,38 +118,47 @@ function Reserve() {
 							<button className="search-button-res" type='submit'>Search</button>
 						</form>
 
-						<div className="filter-text-res">Filter</div>
+						{/*<div className="filter-text-res">Filter</div>*/}
 						<div className="filters-res">
-							<Select
-								styles={customStyles}
-								options={options}
-								isClearable={isClearable}
-								placeholder={'Building'}
-							/>
-							<div className="form-floating">
-								<input type="date" className="form-control" id="Date" placeholder="" value="" />
+							<div className="custom-date-input">
+								<label className="FontColor" htmlFor="End">Building</label>
+								<Select
+									styles={customStyles}
+									options={options}
+									isClearable={isClearable}
+								/>
+							</div>
+							<div className="custom-date-input">
 								<label className="FontColor" htmlFor="Date">Date</label>
+								<input type="date" className="form-control" id="Date" />
+								<label for="Date" class="date-icon">📅</label>
 							</div>
-							<div className="form-floating">
-								<input type="time" className="form-control" id="Start" placeholder="" value="" />
+							<div className="custom-date-input">
 								<label className="FontColor" htmlFor="Start">Start Time</label>
+								<input type="time" className="form-control" id="Start" />
+								<label for="time" class="time-icon">🕒</label>
 							</div>
-							<div className="form-floating">
-								<input type="time" className="form-control" id="End" placeholder="" value="" />
+							<div className="custom-date-input">
 								<label className="FontColor" htmlFor="End">End Time</label>
+								<input type="time" className="form-control" id="End" />
+								<label for="time" class="time-icon">🕒</label>
 							</div>
-							<Select
-								styles={customStyles}
-								options={capVal}
-								isClearable={isClearable}
-								placeholder={'Capacity'}
-							/>
-							<Select
-								styles={customStyles}
-								options={classVal}
-								isClearable={isClearable}
-								placeholder={'Class'}
-							/>
+							<div className="custom-date-input">
+								<label className="FontColor">Capacity</label>
+								<Select
+									styles={customStyles}
+									options={capVal}
+									isClearable={isClearable}
+								/>
+							</div>
+							<div className="custom-date-input">
+								<label className="FontColor">Class</label>
+								<Select
+									styles={customStyles}
+									options={classVal}
+									isClearable={isClearable}
+								/>
+							</div>
 						</div>
 					</div>
 
@@ -159,7 +166,7 @@ function Reserve() {
 						<h2 className="section-title-res">Room</h2>
 						{loading ? (
 							<p>Loading rooms...</p>
-						) : (	
+						) : (
 							<div className="room-grid-res">
 								{rooms.map((room, index) => (
 									<button

@@ -10,13 +10,13 @@
 	background-image: url("../../assets/BG.png");
 	background-position: top;
 	background-size: cover;
-	height: 261px;
+	height: 265px;
 }
 
 .filter-section-res {
 	display: flex;
 	flex-direction: column;
-	background: rgba(1, 1, 1, 0.4);
+	background: rgba(1, 1, 1, 0.5);
 	padding: 1.5rem;
 	border-radius: 1px;
 	margin-bottom: 2rem;
@@ -37,11 +37,11 @@
 			border: none;
 			border-radius: 3px;
 			cursor: pointer;
-			font-size:15px;
+			font-size: 15px;
 		}
 
 		.mylists-btn-res:hover {
-			background-color: #D08C51;
+			background-color: #326ef9;
 		}
 
 		.bookmark-icon {
@@ -58,12 +58,12 @@
 
 		.search-input-res {
 			flex: 1;
-			padding: 0rem 4rem;
+			padding: 0rem 6rem;
 			border: 1px solid #dee2e6;
 			border-radius: 4px;
 			font-size: 1rem;
 			color: #495057;
-			height: 40px;
+			height: 50px;
 			width: 100%;
 			margin-bottom: 1rem;
 		}
@@ -74,20 +74,20 @@
 		}
 
 		.search-button-res {
-			padding: 0.5rem 1.5rem;
+			padding: 0.5rem 3rem;
 			background-color: #5b8bf7;
 			color: white;
 			border: none;
 			border-radius: 4px;
 			cursor: pointer;
 			font-size: 1rem;
-			height: 40px;
+			height: 50px;
 			white-space: nowrap;
 			transition: background-color 0.2s ease;
 		}
 
 		.search-button-res:hover {
-			background-color: #D08C51;
+			background-color: #326ef9;
 		}
 	}
 
@@ -104,66 +104,22 @@
 		flex-wrap: wrap;
 		justify-content: center;
 
-		.form-select,.form-control {
-			background-color: #1E40AF;
-			color: #ffffff;
-			border-color: #ffffff38;
+		.form-select,
+		.form-control {
+			background-color: #ffffff;
+			color: #9d9d9d;
+			border-color: #ffffff;
 			min-width: 177px;
 			max-width: 177px;
 			cursor: pointer;
-			height: 60px;
-		}
-
-		.form-select,.form-control:hover{
-			background-color: #18379c;
+			height: 50px;
 		}
 
 		.FontColor {
 			color: #ffffff;
+			font-size: 18px;
 		}
-		/*.filter-select-res {
-			padding: 0.5rem;
-			border: 1px solid #dee2e6;
-			border-radius: 0.25rem;
-			background-color: #27374e;
-			color: #ffffff;
-			border-color: #27374e;
-			min-width: 160px;
-			cursor: pointer;
-			height: 40px;
-		}*/
-
-		/*.capacity::placeholder {
-			color: #ffffff;
-			font-size: 0.9rem;
-			text-align: left;
-			padding-left: 5px;
-		}
-		.class::placeholder {
-			color: #ffffff;
-			font-size: 0.9rem;
-			text-align: left;
-			padding-left: 5px;
-		}*/
 	}
-
-	/*#date:before {
-		content: 'Date:';
-		margin-right: .6em;
-		color: #ffffff;
-	}
-
-	#timepicker1:before {
-		content: 'Start Time:';
-		margin-right: .6em;
-		color: #ffffff;
-	}
-
-	#timepicker2:before {
-		content: 'End Time:';
-		margin-right: .6em;
-		color: #ffffff;
-	}*/
 }
 
 .rooms-section-res {
@@ -193,14 +149,11 @@
 
 		.room-card-res:hover {
 			transform: translateY(-2px);
-			background-color: #cbe5ff;
-			border-color: #4dabf7;
 		}
 
 		.room-card-res:focus {
 			outline: 2px solid #4dabf7;
 			outline-offset: 2px;
-			outline: 2px solid #ffffff;
 		}
 
 		.room-image-container-res {
@@ -269,4 +222,27 @@
 		width: 100%;
 		height: 200px;
 	}
+}
+
+.custom-date-input {
+	position: relative;
+	display: inline-block;
+}
+
+.date-icon {
+	position: absolute;
+	left: 143px;
+	top: 65%;
+	transform: translateY(-50%);
+	color: #61dafb;
+	pointer-events: none;
+}
+
+.time-icon {
+	position: absolute;
+	left: 142px;
+	top: 65%;
+	transform: translateY(-45%);
+	color: #61dafb;
+	pointer-events: none;
 }

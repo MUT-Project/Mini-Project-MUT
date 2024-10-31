@@ -15,10 +15,9 @@
 	background-color: rgba(1, 1, 1, 0.2);
 	padding: 30px;
 	border-radius: 2px;
-	/*box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);*/
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 	max-width: 1300px;
 	width: 100%;
-	text-align: center;
 	margin-bottom: 20px;
 }
 
@@ -53,10 +52,10 @@
 
 .search-options {
 	display: flex;
-	gap: 1rem;
+	gap: 2rem;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .search-options input {
@@ -66,15 +65,6 @@
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 	font-size: 16px;
 }
-
-/* .class-input {
-	width: 90%;
-	margin-bottom: 20px;
-	padding: 15px;
-	border-radius: 5px;
-	border: 1px solid #CCC;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-} */
 
 .find-button {
 	width: 57%;
@@ -90,22 +80,48 @@
 }
 
 .find-button:hover {
-	background-color: #D08C51;
+	background-color: #326ef9;
 }
 
 .form-select,
 .form-control {
 	background-color: #ffffff;
-	color: #8f8f8f;
-	border-color: #27374e;
+	color: #9d9d9d;
+	border-color: #ffffff;
 	min-width: 177px;
 	max-width: 177px;
 	cursor: pointer;
-	height: 60px;
-	text-align: center;
+	height: 50px;
 }
 
-.FontColor {
-	color: #969696;
+.FontColor2 {
+	color: #ffffff;
+	font-size: 18px;
+}
 
+.custom-date-input2 {
+	position: relative;
+	display: inline-block;
+}
+
+.date-icon2 {
+	position: absolute;
+	left: 145px;
+	top: 65%;
+	transform: translateY(-50%);
+	color: #61dafb;
+	/* Change icon color */
+	pointer-events: none;
+	/* Prevent clicks on the icon */
+}
+
+.time-icon2 {
+	position: absolute;
+	left: 145px;
+	top: 65%;
+	transform: translateY(-45%);
+	color: #61dafb;
+	/* Change icon color */
+	pointer-events: none;
+	/* Prevent clicks on the icon */
 }
