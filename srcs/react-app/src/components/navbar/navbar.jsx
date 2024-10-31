@@ -5,9 +5,9 @@ import './navbar.css';
 import logo from '../../assets/MUT_LOGO_crop.png';
 import NotificationsPopup from '../notifications/notifications';
 import Swal from "sweetalert2";
-
+11
 function Navbar() {
-	const [authority, setAuthority] = useState("111111");
+	const [authority, setAuthority] = useState("1111");
 
 	// useEffect(() => {
 	// 	const fetchAuthority = async () => {
