@@ -1,7 +1,6 @@
 //necessary import
 import Nav from '../navbar/navbar';
 import React, { useState, useEffect, useContext} from 'react';
-import BookingContext from './bookingcontext';
 
 //assets things
 import "./booking.css";
@@ -164,7 +163,7 @@ function Booking() {
 		  openDays: "Monday - Friday",
 		  capacity: "7 - 8 People",
 		  class: "Normal",
-		  bookingDetail: bookingDetailText,
+		  bookingDetail: "bookingDetailText",
 		  bookTerm: "Auto verify",
 		};
 	
