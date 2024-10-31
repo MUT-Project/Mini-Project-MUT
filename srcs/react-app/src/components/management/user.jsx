@@ -142,16 +142,16 @@ function User() {
 							<option value="Finance">Finance</option>
 						</select>
 					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-column">
-						<label>ตำแหน่ง</label>
-						<select name="PName" class="swal2-select" required>
-							<option value="${user.pname}" selected>${user.pname}</option>
-							<option value="Admin">Admin</option>
-							<option value="Employee">Employee</option>
-						</select>
+						<div class="form-column">
+							<label>ตำแหน่ง</label>
+								<select name="PName" class="swal2-select" required>
+									<option value="${user.pname}" selected>${user.pname}</option>
+									<option value="Admin">Admin</option>
+									<option value="Employee">Employee</option>
+							</select>
+						</div>
 					</div>
+				<div class="form-row">
 					<div class="form-column">
 						<label>สถานะ</label>
 						<select name="SName" class="swal2-select" required>
@@ -160,6 +160,10 @@ function User() {
 							<option value="Inactive">Inactive</option>
 						</select>
 					</div>
+						<div class="form-column">
+							<label>แก้ไขคะแนน</label>
+							<button class="vr_Reset">ล้างคะแนน</button>
+						</div>
 				</div>
 			</form>
 		`,
