@@ -79,7 +79,7 @@
 .find-button {
 	width: 57%;
 	padding: 15px 40px;
-	background-color: #27374e;
+	background-color: #5b8bf7;
 	color: white;
 	border: none;
 	cursor: pointer;
@@ -90,7 +90,7 @@
 }
 
 .find-button:hover {
-	background-color: #002244;
+	background-color: #D08C51;
 }
 
 .form-select,

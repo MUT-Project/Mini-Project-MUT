@@ -41,7 +41,7 @@
 		}
 
 		.mylists-btn-res:hover {
-			background-color: #e5e7eb;
+			background-color: #D08C51;
 		}
 
 		.bookmark-icon {
@@ -75,7 +75,7 @@
 
 		.search-button-res {
 			padding: 0.5rem 1.5rem;
-			background-color: #2b3035;
+			background-color: #5b8bf7;
 			color: white;
 			border: none;
 			border-radius: 4px;
@@ -87,7 +87,7 @@
 		}
 
 		.search-button-res:hover {
-			background-color: #1e2124;
+			background-color: #D08C51;
 		}
 	}
 
@@ -105,13 +105,17 @@
 		justify-content: center;
 
 		.form-select,.form-control {
-			background-color: #27374e;
+			background-color: #1E40AF;
 			color: #ffffff;
-			border-color: #27374e;
+			border-color: #ffffff38;
 			min-width: 177px;
 			max-width: 177px;
 			cursor: pointer;
 			height: 60px;
+		}
+
+		.form-select,.form-control:hover{
+			background-color: #18379c;
 		}
 
 		.FontColor {
@@ -189,11 +193,14 @@
 
 		.room-card-res:hover {
 			transform: translateY(-2px);
+			background-color: #cbe5ff;
+			border-color: #4dabf7;
 		}
 
 		.room-card-res:focus {
 			outline: 2px solid #4dabf7;
 			outline-offset: 2px;
+			outline: 2px solid #ffffff;
 		}
 
 		.room-image-container-res {

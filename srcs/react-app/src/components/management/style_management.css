@@ -422,3 +422,54 @@ input[name="Bf"] {
 	color: rgb(255, 255, 255);
 	background-color: rgb(137, 0, 0);
 }
+
+ /* button[name="Add"] {
+	background-color: #49ff61e5;
+}
+
+button[name="Edit"] {
+	background-color: #ffaf01e3;
+}
+
+button[name="Delete"] {
+	background-color: #ff3030e3;
+} */
+
+.event-button:hover[name="Add"] {
+	background-color: #49ff61;
+}
+
+.event-button:hover[name="Edit"] {
+	background-color: #ffaf01;
+}
+
+.event-button:hover[name="Delete"] {
+	background-color: #ff3030;
+}
+
+/* button[name="Add"] {
+	background-color: #49ff61a6;
+}
+
+button[name="Edit"] {
+	background-color: #ffaf01b9;
+}
+
+button[name="Delete"] {
+	background-color: #ff3030c2;
+}
+
+.event-button:hover[name=Add]{
+	background-color: #49ff61;
+	transform: translateY(-2px);
+}
+
+.event-button:hover[name=Edit]{
+	background-color: #ffaf01;
+	transform: translateY(-2px);
+}
+
+.event-button:hover[name=Delete]{
+	background-color: #ff3030;
+	transform: translateY(-2px);
+} */
