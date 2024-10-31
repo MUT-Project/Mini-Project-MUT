@@ -6,19 +6,20 @@ const RoomGrid = () => {
 	const [rooms, setRooms] = useState([]);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const fetchRooms = async () => {
-			try {
-				const response = await axios.get("http://localhost:8080/api/getrooms");
+	const fetchRooms = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getrooms");
+			if (Array.isArray(response.data)) {
 				setRooms(response.data);
-			} catch (err) {
-				console.error("Error fetching rooms:", err);
-				setError("Failed to fetch rooms");
+			} else {
+				throw new Error("Response data is not an array");
 			}
-		};
+		} catch (err) {
+			console.error("Error fetching rooms:", err);
+			setError("Failed to fetch rooms");
+		}
+	};
 	
-		fetchRooms();
-	}, []);
 	
 	if (error) {
 		return <div className="error-message">{error}</div>;
