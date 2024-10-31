@@ -80,7 +80,7 @@ function History() {
 		}
 	};
 
-	const handleCancel = () => {
+	const handleCancel = (bklnumber) => {
 		Swal.fire({
 			title: "ยืนยันการยกเลิก",
 			text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?",
@@ -93,8 +93,29 @@ function History() {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire("สำเร็จ", "การจองถูกยกเลิกแล้ว", "success");
+				CancelHistory(bklnumber);
+				fetchHistory();
 			}
 		});
+	};
+	const CancelHistory = async (bklnumber) => {
+		try {
+			const response = await fetch("http://localhost:8080/api/cancelbooking", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					Bkl: bklnumber
+				}),
+			});
+			if (!response.ok) {
+				throw new Error("Failed to cancel history data");
+			}
+			const data = await response.json();
+		} catch (error) {
+			console.error("Error cancelling booking:", error);
+		}
 	};
 
 	const qr = () => {
@@ -224,7 +245,7 @@ function History() {
 										{state === 1 && (
 											<td className="vr_action-buttons">
 												<button className="vr_btn-verify" onClick={qr}>QR Code</button>
-												<button className="vr_btn-reject" onClick={handleCancel}>
+												<button className="vr_btn-reject" onClick={() => handleCancel(bh.bklnumber)}>
 													Cancel
 												</button>
 											</td>

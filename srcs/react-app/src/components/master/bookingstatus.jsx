@@ -1,123 +1,142 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../navbar/navbar";
 import Swal from "sweetalert2";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesome
-import { faPlus, faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons"; // Import specific icons
+import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faPlus, faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Status() {
 	const columns = ["รหัสสถานะ", "สถานะการจอง"];
-	const [Popup, setPopup] = useState(false); // State to control pop-up
+	const [bookingStatus, setBookingStatus] = useState("");
+	const [selectedStatusId, setSelectedStatusId] = useState(null);
+	const [isEditMode, setIsEditMode] = useState(false);
+	const [statusList, setStatusList] = useState([]);
 
-	const openPopup = () => {
-		setPopup(true);
-		setPopup(true);
+	// Fetch booking statuses on mount
+	useEffect(() => {
+		fetchBookingStatus();
+	}, []);
+
+	const fetchBookingStatus = async () => {
+		try {
+			const response = await axios.get('http://localhost:8080/api/getbookingstatus');
+			setStatusList(response.data);
+		} catch (error) {
+			console.error("Error fetching data:", error);
+		}
+	};
+
+	const addBookingStatus = () => {
 		Swal.fire({
-			title: 'Manage BookingStatus',
+			title: 'Manage Booking Status',
 			html: `
-				<form id="manage-room-form" class="popup-form">
+				<form id="manage-booking-form" class="popup-form">
 					<div class="form-row">
 						<div class="form-column">
 							<label>สถานะการจอง</label>
-							<input type="text" name="BookingStatus" class="swal2-input-depart" placeholder=" " required />
+							<input type="text" name="BookingStatus" class="swal2-input" required />
 						</div>
 					</div>
 				</form>
 			`,
-			focusConfirm: false,
 			showCancelButton: true,
 			confirmButtonText: 'เพิ่ม',
 			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
 			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
+				const form = document.getElementById('manage-booking-form');
+				const formData = new FormData(form);
+				return formData.get('BookingStatus');
 			}
 		}).then((result) => {
-			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				Swal.fire({
-					title: "สำเร็จ",
-					text: "ข้อมูลถูกเพิ่มแล้ว",
-					icon: "success",
-					confirmButtonText: "ยืนยัน",
-					confirmButtonColor: "#3085d6",
-				});
+			if (result.isConfirmed && result.value) {
+				addStatus(result.value);
 			}
 		});
 	};
 
-	const EditPopup = () => {
-		setPopup(true);
-		setPopup(true);
+	const addStatus = async (name) => {
+		try {
+			await axios.post('http://localhost:8080/api/addbooking-status', { Name: name });
+			fetchBookingStatus();
+			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
+		} catch (error) {
+			console.error("Error adding status:", error);
+		}
+	};
+
+	const editBookingStatus = (status) => {
 		Swal.fire({
-			title: 'Manage BookingStatus',
+			title: 'Manage Booking Status',
 			html: `
-				<form id="manage-room-form" class="popup-form">
-					<div class="form-row">
-						<div class="form-column">
-							<label>สถานะการจอง</label>
-							<input type="text" name="BookingStatus" class="swal2-input-depart" placeholder=" " required />
-						</div>
-					</div>
-				</form>
-			`,
-			focusConfirm: false,
+                <form id="edit-booking-form" class="popup-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label>สถานะการจอง</label>
+                            <input type="text" name="BookingStatus" class="swal2-input" required value="${status.Name}" />
+                        </div>
+                    </div>
+                </form>
+            `,
 			showCancelButton: true,
 			confirmButtonText: 'แก้ไข',
 			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
 			preConfirm: () => {
-				const form = document.getElementById('manage-room-form');
-				return form.reportValidity() ? form : false;
+				const form = document.getElementById('edit-booking-form');
+				const formData = new FormData(form);
+				return { ID: status.ID, Name: formData.get('BookingStatus') };
 			}
 		}).then((result) => {
 			if (result.isConfirmed) {
-				const formData = Object.fromEntries(new FormData(result.value));
-				Swal.fire({
-					title: "สำเร็จ",
-					text: "ข้อมูลถูกแก้ไขแล้ว",
-					icon: "success",
-					confirmButtonText: "ยืนยัน",
-					confirmButtonColor: "#3085d6",
-				});
+				updateStatus(result.value);
 			}
 		});
 	};
 
-	const closePopup = () => {
-		setPopup(false);
+	const updateStatus = async (updatedStatus) => {
+		try {
+			await axios.put('http://localhost:8080/api/editbooking-status', updatedStatus);
+			Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
+			fetchBookingStatus();
+		} catch (error) {
+			console.error("Error updating status:", error);
+		}
 	};
 
-	const Delete = () => {
-		Swal.fire({
+	const confirmDeleteStatus = (statusId) => {
+		return Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
 			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire({
-					title: "สำเร็จ",
-					text: "ข้อมูลถูกลบแล้ว",
-					icon: "success",
-				});
-			}
-		});
+		}).then((result) => result.isConfirmed);
 	};
 
-	const submitPopup = () => {
-		setPopup(false);
-		Swal.fire({
-			title: "สำเร็จ",
-			text: "ข้อมูลถูกเพิ่มแล้ว",
-			icon: "success",
-			confirmButtonText: "ยืนยัน",
-			confirmButtonColor: "#3085d6",
-		});
+	const deleteStatus = async () => {
+		if (selectedStatusId) {
+			const isConfirmed = await confirmDeleteStatus(selectedStatusId);
+			if (isConfirmed) {
+				try {
+					await axios.delete('http://localhost:8080/api/delbooking-status', { data: { ID: selectedStatusId } });
+					Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
+					fetchBookingStatus();
+					setSelectedStatusId(null);
+				} catch (error) {
+					console.error("Error deleting status:", error);
+				}
+			}
+		} else {
+			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกสถานะที่ต้องการลบ", "error");
+		}
+	};
+
+	const handleRowClick = (status) => {
+		if (isEditMode) {
+			editBookingStatus(status);
+		} else {
+			setSelectedStatusId(status.ID);
+		}
 	};
 
 	return (
@@ -128,15 +147,15 @@ function Status() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={openPopup}>
+							<button className="event-button" onClick={addBookingStatus}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={EditPopup}>
+							<button className="event-button" onClick={() => setIsEditMode(!isEditMode)}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
-								Edit
+								{isEditMode ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={Delete}>
+							<button className="event-button" onClick={deleteStatus}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
 								Delete
 							</button>
@@ -150,24 +169,23 @@ function Status() {
 					</div>
 					<table className="vr_table">
 						<thead className="vr_table-head-row">
-							<tr>
-								{columns.map((col, idx) => (
-									<th className="vr_table-head-cell" key={idx}>
-										{col}
-									</th>
-								))}
-							</tr>
+							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							{/* Sample row, replace with actual data */}
-							<tr className="vr_table-body-row">
-								<td className="vr_table-cell">101</td>
-								<td className="vr_table-cell">Available</td>
-							</tr>
+							{statusList.map((status) => (
+								<tr
+									className="vr_table-body-row"
+									key={status.ID}
+									onClick={() => handleRowClick(status)}
+									style={{ cursor: isEditMode ? "pointer" : "default" }}
+								>
+									<td>{status.ID}</td>
+									<td>{status.Name}</td>
+								</tr>
+							))}
 						</tbody>
 					</table>
 				</div>
-
 			</div>
 		</>
 	);
