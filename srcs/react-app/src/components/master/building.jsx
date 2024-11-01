@@ -7,10 +7,11 @@ import axios from "axios";
 
 function Building() {
 	const columns = ["รหัสชั้น", "ชื่อตึก", "จำนวนชั้น"];
-	const [buildingList, setBuildingList] = useState([]);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [buildingName, setBuildingName] = useState("");
+	const [floorCount, setFloorCount] = useState(1);
 	const [selectedBuildingId, setSelectedBuildingId] = useState(null);
-	const [mode, setMode] = useState(null); // To manage edit or delete mode
+	const [isEditMode, setIsEditMode] = useState(false);
+	const [buildingList, setBuildingList] = useState([]);
 
 	useEffect(() => {
 		fetchBuildings();
@@ -20,118 +21,158 @@ function Building() {
 		try {
 			const response = await axios.get('http://localhost:8080/api/getbuilding');
 			setBuildingList(response.data);
+			console.log(response.data);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
 	};
 
-	const openBuildingPopup = (title, submitAction, buildingData = {}) => {
+	const AddBuilding = () => {
 		Swal.fire({
-			title: title,
+			title: 'Manage Building',
 			html: `
 				<form id="manage-building-form" class="popup-form">
 					<div class="form-row">
 						<div class="form-column">
 							<label>ชื่อตึก</label>
-							<input type="text" name="BuildingName" class="swal2-input" value="${buildingData.Name || ''}" required />
+							<input type="text" name="BuildingName" class="swal2-input-building" required />
 						</div>
 						<div class="form-column">
 							<label>จำนวนชั้น</label>
-							<input type="number" name="FloorCount" class="swal2-select" value="${buildingData.Floornum || 1}" required min="1" max="100" />
+							<label></label>
+							<input type="number" name="FloorCount" class="swal2-select" required min="1" max="100" />
 						</div>
 					</div>
 				</form>
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: title.includes("Edit") ? 'แก้ไข' : 'เพิ่ม',
+			confirmButtonText: 'เพิ่ม',
 			cancelButtonText: 'ยกเลิก',
-			//reverseButtons: true,
+			reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-building-form');
 				const formData = new FormData(form);
 				return {
-					ID: buildingData.ID,
 					Name: formData.get('BuildingName'),
 					Floornum: formData.get('FloorCount'),
 				};
 			}
 		}).then((result) => {
 			if (result.isConfirmed) {
-				submitAction(result.value);
+				addBuilding(result.value);
+				fetchBuildings();
 			}
 		});
 	};
 
-	const handleAddBuilding = () => {
-		openBuildingPopup("Manage Building", submitAddBuilding);
-	};
-
-	const handleEditBuilding = (building) => {
-		setSelectedBuildingId(building.ID);
-		openBuildingPopup("Edit Building", submitEditBuilding, building);
-	};
-
-	const submitAddBuilding = async (buildingData) => {
+	const addBuilding = async (buildingData) => {
 		try {
+			console.log(buildingData);
 			await axios.post('http://localhost:8080/api/addbuilding', {
 				Name: buildingData.Name,
 				Floornum: buildingData.Floornum
 			});
-			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
 			fetchBuildings();
 		} catch (error) {
 			console.error("Error adding building:", error);
 		}
 	};
 
-	const submitEditBuilding = async (buildingData) => {
+	const handleRowClick = (building) => {
+		if (isEditMode) {
+			setSelectedBuildingId(building.ID);
+			editBuilding(building);
+		} else {
+			setSelectedBuildingId(building.ID);
+		}
+	};
+
+	const editBuilding = (building) => {
+		Swal.fire({
+			title: 'Manage Building',
+			html: `
+                <form id="manage-edit-building-form" class="popup-form">
+                    <div class="form-row">
+                        <div class="form-column">
+                            <label>ชื่อตึก</label>
+                            <input type="text" name="BuildingName" class="swal2-input-building" required value="${building.Name}" />
+                        </div>
+                        <div class="form-column">
+                            <label>จำนวนชั้น</label>
+                            <input type="number" name="FloorCount" class="swal2-select" required value="${building.FloorCount}" min="1" max="100" />
+                        </div>
+                    </div>
+                </form>
+            `,
+			focusConfirm: false,
+			showCancelButton: true,
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			reverseButtons: true,
+			preConfirm: () => {
+				const form = document.getElementById('manage-edit-building-form');
+				const formData = new FormData(form);
+				return {
+					ID: building.ID,
+					Name: formData.get('BuildingName'),
+					Floornum: formData.get('FloorCount'),
+				};
+			}
+		}).then((result) => {
+			if (result.isConfirmed) {
+				updateBuilding(result.value);
+				setSelectedBuildingId(null);
+			} else {
+				setSelectedBuildingId(null);
+			}
+		});
+	};
+
+	const updateBuilding = async (updatedBuilding) => {
 		try {
-			await axios.put('http://localhost:8080/api/editbuilding', buildingData);
+			await axios.put('http://localhost:8080/api/editbuilding', updatedBuilding);
 			Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
 			fetchBuildings();
-			setSelectedBuildingId(null);
 		} catch (error) {
 			console.error("Error updating building:", error);
 		}
 	};
 
-	const handleDeleteBuilding = async (buildingId) => {
-		if (!buildingId) {
-			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกตึกที่ต้องการลบ", "error");
-			return;
-		}
-
-		const isConfirmed = await Swal.fire({
+	const confirmDeleteBuilding = (buildingId) => {
+		return Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
 			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonText: "ยืนยัน",
-			cancelButtonText: "ยกเลิก"
-		}).then((result) => result.isConfirmed);
+			cancelButtonText: "ยกเลิก",
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+		}).then((result) => {
+			return result.isConfirmed; // Return true if confirmed
+		});
+	};
 
-		if (isConfirmed) {
-			try {
-				await axios.delete('http://localhost:8080/api/delbuilding', { data: { ID: buildingId } });
-				Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
-				fetchBuildings();
-				setSelectedBuildingId(null);
-			} catch (error) {
-				console.error("Error deleting building:", error);
+	const Delete = async () => {
+		if (selectedBuildingId) {
+			const isConfirmed = await confirmDeleteBuilding(selectedBuildingId);
+			if (isConfirmed) {
+				await handleDeleteBuilding(selectedBuildingId);
 			}
+		} else {
+			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกตึกที่ต้องการลบ", "error");
 		}
 	};
 
-	const filteredBuildings = buildingList.filter(building =>
-		building.Name.includes(searchTerm)
-	);
-
-	const handleRowClick = (building) => {
-		if (mode === "edit") {
-			handleEditBuilding(building);
-		} else if (mode === "delete") {
-			handleDeleteBuilding(building.ID);
+	const handleDeleteBuilding = async (buildingId) => {
+		try {
+			await axios.delete('http://localhost:8080/api/delbuilding', { data: { ID: buildingId } });
+			Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
+			fetchBuildings();
+			setSelectedBuildingId(null);
+		} catch (error) {
+			console.error("Error deleting building:", error);
 		}
 	};
 
@@ -143,21 +184,21 @@ function Building() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button name="Add" className="event-button" onClick={handleAddBuilding}>
+							<button className="event-button" onClick={AddBuilding}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button name="Edit" className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
+							<button className="event-button" onClick={() => { setIsEditMode(!isEditMode) }}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
-								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
+								{isEditMode ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button name="Delete" className="event-button" onClick={() => setMode(mode === "delete" ? null : "delete")}>
+							<button className="event-button" onClick={Delete}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								{mode === "delete" ? 'Cancel Delete' : 'Delete'}
+								Delete
 							</button>
 						</div>
 						<div className="search-container">
-							<input className="input-text" type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
+							<input className="input-text" type="text" placeholder="Search..." />
 							<button className="input-pic">
 								<FontAwesomeIcon icon={faSearch} className="search-icon" />
 							</button>
@@ -168,12 +209,12 @@ function Building() {
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							{filteredBuildings.map((building) => (
+							{buildingList.map((building, index) => (
 								<tr
 									className="vr_table-body-row"
 									key={building.ID}
 									onClick={() => handleRowClick(building)}
-									style={{ cursor: mode ? "pointer" : "default" }}
+									style={{ cursor: isEditMode ? "pointer" : "default" }}
 								>
 									<td>{building.ID}</td>
 									<td>{building.Name}</td>

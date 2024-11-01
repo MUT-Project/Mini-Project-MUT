@@ -7,7 +7,7 @@ import NotificationsPopup from '../notifications/notifications';
 import Swal from "sweetalert2";
 
 function Navbar() {
-	const [authority, setAuthority] = useState("1111");
+	const [authority, setAuthority] = useState("111111");
 
 	useEffect(() => {
 		const fetchAuthority = async () => {

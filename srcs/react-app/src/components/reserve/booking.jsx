@@ -17,7 +17,7 @@ function Booking() {
 	const { addBooking } = useContext(BookingContext);
 	const [selectedDate, setSelectedDate] = useState(19);
 	const [currentMonthIndex, setCurrentMonthIndex] = useState(8);
-	const [currentYear, setCurrentYear] = useState(2021);
+	const [currentYear, setCurrentYear] = useState(2024);
 	const [daysInMonth, setDaysInMonth] = useState(31);
 	const [startTime, setStartTime] = useState('');
 	const [endTime, setEndTime] = useState('');
