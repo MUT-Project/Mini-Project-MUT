@@ -327,6 +327,8 @@ textarea.vr_textarea {
 
 .status-filters {
 	display: flex;
+	justify-content: space-between;
+	gap: 9rem;
 	/* border: 1px solid #ccc; */
 	border-radius: 5px;
 	/* overflow: hidden; */
@@ -343,9 +345,9 @@ textarea.vr_textarea {
 	background-color: #f0f0f0;
 }
 
-.status-filter+.status-filter {
+/*.status-filter+.status-filter {
 	border-left: 1px solid #ccc;
-}
+}*/
 
 .status-filter.active {
 	background-color: #1E40AF;
@@ -422,3 +424,54 @@ input[name="Bf"] {
 	color: rgb(255, 255, 255);
 	background-color: rgb(137, 0, 0);
 }
+
+ /* button[name="Add"] {
+	background-color: #49ff61e5;
+}
+
+button[name="Edit"] {
+	background-color: #ffaf01e3;
+}
+
+button[name="Delete"] {
+	background-color: #ff3030e3;
+} */
+
+.event-button:hover[name="Add"] {
+	background-color: #49ff61;
+}
+
+.event-button:hover[name="Edit"] {
+	background-color: #ffaf01;
+}
+
+.event-button:hover[name="Delete"] {
+	background-color: #ff3030;
+}
+
+/* button[name="Add"] {
+	background-color: #49ff61a6;
+}
+
+button[name="Edit"] {
+	background-color: #ffaf01b9;
+}
+
+button[name="Delete"] {
+	background-color: #ff3030c2;
+}
+
+.event-button:hover[name=Add]{
+	background-color: #49ff61;
+	transform: translateY(-2px);
+}
+
+.event-button:hover[name=Edit]{
+	background-color: #ffaf01;
+	transform: translateY(-2px);
+}
+
+.event-button:hover[name=Delete]{
+	background-color: #ff3030;
+	transform: translateY(-2px);
+} */

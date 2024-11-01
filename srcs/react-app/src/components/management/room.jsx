@@ -18,21 +18,38 @@ function Room() {
 	];
 
 	const [rooms, setRooms] = useState([]);
+	const [statuses, setStatuses] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedRoom, setSelectedRoom] = useState(null);
 	const [mode, setMode] = useState(null);
 
 	useEffect(() => {
 		fetchRooms();
+		fetchStatuses();
 	}, []);
 
 	const fetchRooms = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/api/getrooms");
-			setRooms(response.data);
+			console.log(response.data);
+			if (Array.isArray(response.data)) {
+				setRooms(response.data);
+			} else {
+				console.error("Expected an array but got:", response.data);
+				setRooms([]);
+			}
 		} catch (error) {
 			Swal.fire("ข้อผิดพลาด", error.response?.data?.error || "เกิดข้อผิดพลาดในการเพิ่มห้อง", "error");
 			console.error("Error fetching rooms:", error);
+		}
+	};
+
+	const fetchStatuses = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getempstatus");
+			setStatuses(response.data);
+		} catch (error) {
+			console.error("Error fetching statuses:", error);
 		}
 	};
 
@@ -58,12 +75,9 @@ function Room() {
 						</div>
 						<div class="form-column">
 							<label>สถานะ</label>
-							<select name="sname" class="swal2-select" required>
-								<option value="${roomData.sname || ''}" selected>${roomData.sname || ''}</option>
-								<option value="Available">Available</option>
-								<option value="Not Available">Not Available</option>
-								<option value="Temporary Close">Temporary Close</option>
-								<option value="Busy">Busy</option>
+							<select name="SName" class="swal2-select" required>
+								<option value=""></option>
+								${statuses.map(statuses => `<option value="${statuses.sname}">${statuses.sname}</option>`).join('')}
 							</select>
 						</div>
 					</div>
@@ -85,8 +99,8 @@ function Room() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -114,7 +128,7 @@ function Room() {
 			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกห้องที่ต้องการลบ", "error");
 			return;
 		}
-	
+
 		Swal.fire({
 			title: "ยืนยันการลบข้อมูล",
 			text: "ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้",
@@ -124,7 +138,6 @@ function Room() {
 			cancelButtonText: "ยกเลิก",
 			confirmButtonColor: "#3085d6",
 			cancelButtonColor: "#d33",
-			reverseButtons: true,
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				try {
@@ -132,7 +145,7 @@ function Room() {
 					const response = await axios.delete("http://localhost:8080/api/delrooms", {
 						data: { RNumber: roomId }
 					});
-	
+
 					console.log("Delete response:", response.data);
 					Swal.fire("สำเร็จ", "ข้อมูลห้องถูกลบแล้ว", "success");
 					fetchRooms();
@@ -145,9 +158,6 @@ function Room() {
 			}
 		});
 	};
-	
-	
-
 
 	const submitAddRoom = async (roomData) => {
 		try {
@@ -175,14 +185,6 @@ function Room() {
 		}
 	};
 
-	const filteredRooms = rooms.filter(room =>
-		room.rname.includes(searchTerm) ||
-		room.bname.includes(searchTerm) ||
-		room.flname.includes(searchTerm) ||
-		room.sname.includes(searchTerm) ||
-		room.vip.includes(searchTerm)
-	);
-
 	const handleRowClick = (room) => {
 		if (mode === "edit") {
 			handleEditRoom(room);
@@ -199,17 +201,17 @@ function Room() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={handleAddRoom}>
+							<button name="Add" className="event-button" onClick={handleAddRoom}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
+							<button name="Edit" className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={() => setMode("delete")}>
+							<button name="Delete" className="event-button" onClick={() => setMode(mode === "delete" ? null : "delete")}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								Delete
+								{mode === "delete" ? 'Cancel Delete' : 'Delete'}
 							</button>
 						</div>
 						<div className="search-container">
@@ -229,7 +231,7 @@ function Room() {
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							{filteredRooms.map((room) => (
+							{rooms.map((room) => (
 								<tr
 									className="vr_table-body-row"
 									key={room.rnumber}
@@ -241,7 +243,7 @@ function Room() {
 									<td className="vr_table-cell">{room.bname}</td>
 									<td className="vr_table-cell">{room.flname}</td>
 									<td className="vr_table-cell">{room.sname}</td>
-									<td className="vr_table-cell">{room.vip}</td>
+									<td className="vr_table-cell">{room.vip === "1" ? "VIP" : "Normal"}</td>
 									<td className="vr_table-cell">{room.capacity}</td>
 								</tr>
 							))}

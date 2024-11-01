@@ -86,7 +86,7 @@ function History() {
 			text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?",
 			icon: "warning",
 			showCancelButton: true,
-			reverseButtons: true,
+			//reverseButtons: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
 			cancelButtonColor: "#d33",

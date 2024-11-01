@@ -7,23 +7,21 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 
 function User() {
-	const columns = [
-		"รหัสผู้ใช้",
-		"ชื่อ",
-		"นามสกุล",
-		"แผนก",
-		"ตำแหน่ง",
-		"สถานะ",
-		"คะแนนผู้ใช้",
-	];
+	const columns = ["รหัสผู้ใช้", "ชื่อ", "นามสกุล", "แผนก", "ตำแหน่ง", "สถานะ", "คะแนนผู้ใช้"];
 
 	const [users, setUsers] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [mode, setMode] = useState(null); // 'edit' or 'delete'
+	const [departments, setDepartments] = useState([]);
+	const [positions, setPositions] = useState([]);
+	const [statuses, setStatuses] = useState([]);
 
 	useEffect(() => {
 		fetchUsers();
+		fetchDepartments();
+		fetchPositions();
+		fetchStatuses();
 	}, []);
 
 	const fetchUsers = async () => {
@@ -32,6 +30,33 @@ function User() {
 			setUsers(response.data);
 		} catch (error) {
 			console.error("Error fetching users:", error);
+		}
+	};
+
+	const fetchDepartments = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/department");
+			setDepartments(response.data);
+		} catch (error) {
+			console.error("Error fetching departments:", error);
+		}
+	};
+
+	const fetchPositions = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getposition");
+			setPositions(response.data);
+		} catch (error) {
+			console.error("Error fetching positions:", error);
+		}
+	};
+
+	const fetchStatuses = async () => {
+		try {
+			const response = await axios.get("http://localhost:8080/api/getempstatus");
+			setStatuses(response.data);
+		} catch (error) {
+			console.error("Error fetching statuses:", error);
 		}
 	};
 
@@ -68,10 +93,8 @@ function User() {
 				<div class="form-column">
 				<label>แผนก</label>
 				<select name="DName" class="swal2-select" required>
-				<option value=""> </option>
-				<option value="MII">MII</option>
-				<option value="Register">Register</option>
-				<option value="Finance">Finance</option>
+					<option value=""></option>
+					${departments.map(department => `<option value="${department.dname}">${department.dname}</option>`).join('')}
 				</select>
 				</div>
 				</div>
@@ -79,17 +102,15 @@ function User() {
 				<div class="form-column">
 				<label>ตำแหน่ง</label>
 				<select name="PName" class="swal2-select" required>
-				<option value=""> </option>
-				<option value="Admin">Admin</option>
-				<option value="Employee">Employee</option>
+					<option value=""></option>
+					${positions.map(position => `<option value="${position.pname}">${position.pname}</option>`).join('')}
 				</select>
 				</div>
 				<div class="form-column">
 				<label>สถานะ</label>
 				<select name="SName" class="swal2-select" required>
-				<option value=""> </option>
-				<option value="Active">Active</option>
-				<option value="Inactive">Inactive</option>
+					<option value=""></option>
+					${statuses.map(statuses => `<option value="${statuses.sname}">${statuses.sname}</option>`).join('')}
 				</select>
 				</div>
 				</div>
@@ -97,8 +118,9 @@ function User() {
 			`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Submit',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'เพิ่ม',
+			cancelButtonText: 'ยกเลิก',
+			//reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-room-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -136,41 +158,40 @@ function User() {
 					<div class="form-column">
 						<label>แผนก</label>
 						<select name="DName" class="swal2-select" required>
-							<option value="${user.dname}" selected>${user.dname}</option>
-							<option value="MII">MII</option>
-							<option value="Register">Register</option>
-							<option value="Finance">Finance</option>
+							<option value=""></option>
+							${departments.map(department => `<option value="${department.dname}">${department.dname}</option>`).join('')}
 						</select>
 					</div>
-						<div class="form-column">
-							<label>ตำแหน่ง</label>
-								<select name="PName" class="swal2-select" required>
-									<option value="${user.pname}" selected>${user.pname}</option>
-									<option value="Admin">Admin</option>
-									<option value="Employee">Employee</option>
-							</select>
-						</div>
+					<div class="form-column">
+						<label>ตำแหน่ง</label>
+						<select name="PName" class="swal2-select" required>
+							<option value=""></option>
+							${positions.map(position => `<option value="${position.pname}">${position.pname}</option>`).join('')}
+						</select>
 					</div>
+				</div>
 				<div class="form-row">
 					<div class="form-column">
-						<label>สถานะ</label>
-						<select name="SName" class="swal2-select" required>
-							<option value="${user.sname}" selected>${user.sname}</option>
-							<option value="Active">Active</option>
-							<option value="Inactive">Inactive</option>
-						</select>
+
+					
+					<label>สถานะ</label>
+					<select name="SName" class="swal2-select" required>
+					<option value=""></option>
+					${statuses.map(statuses => `<option value="${statuses.sname}">${statuses.sname}</option>`).join('')}
+					</select>
 					</div>
-						<div class="form-column">
-							<label>แก้ไขคะแนน</label>
-							<button class="vr_Reset">ล้างคะแนน</button>
-						</div>
+					<div>
+					<label>แก้ไขคะแนน</label>
+					<button class="vr_Reset">ล้างคะแนน</button>
+					</div>
 				</div>
 			</form>
 		`,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'Update',
-			cancelButtonText: 'Cancel',
+			confirmButtonText: 'แก้ไข',
+			cancelButtonText: 'ยกเลิก',
+			//reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('edit-user-form');
 				return form.reportValidity() ? Object.fromEntries(new FormData(form)) : false;
@@ -235,7 +256,7 @@ function User() {
 	};
 
 	const handleDeleteMode = () => {
-		setMode("delete");
+		setMode((prevMode) => (prevMode === "delete" ? null : "delete"));
 	};
 
 	const submitPopup = async (userData) => {
@@ -264,7 +285,7 @@ function User() {
 			cancelButtonText: "ยกเลิก",
 			confirmButtonColor: "#3085d6",
 			cancelButtonColor: "#d33",
-			reverseButtons: true,
+			//reverseButtons: true,
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				try {
@@ -289,17 +310,17 @@ function User() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={handleAddUser}>
+							<button name="Add" className="event-button" onClick={handleAddUser}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
 								Add
 							</button>
-							<button className="event-button" onClick={handleEditMode}>
+							<button name="Edit" className="event-button" onClick={handleEditMode}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
 								{mode === "edit" ? 'Cancel Edit' : 'Edit'}
 							</button>
-							<button className="event-button" onClick={handleDeleteMode}>
+							<button name="Delete" className="event-button" onClick={handleDeleteMode}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								Delete
+								{mode === "delete" ? 'Cancel Delete' : 'Delete'}
 							</button>
 						</div>
 						<div className="search-container">
