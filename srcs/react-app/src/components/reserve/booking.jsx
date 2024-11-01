@@ -9,9 +9,11 @@ import meet1 from '../../assets/meet1.jpg';
 //component import
 import { ChevronLeft, ChevronRight, Bookmark, CheckCircle } from 'lucide-react';
 import Swal from 'sweetalert2';
-
+import { useLocation } from 'react-router-dom';
 
 function Booking() {
+	const location = useLocation();
+	const { roomData } = location.state || {};
 	const [selectedDate, setSelectedDate] = useState(19);
 	const [currentMonthIndex, setCurrentMonthIndex] = useState(8);
 	const [currentYear, setCurrentYear] = useState(2021);
@@ -174,7 +176,7 @@ function Booking() {
 			<div className='bg2-boo'>
 				<div className="meeting-room-boo">
 					<header className="header-boo">
-						<h1>Room information by Query</h1>
+						<h1>{roomData.bname} {roomData.rname}</h1>
 						<button className="mylists-btn-boo" onClick={() => window.location.href = "/mylists"}>
 							<span>My lists</span>
 							<Bookmark size={25} />
@@ -201,11 +203,11 @@ function Booking() {
 							<div className="room-info-boo">
 								<h2 className="room-info__title-boo">Room Information</h2>
 								<div className="room-info__details-boo">
-									<h3 className="room-info__building-boo">Building K K102</h3>
+									<h3 className="room-info__building-boo">Building {roomData.bname} {roomData.rname}</h3>
 									<p className="room-info__text-boo">Open: Monday - Friday</p>
 									<p className="room-info__text-boo">Open time: 09:00 - 18:00</p>
-									<p className="room-info__text-boo">Room Capacity: 7 - 8 People</p>
-									<p className="room-info__text-boo">Class: Normal</p>
+									<p className="room-info__text-boo">Room Capacity: {roomData.capacity} People</p>
+									<p className="room-info__text-boo">Class: {roomData.vip == 1 ? 'VIP' : 'Normal'}</p>
 								</div>
 								<div className="booking-boo">
 									<textarea

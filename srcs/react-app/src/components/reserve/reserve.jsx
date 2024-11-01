@@ -1,6 +1,6 @@
 //necessary import
 import Nav from '../navbar/navbar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //assets things
 import "./reserve.css";
@@ -9,8 +9,15 @@ import meet1 from '../../assets/meet1.jpg';
 //component import
 import { Bookmark } from "lucide-react";
 import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
 
 function Reserve() {
+	const navigate = useNavigate();
+	const handleBookingRedirect = (room) => {
+		// ส่งข้อมูล room ไปยังหน้าถัดไป
+		navigate('/booking', { state: { roomData: room } });
+	};
+
 	const options = [
 		{ value: 'D502', label: 'D502' },
 		{ value: 'F502', label: 'F502' },
@@ -72,14 +79,24 @@ function Reserve() {
 
 	const [searchQuery, setSearchQuery] = useState("");
 
-	const rooms = Array(8).fill({
-		id: "K102",
-		building: "Building K",
-		openHours: "Monday - Friday",
-		capacity: "7 - 8 People",
-		class: "Normal",
-		image: meet1,
-	});
+	const [rooms, setRooms] = useState([]);
+	const fetchRooms = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/api/getrooms");
+			if (!response.ok) {
+				throw new Error("Failed to fetch rooms");
+			}
+			const data = await response.json();
+			setRooms(data);
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	useEffect(() => {
+		fetchRooms();
+	}, []);
+
 
 	return (
 		<>
@@ -147,23 +164,31 @@ function Reserve() {
 								<button
 									key={index}
 									className="room-card-res"
-									onClick={() => window.location.href = "/booking"}
+									onClick={() => handleBookingRedirect({
+										rnumber: room.rnumber,
+										rname: room.rname,
+										bname: room.bname,
+										flname: room.flname,
+										sname: room.sname,
+										capacity: room.capacity,
+										vip: room.vip
+									})}
 									tabIndex={0}
 								>
 									<div className="room-image-container-res">
 										<img
-											src={room.image}
-											alt={`${room.building} ${room.id}`}
+											src={meet1}
+											alt={`${room.bname} ${room.rnumber}`}
 											className="room-image-res"
 										/>
 									</div>
 									<div className="room-details-res">
-										<h3 className="room-title-res">{`${room.building} ${room.id}`}</h3>
-										<p className="room-info-item-res">Open : {room.openHours}</p>
+										<h3 className="room-title-res">{`${room.bname} ${room.rname}`}</h3>
+										<p className="room-info-item-res">Open : 09:00 - 18:00</p>
 										<p className="room-info-item-res">
 											Room Capacity : {room.capacity}
 										</p>
-										<p className="room-info-item-res">Class : {room.class}</p>
+										<p className="room-info-item-res">Class : {room.vip == 1 ? 'VIP' : 'Normal'}</p>
 									</div>
 								</button>
 							))}
