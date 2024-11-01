@@ -1,12 +1,12 @@
-//necessary import
 import Nav from '../navbar/navbar';
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 
 //assets things
+=======
+>>>>>>> bfe07f72f5def86acf14d3c27803ba71648c057e
 import "./reserve.css";
 import meet1 from '../../assets/meet1.jpg';
-
-//component import
 import { Bookmark } from "lucide-react";
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
@@ -75,10 +75,13 @@ function Reserve() {
 			color: state.isHovered ? 'white' : 'initial'
 		})
 	};
+
 	const [isClearable] = useState(true);
-
 	const [searchQuery, setSearchQuery] = useState("");
+	const [rooms, setRooms] = useState([]);
+	const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
 	const [rooms, setRooms] = useState([]);
 	const fetchRooms = async () => {
 		try {
@@ -97,6 +100,32 @@ function Reserve() {
 		fetchRooms();
 	}, []);
 
+=======
+	useEffect(() => {
+		const fetchRooms = async () => {
+			try {
+				const response = await fetch('http://localhost:8080/api/getrooms');
+				if (!response.ok) throw new Error('Network response was not ok');
+				const data = await response.json();
+				setRooms(data.map(room => ({
+					name: room.rname,
+					id: room.rnumber,
+					building: room.bname,
+					openHours: "Monday - Friday",
+					capacity: room.capacity,
+					class: room.vip ? 'Vip' : 'Normal',
+					image: meet1
+				})));
+			} catch (error) {
+				console.error('Error fetching rooms:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchRooms();
+	}, []);
+>>>>>>> bfe07f72f5def86acf14d3c27803ba71648c057e
 
 	return (
 		<>
@@ -159,6 +188,7 @@ function Reserve() {
 
 					<div className="rooms-section-res">
 						<h2 className="section-title-res">Room</h2>
+<<<<<<< HEAD
 						<div className="room-grid-res">
 							{rooms.map((room, index) => (
 								<button
@@ -193,6 +223,38 @@ function Reserve() {
 								</button>
 							))}
 						</div>
+=======
+						{loading ? (
+							<p>Loading rooms...</p>
+						) : (	
+							<div className="room-grid-res">
+								{rooms.map((room, index) => (
+									<button
+										key={index}
+										className="room-card-res"
+										onClick={() => window.location.href = "/booking"}
+										tabIndex={0}
+									>
+										<div className="room-image-container-res">
+											<img
+												src={room.image}
+												alt={`${room.building} ${room.id}`}
+												className="room-image-res"
+											/>
+										</div>
+										<div className="room-details-res">
+											<h3 className="room-title-res">{`Building ${room.building} ${room.name}`}</h3>
+											<p className="room-info-item-res">Open : {room.openHours}</p>
+											<p className="room-info-item-res">
+												Room Capacity : {room.capacity} Persons
+											</p>
+											<p className="room-info-item-res">Class : {room.class}</p>
+										</div>
+									</button>
+								))}
+							</div>
+						)}
+>>>>>>> bfe07f72f5def86acf14d3c27803ba71648c057e
 					</div>
 				</div>
 			</div>

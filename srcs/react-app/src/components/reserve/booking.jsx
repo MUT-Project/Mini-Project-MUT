@@ -1,6 +1,6 @@
 //necessary import
 import Nav from '../navbar/navbar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 
 //assets things
 import "./booking.css";
@@ -9,11 +9,20 @@ import meet1 from '../../assets/meet1.jpg';
 //component import
 import { ChevronLeft, ChevronRight, Bookmark, CheckCircle } from 'lucide-react';
 import Swal from 'sweetalert2';
+<<<<<<< HEAD
 import { useLocation } from 'react-router-dom';
 
 function Booking() {
 	const location = useLocation();
 	const { roomData } = location.state || {};
+=======
+
+//import Global variable
+import BookingContext from './bookingcontext';
+
+function Booking() {
+	const { addBooking } = useContext(BookingContext);
+>>>>>>> bfe07f72f5def86acf14d3c27803ba71648c057e
 	const [selectedDate, setSelectedDate] = useState(19);
 	const [currentMonthIndex, setCurrentMonthIndex] = useState(8);
 	const [currentYear, setCurrentYear] = useState(2021);
@@ -153,22 +162,25 @@ function Booking() {
 	const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 	const handleClick = () => {
+		const newBooking = {
+		  id: Math.random(),
+		  date: selectedDate,
+		  startTime,
+		  endTime,
+		  building: "Building K K102",
+		  openDays: "Monday - Friday",
+		  capacity: "7 - 8 People",
+		  class: "Normal",
+		  bookingDetail: "bookingDetailText",
+		  bookTerm: "Auto verify",
+		};
+	
+		addBooking(newBooking);
 		Swal.fire({
-			title: "You want to add to list?",
-			icon: "question",
-			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "Yes"
-		}).then((result) => {
-			if (result.isConfirmed) {
-				Swal.fire({
-					title: "Your booking added.",
-					icon: "success"
-				});
-			}
+		  title: "Your booking added.",
+		  icon: "success",
 		});
-	};
+	  };
 
 	return (
 		<>

@@ -3,12 +3,16 @@ import Nav from '../navbar/navbar';
 import meet1 from '../../assets/meet1.jpg';
 
 import React, { useState } from 'react';
-import { Bookmark, ChevronLeft , Trash} from 'lucide-react';
+import { Bookmark, ChevronLeft, Trash } from 'lucide-react';
 import Swal from 'sweetalert2';
+
+import { useContext } from 'react';
+import BookingContext from './bookingcontext';
 
 const RoomBooking = () => {
 	const [selectAll, setSelectAll] = useState(false);
 	const [selectedItems, setSelectedItems] = useState([]);
+	const { bookingsList, removeBooking } = useContext(BookingContext);
 
 	const bookings = [
 		{
@@ -132,15 +136,9 @@ const RoomBooking = () => {
 
 					{/* Booking list */}
 					<div className="booking-list">
-						{bookings.map(booking => (
+						{bookingsList.map((booking) => (
 							<div key={booking.id} className="booking-item">
-								<input
-									type="checkbox"
-									checked={selectedItems.includes(booking.id)}
-									onChange={() => handleSelectItem(booking.id)}
-									className="item-checkbox"
-								/>
-								<img src={booking.image} alt="Room3" className="room-image3" />
+								<img src={booking.image} alt="Room" className="room-image" />
 								<div className="booking-details">
 									<h3>{booking.building}</h3>
 									<p>Open: {booking.openDays}</p>
@@ -153,7 +151,7 @@ const RoomBooking = () => {
 									<p><strong>Booking Detail:</strong> {booking.bookingDetail}</p>
 									<p><strong>Book Term:</strong> {booking.bookTerm}</p>
 								</div>
-								<button type="submit" className="Trash" onClick={handleDel}>
+								<button onClick={() => removeBooking(booking.id)} className="Trash">
 									<Trash size={20} />
 								</button>
 							</div>
@@ -161,7 +159,7 @@ const RoomBooking = () => {
 					</div>
 
 					{/* Footer */}
-					<div className="footer">
+					{/* <div className="footer">
 						<div class="left-buttons">
 							<label className="select-all-footer">
 								<input
@@ -176,7 +174,7 @@ const RoomBooking = () => {
 							</label>
 						</div>
 						<button type="submit" className="book-now-btn" onClick={handleClick2}>Book Now</button>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</>

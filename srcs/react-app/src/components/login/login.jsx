@@ -23,6 +23,13 @@ function Login() {
 			icon: "error"
 		});
 	}
+	const ErrScoremore = () => {
+		Swal.fire({
+			title: "ข้อผิดพลาด",
+			text: "Account ถูกล็อค",
+			icon: "error"
+		});
+	}
 	const noinput = () => {
 		Swal.fire({
 			title: "ข้อผิดพลาด",
@@ -47,7 +54,7 @@ function Login() {
 				noinput()
 				return;
 			}
-	
+
 			// ส่งข้อมูลไปที่ API
 			fetch("http://localhost:8080/api/login", {
 				method: "POST",
@@ -66,8 +73,6 @@ function Login() {
 					return response.json();
 				})
 				.then((data) => {
-					// alert(data.message); // "Login successful"
-					// window.location.href = "/home"; // ไปที่หน้าหลัก
 					login()
 				})
 				.catch((error) => {

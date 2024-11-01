@@ -61,7 +61,7 @@ function History() {
 			case 1: return setStatus("Approved");
 			case 2: return setStatus("Verifying");
 			case 3: return setStatus("Complete");
-			case 4: return setStatus("Not Approved");
+			case 4: return setStatus("Rejected");
 			case 5: return setStatus("Canceled");
 			case 6: return setStatus("Late");
 			default: return setStatus("Approved");
@@ -80,21 +80,42 @@ function History() {
 		}
 	};
 
-	const handleCancel = () => {
+	const handleCancel = (bklnumber) => {
 		Swal.fire({
 			title: "ยืนยันการยกเลิก",
 			text: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?",
 			icon: "warning",
 			showCancelButton: true,
-			reverseButtons: true,
+			//reverseButtons: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
 			cancelButtonColor: "#d33",
 		}).then((result) => {
 			if (result.isConfirmed) {
 				Swal.fire("สำเร็จ", "การจองถูกยกเลิกแล้ว", "success");
+				CancelHistory(bklnumber);
+				fetchHistory();
 			}
 		});
+	};
+	const CancelHistory = async (bklnumber) => {
+		try {
+			const response = await fetch("http://localhost:8080/api/cancelbooking", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					Bkl: bklnumber
+				}),
+			});
+			if (!response.ok) {
+				throw new Error("Failed to cancel history data");
+			}
+			const data = await response.json();
+		} catch (error) {
+			console.error("Error cancelling booking:", error);
+		}
 	};
 
 	const qr = () => {
@@ -181,9 +202,7 @@ function History() {
 										<td className="vr_table-cell">{bh.rname}</td>
 										<td className="vr_table-cell">{bh.details}</td>
 										<td className="vr_table-cell">
-											{bh.bkdate
-												? format(new Date(bh.bkdate), "dd/MM/yyyy")
-												: "N/A"}
+											{bh.bkdate}
 										</td>
 										<td className="vr_table-cell">{bh.start_time} - {bh.end_time}</td>
 										<td className="vr_table-cell" style={{ color: setColor(underlined) }}>
@@ -223,8 +242,8 @@ function History() {
 										</td>
 										{state === 1 && (
 											<td className="vr_action-buttons">
-												<button className="vr_btn-verify">QR Code</button>
-												<button className="vr_btn-reject" onClick={handleCancel}>
+												<button className="vr_btn-verify" onClick={qr}>QR Code</button>
+												<button className="vr_btn-reject" onClick={() => handleCancel(bh.bklnumber)}>
 													Cancel
 												</button>
 											</td>
