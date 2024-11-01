@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import Nav from "../navbar/navbar";
 import Swal from "sweetalert2";
 import axios from 'axios';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesome
-import { faPlus, faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons"; // Import specific icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Status() {
 	const columns = ["รหัสสถานะ", "สถานะพนักงาน"];
-	const [statusName, setStatusName] = useState("");
-	const [selectedStatusId, setSelectedStatusId] = useState(null);
-	const [isEditMode, setIsEditMode] = useState(false);
 	const [statusList, setStatusList] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [selectedStatusId, setSelectedStatusId] = useState(null);
+	const [mode, setMode] = useState(null); // Manage edit or delete mode
 
-	// Fetch status data on mount
 	useEffect(() => {
 		fetchStatus();
 	}, []);
@@ -26,97 +25,61 @@ function Status() {
 		}
 	};
 
-	const AddStatus = () => {
+	const openStatusPopup = (title, submitAction, statusData = {}) => {
 		Swal.fire({
-			title: 'Manage Status',
+			title: title,
 			html: `
-				<form id="manage-status-form" class="popup-form">
-					<div class="form-row">
-						<div class="form-column">
-							<label>ชื่อสถานะ</label>
-							<input type="text" name="StatusName" class="swal2-input-status" required />
-						</div>
-					</div>
-				</form>
-			`,
-			focusConfirm: false,
-			showCancelButton: true,
-			confirmButtonText: 'เพิ่ม',
-			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
-			preConfirm: () => {
-				const form = document.getElementById('manage-status-form');
-				const formData = new FormData(form);
-				return formData.get('StatusName');
-			}
-		}).then((result) => {
-			if (result.isConfirmed && result.value) {
-				const newStatusName = result.value;
-				setStatusName(newStatusName);
-				addStatus(newStatusName);
-			}
-		});
-	};
-
-	const addStatus = async (name) => {
-		try {
-			await axios.post('http://localhost:8080/api/addemp-status', { Name: name });
-			fetchStatus();
-			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
-		} catch (error) {
-			console.error("Error adding status:", error);
-		}
-	};
-	const handleRowClick = (department) => {
-		if (isEditMode) {
-			setSelectedStatusId(department.ID);
-			editStatus(department);
-		} else {
-			setSelectedStatusId(department.ID);
-		}
-	};
-	const editStatus = (status) => {
-		Swal.fire({
-			title: 'Manage EmployeeStatus',
-			html: `
-                <form id="manage-edit-status-form" class="popup-form">
+                <form id="manage-status-form" class="popup-form">
                     <div class="form-row">
                         <div class="form-column">
                             <label>ชื่อสถานะ</label>
-                            <input type="text" name="StatusName" class="swal2-input-status" required value="${status.Name}" />
+                            <input type="text" name="StatusName" class="swal2-input" value="${statusData.Name || ''}" required />
                         </div>
                     </div>
                 </form>
             `,
 			focusConfirm: false,
 			showCancelButton: true,
-			confirmButtonText: 'แก้ไข',
+			confirmButtonText: title.includes("Edit") ? 'แก้ไข' : 'เพิ่ม',
 			cancelButtonText: 'ยกเลิก',
-			reverseButtons: true,
+			//reverseButtons: true,
 			preConfirm: () => {
-				const form = document.getElementById('manage-edit-status-form');
+				const form = document.getElementById('manage-status-form');
 				const formData = new FormData(form);
-				return {
-					ID: status.ID,
-					Name: formData.get('StatusName'),
-				};
+				return { ID: statusData.ID, Name: formData.get('StatusName') };
 			}
 		}).then((result) => {
 			if (result.isConfirmed) {
-				updateStatus(result.value);
-				setSelectedStatusId(null);
-			}
-			else {
-				setSelectedStatusId(null);
+				submitAction(result.value);
 			}
 		});
 	};
 
-	const updateStatus = async (updatedStatus) => {
+	const handleAddStatus = () => {
+		openStatusPopup("Manage Status", submitAddStatus);
+	};
+
+	const handleEditStatus = (status) => {
+		setSelectedStatusId(status.ID);
+		openStatusPopup("Edit Status", submitEditStatus, status);
+	};
+
+	const submitAddStatus = async (statusData) => {
 		try {
-			await axios.put('http://localhost:8080/api/editemp-status', updatedStatus);
+			await axios.post('http://localhost:8080/api/addemp-status', { Name: statusData.Name });
+			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
+			fetchStatus();
+		} catch (error) {
+			console.error("Error adding status:", error);
+		}
+	};
+
+	const submitEditStatus = async (statusData) => {
+		try {
+			await axios.put('http://localhost:8080/api/editemp-status', statusData);
 			Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
 			fetchStatus();
+			setSelectedStatusId(null);
 		} catch (error) {
 			console.error("Error updating status:", error);
 		}
@@ -135,17 +98,6 @@ function Status() {
 		}).then((result) => result.isConfirmed);
 	};
 
-	const Delete = async () => {
-		if (selectedStatusId) {
-			const isConfirmed = await confirmDeleteStatus(selectedStatusId);
-			if (isConfirmed) {
-				await handleDeleteStatus(selectedStatusId);
-			}
-		} else {
-			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกสถานะที่ต้องการลบ", "error");
-		}
-	};
-
 	const handleDeleteStatus = async (statusId) => {
 		try {
 			await axios.delete('http://localhost:8080/api/delemp-status', { data: { ID: statusId } });
@@ -157,6 +109,29 @@ function Status() {
 		}
 	};
 
+	const Delete = async () => {
+		if (selectedStatusId) {
+			const isConfirmed = await confirmDeleteStatus(selectedStatusId);
+			if (isConfirmed) {
+				handleDeleteStatus(selectedStatusId);
+			}
+		} else {
+			Swal.fire("ข้อผิดพลาด", "กรุณาเลือกสถานะที่ต้องการลบ", "error");
+		}
+	};
+
+	const filteredStatuses = statusList.filter(status =>
+		status.Name.includes(searchTerm)
+	);
+
+	const handleRowClick = (status) => {
+		if (mode === "edit") {
+			handleEditStatus(status);
+		} else if (mode === "delete") {
+			handleDeleteStatus(status.ID);
+		}
+	};
+
 	return (
 		<>
 			<Nav />
@@ -165,21 +140,21 @@ function Status() {
 				<div className="table-zone">
 					<div className="event-zone">
 						<div className="vr_action-buttons">
-							<button className="event-button" onClick={AddStatus}>
+							<button name="Add" className="event-button" onClick={handleAddStatus}>
 								<FontAwesomeIcon icon={faPlus} className="button-icon" />
-								Add
+								เพิ่ม
 							</button>
-							<button className="event-button" onClick={() => setIsEditMode(!isEditMode)}>
+							<button name="Edit" className="event-button" onClick={() => setMode(mode === "edit" ? null : "edit")}>
 								<FontAwesomeIcon icon={faEdit} className="button-icon" />
-								{isEditMode ? 'Cancel Edit' : 'Edit'}
+								{mode === "edit" ? 'ยกเลิกการแก้ไข' : 'แก้ไข'}
 							</button>
-							<button className="event-button" onClick={Delete}>
+							<button name="Delete" className="event-button" onClick={() => setMode(mode === "delete" ? null : "delete")}>
 								<FontAwesomeIcon icon={faTrash} className="button-icon" />
-								Delete
+								{mode === "delete" ? 'ยกเลิกการลบ' : 'ลบ'}
 							</button>
 						</div>
 						<div className="search-container">
-							<input className="input-text" type="text" placeholder="Search..." />
+							<input className="input-text" type="text" placeholder="ค้นหา..." onChange={(e) => setSearchTerm(e.target.value)} />
 							<button className="input-pic">
 								<FontAwesomeIcon icon={faSearch} className="search-icon" />
 							</button>
@@ -190,12 +165,12 @@ function Status() {
 							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
 						</thead>
 						<tbody>
-							{statusList.map((status) => (
+							{filteredStatuses.map((status) => (
 								<tr
 									className="vr_table-body-row"
 									key={status.ID}
 									onClick={() => handleRowClick(status)}
-									style={{ cursor: isEditMode ? "pointer" : "default" }}
+									style={{ cursor: mode ? "pointer" : "default" }}
 								>
 									<td>{status.ID}</td>
 									<td>{status.Name}</td>
