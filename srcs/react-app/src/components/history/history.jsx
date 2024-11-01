@@ -61,7 +61,7 @@ function History() {
 			case 1: return setStatus("Approved");
 			case 2: return setStatus("Verifying");
 			case 3: return setStatus("Complete");
-			case 4: return setStatus("Not Approved");
+			case 4: return setStatus("Rejected");
 			case 5: return setStatus("Canceled");
 			case 6: return setStatus("Late");
 			default: return setStatus("Approved");
