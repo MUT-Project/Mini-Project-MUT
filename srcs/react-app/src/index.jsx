@@ -9,7 +9,7 @@ import User from './components/management/user';
 import History from './components/history/history';
 import Room from './components/management/room';
 import Report from './components/report/report';
-import Reserve from './components/reserve/reserve';
+import Reserve from './components/reserve/room_card';
 import Verify from './components/verify/verify';
 import Login from './components/login/login';
 import Notifications from './components/notifications/notifications';
@@ -21,9 +21,9 @@ import EmpStatus from './components/master/empstatus';
 import RoomStatus from './components/master/roomstatus';
 import BookingStatus from './components/master/bookingstatus';
 
-import Booking from "./components/reserve/booking";
-import Mylist from "./components/reserve/mylists";
-import { BookingProvider } from './components/reserve/bookingcontext';
+import RoomCard from './components/reserve/room_card';
+import RoomGrid from './components/reserve/room_grid';
+import RoomPage from './components/reserve/room_page';
 
 const router = createBrowserRouter([
 	{
@@ -69,12 +69,16 @@ const router = createBrowserRouter([
 		element: <Reserve />
 	},
 	{
-		path: "/mylists",
-		element: <Mylist />
+		path: "/roomcard",
+		element: <RoomCard />
 	},
 	{
-		path: "/booking",
-		element: <Booking />
+		path: "/roomgrid",
+		element: <RoomGrid />
+	},
+	{
+		path: "/roompage",
+		element: <RoomPage />
 	},
 	{
 		path: "/verify",
@@ -104,9 +108,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<BookingProvider>
+		{/* <BookingProvider> */}
 			<RouterProvider router={router} />
-		</BookingProvider>
+		{/* </BookingProvider> */}
 	</React.StrictMode>
 );
 
