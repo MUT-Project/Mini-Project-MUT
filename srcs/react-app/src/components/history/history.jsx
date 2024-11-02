@@ -6,6 +6,7 @@ import { faCheckCircle, faClock, faTimesCircle, faTimes, faEye } from '@fortawes
 import axios from 'axios';
 import { format } from 'date-fns';
 import { da } from "date-fns/locale";
+import { Coins } from "lucide-react";
 
 
 function History() {
@@ -124,33 +125,25 @@ function History() {
 			imageWidth: 300,
 			imageHeight: 300,
 			imageAlt: "QR code"
-		});
+		});	
 	}
 	const fetchHistory = async () => {
+		console.log("Data to be sent:", status);
 		try {
-			const response = await fetch("http://localhost:8080/api/bookinghistory", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					sname: status
-				}),
-			});
-			if (!response.ok) {
+			console.log(status);
+			const response = await axios.get("http://localhost:8080/api/bookinghistory", {sname: status});
+	
+			if (response.status !== 200) {
 				throw new Error("Failed to fetch history data");
 			}
-			const data = await response.json();
-			if (data.length === 0) {
-				setBookingHistories([]);
-			} else {
-				setBookingHistories(data);
-			}
+	
+			const data = response.data;
+			setBookingHistories(response.data);
+		console.log(data);
 		} catch (error) {
 			console.error("Error fetching profile:", error);
 		}
 	};
-
 	useEffect(() => {
 		fetchHistory();
 	}, []);
@@ -196,15 +189,15 @@ function History() {
 							</thead>
 							<tbody>
 								{bookingHistories.map((bh, index) => (
-									<tr className="vr_table-body-row" key={bh.bknumber}>
+									<tr className="vr_table-body-row" key={bh.Bookinglist_number}>
 										<td className="vr_table-cell">{index + 1}</td>
-										<td className="vr_table-cell">{bh.bknumber}</td>
-										<td className="vr_table-cell">{bh.rname}</td>
-										<td className="vr_table-cell">{bh.details}</td>
+										<td className="vr_table-cell">{bh.Booking_number}</td>
+										<td className="vr_table-cell">{bh.Room_name}</td>
+										<td className="vr_table-cell">{bh.Details}</td>
 										<td className="vr_table-cell">
-											{bh.bkdate}
+											{bh.Start_date}
 										</td>
-										<td className="vr_table-cell">{bh.start_time} - {bh.end_time}</td>
+										<td className="vr_table-cell">{bh.Start_time} - {bh.end_time}</td>
 										<td className="vr_table-cell" style={{ color: setColor(underlined) }}>
 											<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 												{underlined === 1 ? (
@@ -238,12 +231,12 @@ function History() {
 														{setText(underlined)}
 													</>
 												) : null}
-											</div>
-										</td>
+										 	</div>
+										 </td>
 										{state === 1 && (
 											<td className="vr_action-buttons">
 												<button className="vr_btn-verify" onClick={qr}>QR Code</button>
-												<button className="vr_btn-reject" onClick={() => handleCancel(bh.bklnumber)}>
+												<button className="vr_btn-reject" onClick={() => handleCancel(bh.Bookinglist_number)}>
 													Cancel
 												</button>
 											</td>

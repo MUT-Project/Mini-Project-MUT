@@ -1,6 +1,6 @@
 //necessary import
 import Nav from '../navbar/navbar';
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 //assets things
 import "./booking.css";
@@ -9,27 +9,27 @@ import meet1 from '../../assets/meet1.jpg';
 //component import
 import { ChevronLeft, ChevronRight, Bookmark, CheckCircle } from 'lucide-react';
 import Swal from 'sweetalert2';
-<<<<<<< HEAD
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function Booking() {
+	
+	
 	const location = useLocation();
 	const { roomData } = location.state || {};
-=======
-
-//import Global variable
-import BookingContext from './bookingcontext';
-
-function Booking() {
-	const { addBooking } = useContext(BookingContext);
->>>>>>> bfe07f72f5def86acf14d3c27803ba71648c057e
 	const [selectedDate, setSelectedDate] = useState(19);
-	const [currentMonthIndex, setCurrentMonthIndex] = useState(8);
-	const [currentYear, setCurrentYear] = useState(2021);
+	const [currentMonthIndex, setCurrentMonthIndex] = useState(10);
+	const [currentYear, setCurrentYear] = useState(2024);
 	const [daysInMonth, setDaysInMonth] = useState(31);
 	const [startTime, setStartTime] = useState('');
 	const [endTime, setEndTime] = useState('');
+	const [room, setRoom] = useState("");
+	const [detail, setDetail] = useState("");
+	const [status, setStatus] = useState("Approved");
 
+	// useEffect(() => {
+	// 	{roomData.vip == 1 ? setStatus("Verifying") : setStatus("Approved")}
+	// }, []);
 	// Mock existing bookings - replace this with your actual booking data
 	const existingBookings = [
 		{ date: 19, startTime: '10:00', endTime: '11:30' },
@@ -163,24 +163,47 @@ function Booking() {
 
 	const handleClick = () => {
 		const newBooking = {
-		  id: Math.random(),
-		  date: selectedDate,
-		  startTime,
-		  endTime,
-		  building: "Building K K102",
-		  openDays: "Monday - Friday",
-		  capacity: "7 - 8 People",
-		  class: "Normal",
-		  bookingDetail: "bookingDetailText",
-		  bookTerm: "Auto verify",
+			id: Math.random(),
+			date: selectedDate,
+			startTime,
+			endTime,
+			building: "Building K K102",
+			openDays: "Monday - Friday",
+			capacity: "7 - 8 People",
+			class: "Normal",
+			bookingDetail: "bookingDetailText",
+			bookTerm: "Auto verify",
 		};
-	
-		addBooking(newBooking);
+
 		Swal.fire({
-		  title: "Your booking added.",
-		  icon: "success",
+			title: "Your booking added.",
+			icon: "success",
 		});
-	  };
+	};
+
+
+	const addbooking = async () => {
+		const formattedDate = `${String(selectedDate).padStart(2, '0')}/${String(currentMonthIndex).padStart(2, '0')}/${currentYear}`;
+		try {
+			const data = {
+				Room_name: roomData.rname,
+				Details: detail,
+				Start_date: formattedDate,
+				Start_time: startTime,
+				End_time: endTime,
+				Status_name: status
+			};
+	
+			// แสดงข้อมูลใน Console ก่อนส่งไปที่ API
+			console.log("Data to be sent:", data);
+	
+			const response = await axios.post('http://localhost:8080/api/addbooking', data);
+			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
+		} catch (error) {
+			console.error("Error adding booking:", error.response?.data || error.message);
+			Swal.fire("เกิดข้อผิดพลาด", "กรุณาตรวจสอบข้อมูลของคุณ", "error");
+		}
+	}
 
 	return (
 		<>
@@ -226,6 +249,7 @@ function Booking() {
 										className="booking__textarea-boo"
 										placeholder="Booking Detail"
 										rows={4}
+										onChange={(e) => setDetail(e.target.value)}
 									/>
 									<div className="booking__verify-boo">
 										<span className="booking__term-boo">Booking Term :</span>
@@ -308,14 +332,10 @@ function Booking() {
 
 
 							<div className="booking__buttons-boo">
-								<button type="submit" className="add__button-boo" onClick={handleClick}>
-									Add to lists
-								</button>
 								<button
 									type="submit"
 									className="booking__button--primary-boo"
-									onClick={() => window.location.href = "/mylists"}
-								//disabled={!startTime || !endTime}
+									onClick={() => addbooking()}
 								>
 									Book now
 								</button>
