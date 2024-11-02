@@ -21,6 +21,7 @@ function Department() {
 		fetchDepart();
 	}, []);
 
+	
 	const fetchDepart = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/api/department");

@@ -11,17 +11,34 @@ function Status() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedStatusId, setSelectedStatusId] = useState(null);
 	const [mode, setMode] = useState(null); // Manage edit or delete mode
+	const [loading, setLoading] = useState(false); // Loading state
+	const [error, setError] = useState(null); // Error state
 
 	useEffect(() => {
 		fetchStatus();
 	}, []);
 
+	const formatStatusData = (data) => {
+		return data.map(status => ({
+			ID: status.ID, // Ensure this matches the API response structure
+			Name: status.Name || "Unknown" // Provide a default name if not present
+		}));
+	};
+	
+
 	const fetchStatus = async () => {
+		setLoading(true);
+		setError(null); // Reset error state before fetching
 		try {
 			const response = await axios.get('http://localhost:8080/api/getempstatus');
-			setStatusList(response.data);
+			console.log("Fetched data:", response.data); // Log the fetched data
+			const formattedData = formatStatusData(response.data); // Format the fetched data
+			setStatusList(formattedData); // Set the formatted data to state
 		} catch (error) {
+			setError("Error fetching data. Please try again.");
 			console.error("Error fetching data:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -42,7 +59,6 @@ function Status() {
 			showCancelButton: true,
 			confirmButtonText: title.includes("Edit") ? 'แก้ไข' : 'เพิ่ม',
 			cancelButtonText: 'ยกเลิก',
-			//reverseButtons: true,
 			preConfirm: () => {
 				const form = document.getElementById('manage-status-form');
 				const formData = new FormData(form);
@@ -65,23 +81,31 @@ function Status() {
 	};
 
 	const submitAddStatus = async (statusData) => {
+		setLoading(true);
 		try {
 			await axios.post('http://localhost:8080/api/addemp-status', { Name: statusData.Name });
 			Swal.fire("สำเร็จ", "ข้อมูลถูกเพิ่มแล้ว", "success");
 			fetchStatus();
 		} catch (error) {
+			setError("Error adding status. Please try again.");
 			console.error("Error adding status:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const submitEditStatus = async (statusData) => {
+		setLoading(true);
 		try {
 			await axios.put('http://localhost:8080/api/editemp-status', statusData);
 			Swal.fire("สำเร็จ", "ข้อมูลถูกแก้ไขแล้ว", "success");
 			fetchStatus();
 			setSelectedStatusId(null);
 		} catch (error) {
+			setError("Error updating status. Please try again.");
 			console.error("Error updating status:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -93,19 +117,21 @@ function Status() {
 			showCancelButton: true,
 			confirmButtonText: "ยืนยัน",
 			cancelButtonText: "ยกเลิก",
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
 		}).then((result) => result.isConfirmed);
 	};
 
 	const handleDeleteStatus = async (statusId) => {
+		setLoading(true);
 		try {
 			await axios.delete('http://localhost:8080/api/delemp-status', { data: { ID: statusId } });
 			Swal.fire("สำเร็จ", "ข้อมูลถูกลบแล้ว", "success");
 			fetchStatus();
 			setSelectedStatusId(null);
 		} catch (error) {
+			setError("Error deleting status. Please try again.");
 			console.error("Error deleting status:", error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -120,8 +146,8 @@ function Status() {
 		}
 	};
 
-	const filteredStatuses = statusList.filter(status =>
-		status.Name.includes(searchTerm)
+	const filteredStatuses = statusList.filter(status => 
+		status.Name && status.Name.includes(searchTerm)
 	);
 
 	const handleRowClick = (status) => {
@@ -160,24 +186,34 @@ function Status() {
 							</button>
 						</div>
 					</div>
-					<table className="vr_table">
-						<thead className="vr_table-head-row">
-							<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
-						</thead>
-						<tbody>
-							{filteredStatuses.map((status) => (
-								<tr
-									className="vr_table-body-row"
-									key={status.ID}
-									onClick={() => handleRowClick(status)}
-									style={{ cursor: mode ? "pointer" : "default" }}
-								>
-									<td>{status.ID}</td>
-									<td>{status.Name}</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
+					{loading ? (
+						<p>Loading...</p>
+					) : error ? (
+						<p>{error}</p>
+					) : (
+						<table className="vr_table">
+							<thead className="vr_table-head-row">
+								<tr>{columns.map((col, idx) => <th className="vr_table-head-cell" key={idx}>{col}</th>)}</tr>
+							</thead>
+							<tbody>
+								{filteredStatuses.length > 0 ? (
+									filteredStatuses.map((status) => (
+										<tr
+											className="vr_table-body-row"
+											key={status.ID}
+											onClick={() => handleRowClick(status)}
+											style={{ cursor: mode ? "pointer" : "default" }}
+										>
+											<td>{status.ID}</td>
+											<td>{status.Name}</td>
+										</tr>
+									))
+								) : (
+									<tr><td colSpan={2}>No statuses found</td></tr>
+								)}
+							</tbody>
+						</table>
+					)}
 				</div>
 			</div>
 		</>
