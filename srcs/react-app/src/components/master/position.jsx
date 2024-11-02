@@ -19,7 +19,12 @@ function Position() {
 	const fetchPositions = async () => {
 		try {
 			const response = await axios.get('http://localhost:8080/api/getposition');
-			setPositionList(response.data);
+			const formattedData = response.data.map(position => ({
+				ID: position.pos_id, // Adjust based on your API's response
+				Name: position.pos_name, // Adjust based on your API's response
+				Accessno: position.access // Adjust based on your API's response
+			}));
+			setPositionList(formattedData);
 		} catch (error) {
 			console.error("Error fetching positions:", error);
 		}
@@ -152,8 +157,9 @@ function Position() {
 	};
 
 	const filteredPositions = positionList.filter(position =>
-		position.Name.includes(searchTerm)
+		position.Name && position.Name.includes(searchTerm)
 	);
+	
 
 	const handleRowClick = (position) => {
 		if (mode === "edit") {

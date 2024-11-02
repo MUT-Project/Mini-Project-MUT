@@ -15,7 +15,7 @@ function Department() {
 	const [departlist, setDepartlist] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedDepartmentId, setSelectedDepartmentId] = useState(null);
-	const [mode, setMode] = useState(null); // ใช้เพื่อจัดการโหมดการแก้ไขหรือลบ
+	const [mode, setMode] = useState(null);
 
 	useEffect(() => {
 		fetchDepart();
@@ -24,7 +24,11 @@ function Department() {
 	const fetchDepart = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/api/department");
-			setDepartlist(response.data);
+			const formattedData = response.data.map((dept) => ({
+				ID: dept.dnumber,
+				Name: dept.dname,
+			}));
+			setDepartlist(formattedData);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
@@ -125,8 +129,8 @@ function Department() {
 		}
 	};
 
-	const filteredDepartments = departlist.filter((department) =>
-		department.Name.includes(searchTerm)
+	const filteredDepartments = departlist.filter(
+		(department) => department.Name && department.Name.includes(searchTerm)
 	);
 
 	const handleRowClick = (department) => {
@@ -193,18 +197,24 @@ function Department() {
 							</tr>
 						</thead>
 						<tbody>
-							{filteredDepartments.map((department) => (
-								<tr
-									className="vr_table-body-row"
-									key={department.ID}
-									onClick={() => handleRowClick(department)}
-									style={{ cursor: mode ? "pointer" : "default" }}
-								>
-									<td>{department.ID}</td>
-									<td>{department.Name}</td>
-								</tr>
-							))}
+							{filteredDepartments.length > 0 ? (
+								filteredDepartments.map((department) => (
+									<tr
+										className="vr_table-body-row"
+										key={department.ID}
+										onClick={() => handleRowClick(department)}
+										style={{ cursor: mode ? "pointer" : "default" }}
+									>
+										<td>{department.ID}</td>
+										<td>{department.Name}</td>
+									</tr>
+								))
+							) : (
+								<tr><td colSpan={2}>No departments found</td></tr>
+							)}
+
 						</tbody>
+
 					</table>
 				</div>
 			</div>
