@@ -11,7 +11,6 @@
 	padding: 20px;
 }
 
-/* Header Styles */
 .header-boo {
 	display: flex;
 	justify-content: space-between;
@@ -78,8 +77,6 @@
 	}
 
 	.content__mid-boo {
-
-		/* Room Info */
 		.room-info-boo {
 			padding: 1.5rem;
 			text-align: left;
@@ -104,8 +101,6 @@
 					}
 				}
 			}
-
-			/* Booking Section */
 			.booking-boo {
 				display: flex;
 				flex-direction: column;
@@ -135,8 +130,6 @@
 	}
 
 	.content__right-boo {
-
-		/* Time Selection */
 		.time-selector-boo {
 			display: flex;
 			gap: 1rem;
@@ -163,7 +156,6 @@
 			}
 		}
 
-		/* Calendar */
 		.calendar {
 			margin-bottom: 1.5rem;
 		}

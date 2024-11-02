@@ -32,8 +32,8 @@ const RoomGrid = () => {
 						key={index}
 						onClick={() => window.location.href = "/reserve"}
 					>
-						<img src={buildingImg} alt={room.Name} />
-						<h3>Building {room.Name}</h3>
+						<img src={buildingImg} alt={room.bname} />
+						<h3>Building {room.bname}</h3>
 					</div>
 				))}
 			</div>

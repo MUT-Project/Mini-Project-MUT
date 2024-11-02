@@ -117,49 +117,7 @@
 		.FontColor {
 			color: #ffffff;
 		}
-		/*.filter-select-res {
-			padding: 0.5rem;
-			border: 1px solid #dee2e6;
-			border-radius: 0.25rem;
-			background-color: #27374e;
-			color: #ffffff;
-			border-color: #27374e;
-			min-width: 160px;
-			cursor: pointer;
-			height: 40px;
-		}*/
-
-		/*.capacity::placeholder {
-			color: #ffffff;
-			font-size: 0.9rem;
-			text-align: left;
-			padding-left: 5px;
-		}
-		.class::placeholder {
-			color: #ffffff;
-			font-size: 0.9rem;
-			text-align: left;
-			padding-left: 5px;
-		}*/
 	}
-
-	/*#date:before {
-		content: 'Date:';
-		margin-right: .6em;
-		color: #ffffff;
-	}
-
-	#timepicker1:before {
-		content: 'Start Time:';
-		margin-right: .6em;
-		color: #ffffff;
-	}
-
-	#timepicker2:before {
-		content: 'End Time:';
-		margin-right: .6em;
-		color: #ffffff;
-	}*/
 }
 
 .rooms-section-res {
@@ -240,9 +198,7 @@
 
 	.filter-text {
 		margin-right: 0;
-		/* Adjust margin for small screens */
 		text-align: center;
-		/* Center text for better appearance */
 	}
 
 	.filters {

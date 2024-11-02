@@ -18,7 +18,7 @@ const RoomBooking = () => {
 		{
 			id: 1,
 			building: "Building K K102",
-			image: meet1,  // Using the imported image
+			image: meet1,
 			openDays: "Monday - Friday",
 			capacity: "7 - 8 People",
 			class: "Normal",
@@ -107,7 +107,6 @@ const RoomBooking = () => {
 			<Nav />
 			<div className="bg3">
 				<div className="booking-container">
-					{/* Header */}
 					<header className="header">
 						<h1>My Lists</h1>
 						<button className="my-lists-btn" onClick={() => window.location.href = "/mylists"}>
@@ -115,14 +114,10 @@ const RoomBooking = () => {
 							<Bookmark size={25} />
 						</button>
 					</header>
-
-					{/* Back button */}
 					<div className="back-button" role="button" onClick={() => window.location.href = "/reserve"}>
 						<ChevronLeft size={20} />
 						<span>Back</span>
 					</div>
-
-					{/* Select All checkbox */}
 					<div className="select-all">
 						<label>
 							<input
@@ -132,9 +127,7 @@ const RoomBooking = () => {
 							/>
 							<span>Select All</span>
 						</label>
-					</div>
-
-					{/* Booking list */}
+					</div>s
 					<div className="booking-list">
 						{bookingsList.map((booking) => (
 							<div key={booking.id} className="booking-item">
@@ -157,24 +150,6 @@ const RoomBooking = () => {
 							</div>
 						))}
 					</div>
-
-					{/* Footer */}
-					{/* <div className="footer">
-						<div class="left-buttons">
-							<label className="select-all-footer">
-								<input
-									type="checkbox"
-									checked={selectAll}
-									onChange={handleSelectAll}
-								/>
-								<span>Select All</span>
-							</label>
-							<label type="submit" className="remove-btn" role="button">
-								<span>Remove</span>
-							</label>
-						</div>
-						<button type="submit" className="book-now-btn" onClick={handleClick2}>Book Now</button>
-					</div> */}
 				</div>
 			</div>
 		</>
